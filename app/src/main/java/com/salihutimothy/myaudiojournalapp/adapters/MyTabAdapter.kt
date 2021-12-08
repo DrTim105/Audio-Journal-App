@@ -1,13 +1,12 @@
-package com.salihutimothy.myaudiojournalapp.Adapters
+package com.salihutimothy.myaudiojournalapp.adapters
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.salihutimothy.myaudiojournalapp.Fragments.FileViewerFragment
-import com.salihutimothy.myaudiojournalapp.Fragments.RecordFragment
+import com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment
+import com.salihutimothy.myaudiojournalapp.fragments.RecordFragment
 
-class MyTabAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class MyTabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var titles = arrayOf("Record", "Saved Recording")
 

@@ -1,11 +1,12 @@
-package com.salihutimothy.myaudiojournalapp.Services
+package com.salihutimothy.myaudiojournalapp.services
 
 import android.app.Service
 import android.content.Intent
 import android.media.MediaRecorder
-import android.os.Environment
 import android.os.IBinder
 import android.widget.Toast
+import com.salihutimothy.myaudiojournalapp.database.DBHelper
+import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 
@@ -15,10 +16,12 @@ class RecordingService : Service() {
     var mStartingTimeMillis:kotlin.Long = 0
     var mElapsedMillis: Long = 0
     private lateinit var file : File
+    private lateinit var dbHelper: DBHelper
     var fileName : String? = null
 
     override fun onCreate() {
         super.onCreate()
+        dbHelper = DBHelper(applicationContext)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -64,6 +67,12 @@ class RecordingService : Service() {
         mediaRecorder.release()
         Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_LONG).show()
 
+
+        // add to database
+        val recordingItem =
+            RecordingItem(fileName, file.absolutePath, mElapsedMillis, System.currentTimeMillis())
+
+        dbHelper.addRecording(recordingItem)
     }
 
     override fun onDestroy() {

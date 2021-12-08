@@ -1,8 +1,7 @@
-package com.salihutimothy.myaudiojournalapp.Fragments
+package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +12,9 @@ import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import butterknife.ButterKnife
 import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
-import com.salihutimothy.myaudiojournalapp.Services.RecordingService
-import org.w3c.dom.Text
+import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import java.io.File
 
 class RecordFragment : Fragment() {

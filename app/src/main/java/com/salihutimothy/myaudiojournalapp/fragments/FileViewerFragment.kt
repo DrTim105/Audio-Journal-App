@@ -1,4 +1,4 @@
-package com.salihutimothy.myaudiojournalapp.Fragments
+package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
