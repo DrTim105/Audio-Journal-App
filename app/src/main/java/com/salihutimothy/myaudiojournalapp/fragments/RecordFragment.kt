@@ -1,5 +1,6 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
@@ -16,6 +17,12 @@ import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import java.io.File
+import androidx.core.app.ActivityCompat
+
+import android.content.pm.PackageManager
+
+
+
 
 class RecordFragment : Fragment() {
 
@@ -27,6 +34,9 @@ class RecordFragment : Fragment() {
     private var mStartRecording = true
     private var mPauseRecording = true
     private var timeWhenPaused = 0L
+
+    private val recordPermission: String = Manifest.permission.RECORD_AUDIO
+    private val PERMISSION_CODE = 21
 
     companion object {
 
@@ -75,23 +85,27 @@ class RecordFragment : Fragment() {
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
 
         if (start) {
-            recordButton.setImageResource(R.drawable.ic_stop)
-            Toast.makeText(context, "Recording started", Toast.LENGTH_LONG).show()
+            // check permission to record audio
+                if (checkPermissions()) {
+                    recordButton.setImageResource(R.drawable.ic_stop)
+                    Toast.makeText(context, "Recording started", Toast.LENGTH_LONG).show()
 
-            val folder = File(context?.getExternalFilesDir(null).toString() + "/MySoundRec")
+                    val folder = File(context?.getExternalFilesDir(null).toString() + "/MySoundRec")
 
-            if (!folder.exists()) {
-                folder.mkdir()
-            }
+                    if (!folder.exists()) {
+                        folder.mkdir()
+                    }
 
-            chronometer.base = SystemClock.elapsedRealtime()
-            chronometer.start()
+                    chronometer.base = SystemClock.elapsedRealtime()
+                    chronometer.start()
 
-            activity?.startService(intent)
+                    activity?.startService(intent)
 
-            activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-            recordingStatus.text = "Recording..."
+                    recordingStatus.text = "Recording..."
+                }
+
 
         } else {
             recordButton.setImageResource(R.drawable.ic_placeholder)
@@ -101,6 +115,26 @@ class RecordFragment : Fragment() {
             recordingStatus.text = "Tap the Button to start recording"
 
             activity?.stopService(intent)
+        }
+    }
+
+    private fun checkPermissions(): Boolean {
+        //Check permission
+        return if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                recordPermission
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            //Permission Granted
+            true
+        } else {
+            //Permission not granted, ask for permission
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(recordPermission),
+                PERMISSION_CODE
+            )
+            false
         }
     }
 }

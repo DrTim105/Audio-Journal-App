@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.astuetz.PagerSlidingTabStrip
+import com.salihutimothy.myaudiojournalapp.adapters.MyTabAdapter
 
 class MainActivity : AppCompatActivity() {
 

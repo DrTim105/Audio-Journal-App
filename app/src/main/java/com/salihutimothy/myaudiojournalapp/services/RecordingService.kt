@@ -1,5 +1,6 @@
 package com.salihutimothy.myaudiojournalapp.services
 
+import android.Manifest
 import android.app.Service
 import android.content.Intent
 import android.media.MediaRecorder
@@ -12,12 +13,18 @@ import java.io.IOException
 
 class RecordingService : Service() {
 
-    private lateinit var mediaRecorder : MediaRecorder
+    private var mediaRecorder : MediaRecorder = MediaRecorder()
     var mStartingTimeMillis:kotlin.Long = 0
     var mElapsedMillis: Long = 0
     private lateinit var file : File
     private lateinit var dbHelper: DBHelper
     var fileName : String? = null
+
+    private val isRecording = false
+
+    private val recordPermission: String = Manifest.permission.RECORD_AUDIO
+    private val PERMISSION_CODE = 21
+
 
     override fun onCreate() {
         super.onCreate()
@@ -29,6 +36,7 @@ class RecordingService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         startRecording()
         return START_STICKY
     }
@@ -76,9 +84,7 @@ class RecordingService : Service() {
     }
 
     override fun onDestroy() {
-        if (mediaRecorder != null) {
-            stopRecording()
-        }
+        stopRecording()
         super.onDestroy()
     }
 }
