@@ -60,15 +60,14 @@
 
 
                 <com.melnykov.fab.FloatingActionButton
+                    android:id="@+id/fab_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fab_play"
-                    android:src="@drawable/ic_placeholder"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    app:fab_shadow="false"
-                    />
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_placeholder"
+                    app:fab_shadow="false" />
 
 
                 <TextView

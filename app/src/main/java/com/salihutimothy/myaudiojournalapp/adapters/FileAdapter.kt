@@ -1,6 +1,7 @@
 package com.salihutimothy.myaudiojournalapp.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
+import com.salihutimothy.myaudiojournalapp.fragments.PlaybackFragment
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -41,14 +45,14 @@ class FileAdapter(
         )
 
         holder.cardView!!.setOnClickListener {
-            //                    val playbackFragment = PlaybackFragment()
-            //                    val b = Bundle()
-            //                    b.putSerializable("item", arrayList.get(getAdapterPosition()))
-            //                    playbackFragment.setArguments(b)
-            //                    val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
-            //                        .getSupportFragmentManager()
-            //                        .beginTransaction()
-            //                    playbackFragment.show(fragmentTransaction, "dialog_playback")
+            val playbackFragment = PlaybackFragment()
+            val b = Bundle()
+            b.putSerializable("item", arrayList[position])
+            playbackFragment.arguments = b
+            val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
+                .supportFragmentManager
+                .beginTransaction()
+            playbackFragment.show(fragmentTransaction, "dialog_playback")
         }
     }
 
