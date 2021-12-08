@@ -40,26 +40,25 @@ class DBHelper(private val context: Context) :
         }
     }
 
-    val allAudios: ArrayList<RecordingItem>?
-        get() {
-            val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
-            val db = this.readableDatabase
-            val cursor = db.rawQuery("select * from " + TABLE_NAME, null)
-            return if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    val name = cursor.getString(1)
-                    val path = cursor.getString(2)
-                    val length = cursor.getLong(3)
-                    val timeAdded = cursor.getLong(4)
-                    val recordingItem = RecordingItem(name, path, length, timeAdded)
-                    arrayList.add(recordingItem)
-                }
-                cursor.close()
-                arrayList
-            } else {
-                null
+    fun getAllAudios(): ArrayList<RecordingItem>? {
+        val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("select * from " + TABLE_NAME, null)
+        return if (cursor != null) {
+            while (cursor.moveToNext()) {
+                val name = cursor.getString(1)
+                val path = cursor.getString(2)
+                val length = cursor.getLong(3)
+                val timeAdded = cursor.getLong(4)
+                val recordingItem = RecordingItem(name, path, length, timeAdded)
+                arrayList.add(recordingItem)
             }
+            cursor.close()
+            arrayList
+        } else {
+            null
         }
+    }
 
     companion object {
         const val DATABASE_NAME = "saved_recordings.db"
