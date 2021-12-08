@@ -55,7 +55,7 @@ class FileViewerFragment : Fragment() {
         if (arrayListAudios == null) {
             Toast.makeText(context, "No audio files", Toast.LENGTH_LONG).show()
         } else {
-//            fileAdapter = FileAdapter(activity, arrayListAudios, llm)
+            fileAdapter = FileAdapter(requireContext(), arrayListAudios!!, llm)
             recyclerView.adapter = fileAdapter
         }
     }
