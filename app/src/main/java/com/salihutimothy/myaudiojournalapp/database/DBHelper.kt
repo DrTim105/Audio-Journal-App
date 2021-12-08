@@ -60,6 +60,10 @@ class DBHelper(private val context: Context) :
         }
     }
 
+    fun setOnDatabaseChangedListener(listener: OnDatabaseChangedListener?) {
+        mOnDatabaseChangedListener = listener
+    }
+
     companion object {
         const val DATABASE_NAME = "saved_recordings.db"
         private const val DATABASE_VERSION = 1
@@ -78,8 +82,6 @@ class DBHelper(private val context: Context) :
                     COLUMN_LENGTH + " INTEGER" + COMA_SEP +
                     COLUMN_TIME_ADDED + " INTEGER " + ")"
 
-        fun setOnDatabaseChangedListener(listener: OnDatabaseChangedListener?) {
-            mOnDatabaseChangedListener = listener
-        }
+
     }
 }

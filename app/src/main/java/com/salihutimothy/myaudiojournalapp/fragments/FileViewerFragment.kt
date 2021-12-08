@@ -20,7 +20,7 @@ class FileViewerFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbHelper: DBHelper
     var arrayListAudios: ArrayList<RecordingItem>? = null
-    private var fileAdapter : FileAdapter = FileAdapter()
+    private lateinit var fileAdapter : FileAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
