@@ -2,19 +2,15 @@ package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.graphics.ColorFilter
-import android.graphics.LightingColorFilter
 import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
-import android.media.MediaPlayer.OnPreparedListener
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.*
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
@@ -49,59 +45,84 @@ class PlaybackFragment : DialogFragment() {
             TimeUnit.MILLISECONDS.toSeconds(item.length) - TimeUnit.MINUTES.toSeconds(minutes)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_playback, container, false)
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        return inflater.inflate(R.layout.fragment_playback, container, false)
+//    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        faButton = view.findViewById(R.id.fab_play) as FloatingActionButton
-        fileName = view.findViewById(R.id.file_name_text) as TextView
-        fileLength = view.findViewById(R.id.file_length_text_view) as TextView
-        currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
-        seekBar = view.findViewById(R.id.seekbar) as SeekBar
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        faButton = view.findViewById(R.id.fab_play) as FloatingActionButton
+//        fileName = view.findViewById(R.id.file_name_text_view) as TextView
+//        fileLength = view.findViewById(R.id.file_length_text_view) as TextView
+//        currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
+//        seekBar = view.findViewById(R.id.seekbar) as SeekBar
+//
+//        setSeekbarValues(view)
+//
+//        faButton.setOnClickListener {
+//            try {
+//                onPlay(isPlaying)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//            isPlaying = !isPlaying
+//        }
+//
+//
+//        fileName.text = item.name
+//        fileLength.text = String.format("%02d:%02d", minutes, seconds)
+//
+//
+//    }
 
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        Log.d("PlayBackFragment", "onCreateDialog opened")
+
         val dialog = super.onCreateDialog(savedInstanceState)
         val builder = AlertDialog.Builder(activity)
         val view: View = requireActivity().layoutInflater.inflate(R.layout.fragment_playback, null)
-        faButton = requireActivity().findViewById(R.id.fab_play) as FloatingActionButton
-        fileName = requireActivity().findViewById(R.id.file_name_text) as TextView
-        fileLength = requireActivity().findViewById(R.id.file_length_text_view) as TextView
+        builder.setView(view)
 
-        setSeekbarValues()
+        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
 
-        faButton.setOnClickListener(View.OnClickListener {
+        dialog.setContentView(R.layout.fragment_playback)
+
+        faButton = dialog.findViewById(R.id.fab_play)
+        fileName = dialog.findViewById(R.id.file_name_text_view)
+        fileLength = dialog.findViewById(R.id.file_length_text_view)
+
+        setSeekbarValues(view)
+
+        faButton.setOnClickListener {
+            Log.d("PlayBackFragment", "FAB clicked")
             try {
+                Log.d("PlayBackFragment", "try playing")
+
                 onPlay(isPlaying)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
             isPlaying = !isPlaying
-        })
+        }
 
 
         fileName.text = item.name
         fileLength.text = String.format("%02d:%02d", minutes, seconds)
-
-
-
-        builder.setView(view)
-
-        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-        return builder.create()
+//        return builder.create()
+        return dialog
 
     }
 
-    private fun setSeekbarValues() {
-        currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
-        seekBar = requireActivity().findViewById(R.id.seekbar)
+    private fun setSeekbarValues(view: View) {
+        Log.d("PlayBackFragment", "setSeekbarValues opened")
+
+        currentProgress = view.findViewById(R.id.current_progress_text_view)
+        seekBar = view.findViewById(R.id.seekbar)
 
 //        val colorFilter: ColorFilter = LightingColorFilter(
 //            resources.getColor(R.color.colorPrimary),
@@ -109,7 +130,9 @@ class PlaybackFragment : DialogFragment() {
 //        )
 //        seekBar.progressDrawable.colorFilter = colorFilter
 //        seekBar.thumb.colorFilter = colorFilter
+
         seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer!!.seekTo(progress)
@@ -139,17 +162,21 @@ class PlaybackFragment : DialogFragment() {
 
     @Throws(IOException::class)
     private fun onPlay(isPlaying: Boolean) {
+        Log.d("PlayBackFragment", "onPlay called")
+
         if (!isPlaying) {
-            if (mediaPlayer == null) {
-                startPlaying()
-            }
+            Log.d("PlayBackFragment", "isPlaying is not true")
+
+            Log.d("PlayBackFragment", "mediaPlayer is null so play")
+
+            startPlaying()
         } else {
             pausePlaying()
         }
     }
 
     private fun pausePlaying() {
-        faButton = requireActivity().findViewById(R.id.fab_play)
+        faButton = requireDialog().findViewById(R.id.fab_play)
 
         faButton.setImageResource(R.drawable.ic_placeholder)
         handler.removeCallbacks(mRunnable)
@@ -158,13 +185,16 @@ class PlaybackFragment : DialogFragment() {
 
     @Throws(IOException::class)
     private fun startPlaying() {
-        faButton = requireActivity().findViewById(R.id.fab_play)
-        seekBar = requireActivity().findViewById(R.id.seekbar)
+        Log.d("PlayBackFragment", "startPlaying called")
+
+        faButton = requireDialog().findViewById(R.id.fab_play)
+        seekBar = requireDialog().findViewById(R.id.seekbar)
 
         faButton.setImageResource(R.drawable.ic_placeholder)
         mediaPlayer = MediaPlayer()
         mediaPlayer!!.setDataSource(item.path)
         mediaPlayer!!.prepare()
+        mediaPlayer!!.start()
         seekBar.max = mediaPlayer!!.duration
         mediaPlayer!!.setOnPreparedListener { mediaPlayer!!.start() }
         mediaPlayer!!.setOnCompletionListener { stopPlaying() }
@@ -183,10 +213,10 @@ class PlaybackFragment : DialogFragment() {
     }
 
     private fun stopPlaying() {
-        faButton = requireActivity().findViewById(R.id.fab_play)
-        currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
-        fileLength = requireActivity().findViewById(R.id.file_length_text_view)
-        seekBar = requireActivity().findViewById(R.id.seekbar)
+        faButton = requireDialog().findViewById(R.id.fab_play)
+        currentProgress = requireDialog().findViewById(R.id.current_progress_text_view)
+        fileLength = requireDialog().findViewById(R.id.file_length_text_view)
+        seekBar = requireDialog().findViewById(R.id.seekbar)
 
 
         faButton.setImageResource(R.drawable.ic_placeholder)
@@ -202,8 +232,8 @@ class PlaybackFragment : DialogFragment() {
     }
 
     private val mRunnable = Runnable {
-        currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
-        seekBar = requireActivity().findViewById(R.id.seekbar)
+        currentProgress = requireDialog().findViewById(R.id.current_progress_text_view)
+        seekBar = requireDialog().findViewById(R.id.seekbar)
 
         if (mediaPlayer != null) {
             val mCurrentPosition = mediaPlayer!!.currentPosition
@@ -219,4 +249,15 @@ class PlaybackFragment : DialogFragment() {
     private fun updateSeekbar() {
         handler.postDelayed(mRunnable, 1000)
     }
+
+    companion object {
+
+        fun newInstance() =
+            PlaybackFragment().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+    }
+
 }
