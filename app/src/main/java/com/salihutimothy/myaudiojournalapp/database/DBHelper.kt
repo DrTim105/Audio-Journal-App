@@ -18,7 +18,7 @@ class DBHelper(private val context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
     }
 
     fun addRecording(recordingItem: RecordingItem): Boolean {
@@ -43,7 +43,7 @@ class DBHelper(private val context: Context) :
     fun getAllAudios(): ArrayList<RecordingItem>? {
         val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
         val db = this.readableDatabase
-        val cursor = db.rawQuery("select * from " + TABLE_NAME, null)
+        val cursor = db.rawQuery("select * from $TABLE_NAME", null)
         return if (cursor != null) {
             while (cursor.moveToNext()) {
                 val name = cursor.getString(1)
