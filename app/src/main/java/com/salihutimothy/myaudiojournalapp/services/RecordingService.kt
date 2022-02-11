@@ -10,6 +10,7 @@ import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
+import java.util.*
 
 class RecordingService : Service() {
 
@@ -19,12 +20,16 @@ class RecordingService : Service() {
     private lateinit var file : File
     private lateinit var dbHelper: DBHelper
     var fileName : String? = null
+    private lateinit var timer: Timer
 
     private val isRecording = false
 
     private val recordPermission: String = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_CODE = 21
 
+    companion object {
+        var maxAmplitude = 0f
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -44,6 +49,7 @@ class RecordingService : Service() {
     private fun startRecording(){
         val timeStampLong = System.currentTimeMillis() / 1000
         val timeStamp = timeStampLong.toString()
+        timer = Timer()
 
         fileName = "Mental Note $timeStamp"
 
@@ -63,18 +69,25 @@ class RecordingService : Service() {
             mediaRecorder.prepare()
             mediaRecorder.start()
             mStartingTimeMillis = System.currentTimeMillis()
+//            maxAmplitude = 1000f
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    maxAmplitude = mediaRecorder.maxAmplitude.toFloat()
+                }
+            }, 0, 100) //wait 0 ms before doing the action and do it evry 1000ms (1second)
+
+
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
 
     private fun stopRecording() {
+        timer.cancel()
         mediaRecorder.stop()
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
         mediaRecorder.release()
         Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_LONG).show()
-
 
         // add to database
         val recordingItem =

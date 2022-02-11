@@ -18,16 +18,20 @@ import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import com.salihutimothy.myaudiojournalapp.fragments.PlaybackFragment
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
+import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class FileAdapter(
     var context: Context,
     var arrayList: ArrayList<RecordingItem>,
-    var llm: LinearLayoutManager
+    var llm: LinearLayoutManager,
+    open var onItemListClick: OnItemListClick
 ) :
     RecyclerView.Adapter<FileAdapter.FileViewerViewHolder?>(), OnDatabaseChangedListener {
     private val dbHelper: DBHelper = DBHelper(context)
+
+    private var ten = 10
 
     override fun onBindViewHolder(holder: FileAdapter.FileViewerViewHolder, position: Int) {
         val recordingItem: RecordingItem = arrayList[position]
@@ -52,7 +56,8 @@ class FileAdapter(
             val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
-            playbackFragment.show(fragmentTransaction, "dialog_playback")
+
+            playbackFragment.(fragmentTransaction, "dialog_playback")
         }
     }
 
@@ -82,14 +87,31 @@ class FileAdapter(
         return FileViewerViewHolder(itemView)
     }
 
-    class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    class FileViewerViewHolder(itemView: View, arrayList: ArrayList<RecordingItem>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
         var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
         var cardView: CardView? = itemView.findViewById(R.id.card_view)
+        var list = arrayList
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+//            onItemListClick.onClickListener(list[adapterPosition], adapterPosition)
+        }
+
+
+
+    }
+
+
+    interface OnItemListClick {
+        fun onClickListener(recordingItem: RecordingItem?, position: Int)
     }
 
 }

@@ -15,7 +15,14 @@
         android:src="@drawable/ic_placeholder"
         />
 
+    <com.salihutimothy.myaudiojournalapp.WaveformView
+        android:id="@+id/waveformView"
+        android:layout_width="match_parent"
+        android:layout_height="500px"
+        android:layout_above="@+id/recordProgressBar"
+        android:layout_marginBottom="50dp"
 
+        />
 
     <Chronometer
         android:layout_width="wrap_content"
@@ -32,18 +39,17 @@
 
     <ProgressBar
         android:id="@+id/recordProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="false"
-        android:progressDrawable="@drawable/record_progress_bar"
+        android:layout_above="@+id/recording_status_txt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
         android:background="@drawable/record_progress_bar_background"
+        android:indeterminate="false"
         android:max="100"
         android:progress="0"
-        android:layout_marginTop="27dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:progressDrawable="@drawable/record_progress_bar" />
 
 
     <Button
@@ -74,6 +80,8 @@
 
 
         />
+
+
 
 
 </RelativeLayout>
