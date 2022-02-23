@@ -26,7 +26,7 @@ class FileAdapter(
     var context: Context,
     var arrayList: ArrayList<RecordingItem>,
     var llm: LinearLayoutManager,
-    open var onItemListClick: OnItemListClick
+    var onItemListClick: OnItemListClick
 ) :
     RecyclerView.Adapter<FileAdapter.FileViewerViewHolder?>(), OnDatabaseChangedListener {
     private val dbHelper: DBHelper = DBHelper(context)
@@ -48,17 +48,17 @@ class FileAdapter(
                     or DateUtils.FORMAT_SHOW_YEAR
         )
 
-        holder.cardView!!.setOnClickListener {
-            val playbackFragment = PlaybackFragment()
-            val b = Bundle()
-            b.putSerializable("item", arrayList[position])
-            playbackFragment.arguments = b
-            val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
-                .supportFragmentManager
-                .beginTransaction()
-
-            playbackFragment.(fragmentTransaction, "dialog_playback")
-        }
+//        holder.cardView!!.setOnClickListener {
+//            val playbackFragment = PlaybackFragment()
+//            val b = Bundle()
+//            b.putSerializable("item", arrayList[position])
+//            playbackFragment.arguments = b
+//            val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
+//                .supportFragmentManager
+//                .beginTransaction()
+//
+//            playbackFragment.(fragmentTransaction, "dialog_playback")
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -88,30 +88,27 @@ class FileAdapter(
     }
 
 
-    class FileViewerViewHolder(itemView: View, arrayList: ArrayList<RecordingItem>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
         var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
         var cardView: CardView? = itemView.findViewById(R.id.card_view)
-        var list = arrayList
 
         init {
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-//            onItemListClick.onClickListener(list[adapterPosition], adapterPosition)
+            onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
         }
-
-
 
     }
 
 
     interface OnItemListClick {
-        fun onClickListener(recordingItem: RecordingItem?, position: Int)
+        fun onClickListener(recordingItem: RecordingItem, position: Int)
     }
 
 }

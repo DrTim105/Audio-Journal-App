@@ -1,51 +1,44 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
+import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class PlaybackFragment : Fragment() {
+class PlaybackFragment : Fragment(), FileAdapter.OnItemListClick {
 
     private lateinit var fileName: TextView
     private lateinit var fileLength: TextView
     private lateinit var currentProgress: TextView
     private lateinit var seekBar: SeekBar
-    private lateinit var faButton: ImageView
+    private lateinit var playButton: ImageView
+    private lateinit var forwardButton: ImageView
+    private lateinit var backwardButton: ImageView
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
     private var handler: Handler = Handler(Looper.myLooper()!!)
 
+    private lateinit var fileAdapter: FileAdapter
 
     private var isPlaying = false
     var minutes: Long = 0
     var seconds: Long = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        item = (requireArguments().getSerializable("item") as RecordingItem)
-
-        minutes = TimeUnit.MILLISECONDS.toMinutes(item.length)
-        seconds =
-            TimeUnit.MILLISECONDS.toSeconds(item.length) - TimeUnit.MINUTES.toSeconds(minutes)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,18 +48,72 @@ class PlaybackFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_playback, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        faButton = view.findViewById(R.id.fab_play) as FloatingActionButton
-//        fileName = view.findViewById(R.id.file_name_text_view) as TextView
-//        fileLength = view.findViewById(R.id.file_length_text_view) as TextView
-//        currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
-//        seekBar = view.findViewById(R.id.seekbar) as SeekBar
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        playButton = view.findViewById(R.id.play_iv) as ImageView
+        backwardButton = view.findViewById(R.id.iv_backward) as ImageView
+        forwardButton = view.findViewById(R.id.iv_forward) as ImageView
+        fileName = view.findViewById(R.id.file_name_text_view) as TextView
+        fileLength = view.findViewById(R.id.file_length_text_view) as TextView
+        currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
+        seekBar = view.findViewById(R.id.seekbar) as SeekBar
+
+        minutes = TimeUnit.MILLISECONDS.toMinutes(item.length)
+        seconds =
+            TimeUnit.MILLISECONDS.toSeconds(item.length) - TimeUnit.MINUTES.toSeconds(minutes)
+
+        setSeekbarValues(view)
+
+
+
+        playButton.setOnClickListener {
+//            try {
+//                onPlay(isPlaying)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//            isPlaying = !isPlaying
+
+            if (isPlaying){
+                pausePlaying()
+            } else {
+                if (item != null) {
+                    resumePlaying()
+                }
+            }
+        }
+
+
+        fileName.text = item.name
+        fileLength.text = String.format("%02d:%02d", minutes, seconds)
+
+
+    }
+
+
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        Log.d("PlayBackFragment", "onCreateDialog opened")
+//
+//        val dialog = super.onCreateDialog(savedInstanceState)
+//        val builder = AlertDialog.Builder(activity)
+//        val view: View = requireActivity().layoutInflater.inflate(R.layout.fragment_playback, null)
+//        builder.setView(view)
+//
+//        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+//
+//        dialog.setContentView(R.layout.fragment_playback)
+//
+//        faButton = dialog.findViewById(R.id.iv_forward)
+//        fileName = dialog.findViewById(R.id.file_name_text_view)
+//        fileLength = dialog.findViewById(R.id.file_length_text_view)
 //
 //        setSeekbarValues(view)
 //
 //        faButton.setOnClickListener {
+//            Log.d("PlayBackFragment", "FAB clicked")
 //            try {
+//                Log.d("PlayBackFragment", "try playing")
+//
 //                onPlay(isPlaying)
 //            } catch (e: IOException) {
 //                e.printStackTrace()
@@ -77,48 +124,10 @@ class PlaybackFragment : Fragment() {
 //
 //        fileName.text = item.name
 //        fileLength.text = String.format("%02d:%02d", minutes, seconds)
-//
+////        return builder.create()
+//        return dialog
 //
 //    }
-
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        Log.d("PlayBackFragment", "onCreateDialog opened")
-
-        val dialog = super.onCreateDialog(savedInstanceState)
-        val builder = AlertDialog.Builder(activity)
-        val view: View = requireActivity().layoutInflater.inflate(R.layout.fragment_playback, null)
-        builder.setView(view)
-
-        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-
-        dialog.setContentView(R.layout.fragment_playback)
-
-        faButton = dialog.findViewById(R.id.iv_forward)
-        fileName = dialog.findViewById(R.id.file_name_text_view)
-        fileLength = dialog.findViewById(R.id.file_length_text_view)
-
-        setSeekbarValues(view)
-
-        faButton.setOnClickListener {
-            Log.d("PlayBackFragment", "FAB clicked")
-            try {
-                Log.d("PlayBackFragment", "try playing")
-
-                onPlay(isPlaying)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            isPlaying = !isPlaying
-        }
-
-
-        fileName.text = item.name
-        fileLength.text = String.format("%02d:%02d", minutes, seconds)
-//        return builder.create()
-        return dialog
-
-    }
 
     private fun setSeekbarValues(view: View) {
         Log.d("PlayBackFragment", "setSeekbarValues opened")
@@ -167,10 +176,6 @@ class PlaybackFragment : Fragment() {
         Log.d("PlayBackFragment", "onPlay called")
 
         if (!isPlaying) {
-            Log.d("PlayBackFragment", "isPlaying is not true")
-
-            Log.d("PlayBackFragment", "mediaPlayer is null so play")
-
             startPlaying()
         } else {
             pausePlaying()
@@ -178,21 +183,28 @@ class PlaybackFragment : Fragment() {
     }
 
     private fun pausePlaying() {
-        faButton = requireDialog().findViewById(R.id.iv_forward)
+        playButton = requireActivity().findViewById(R.id.play_iv)
 
-        faButton.setImageResource(R.drawable.ic_placeholder)
+        playButton.setImageResource(R.drawable.ic_placeholder)
         handler.removeCallbacks(mRunnable)
-        mediaPlayer?.pause()
+        isPlaying = false
+        mediaPlayer!!.pause()
+    }
+
+    private fun resumePlaying(){
+        mediaPlayer!!.start()
+        isPlaying = true
+        updateSeekbar()
     }
 
     @Throws(IOException::class)
     private fun startPlaying() {
         Log.d("PlayBackFragment", "startPlaying called")
 
-        faButton = requireDialog().findViewById(R.id.iv_forward)
-        seekBar = requireDialog().findViewById(R.id.seekbar)
+        playButton = requireActivity().findViewById(R.id.play_iv)
+        seekBar = requireActivity().findViewById(R.id.seekbar)
 
-        faButton.setImageResource(R.drawable.ic_placeholder)
+        playButton.setImageResource(R.drawable.ic_placeholder)
         mediaPlayer = MediaPlayer()
         mediaPlayer!!.setDataSource(item.path)
         mediaPlayer!!.prepare()
@@ -215,13 +227,13 @@ class PlaybackFragment : Fragment() {
     }
 
     private fun stopPlaying() {
-        faButton = requireDialog().findViewById(R.id.iv_forward)
-        currentProgress = requireDialog().findViewById(R.id.current_progress_text_view)
-        fileLength = requireDialog().findViewById(R.id.file_length_text_view)
-        seekBar = requireDialog().findViewById(R.id.seekbar)
+        playButton = requireActivity().findViewById(R.id.play_iv)
+        currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
+        fileLength = requireActivity().findViewById(R.id.file_length_text_view)
+        seekBar = requireActivity().findViewById(R.id.seekbar)
 
 
-        faButton.setImageResource(R.drawable.ic_placeholder)
+        playButton.setImageResource(R.drawable.ic_placeholder)
         handler.removeCallbacks(mRunnable)
         mediaPlayer?.stop()
         mediaPlayer?.reset()
@@ -229,13 +241,13 @@ class PlaybackFragment : Fragment() {
         mediaPlayer = null
         seekBar.progress = seekBar.max
         isPlaying = !isPlaying
-        currentProgress.text = fileLength.getText()
+        currentProgress.text = fileLength.text
         seekBar.progress = seekBar.max
     }
 
     private val mRunnable = Runnable {
-        currentProgress = requireDialog().findViewById(R.id.current_progress_text_view)
-        seekBar = requireDialog().findViewById(R.id.seekbar)
+        currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
+        seekBar = requireActivity().findViewById(R.id.seekbar)
 
         if (mediaPlayer != null) {
             val mCurrentPosition = mediaPlayer!!.currentPosition
@@ -262,4 +274,20 @@ class PlaybackFragment : Fragment() {
             }
     }
 
+    override fun onClickListener(recordingItem: RecordingItem, position: Int) {
+        item = recordingItem
+        if (isPlaying){
+            stopPlaying()
+            startPlaying()
+        } else {
+            startPlaying()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (isPlaying){
+            stopPlaying()
+        }
+    }
 }

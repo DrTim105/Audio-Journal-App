@@ -7,10 +7,12 @@
     android:layout_centerHorizontal="true"
     android:layout_gravity="bottom"
     android:layout_margin="15dp"
+    android:clickable="true"
     android:transitionName="open_mediaplayer"
     app:cardBackgroundColor="#F0F0F0"
     app:cardCornerRadius="50dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:focusable="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="monospace"
             android:text="file_name.mp3"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,16 +74,16 @@
 
 
             <ImageView
-                android:id="@+id/iv_forward"
+                android:id="@+id/play_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="24dp"
                 android:src="@drawable/ic_placeholder"
                 app:fab_shadow="false"
-                app:tint="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/iv_play"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <ImageView
                 android:id="@+id/iv_backward"
@@ -91,20 +93,21 @@
                 android:layout_marginEnd="24dp"
                 android:src="@drawable/ic_placeholder"
                 app:fab_shadow="false"
-                app:layout_constraintEnd_toStartOf="@+id/iv_play"
+                app:layout_constraintEnd_toStartOf="@+id/play_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
 
             <ImageView
-                android:id="@+id/iv_play"
+                android:id="@+id/iv_forward"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="24dp"
                 android:src="@drawable/ic_placeholder"
                 app:fab_shadow="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/play_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
 
             <TextView
