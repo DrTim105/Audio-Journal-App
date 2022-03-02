@@ -1,5 +1,8 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.media.AudioFormat
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +22,11 @@ import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import android.media.AudioRecord
+
+import android.media.MediaRecorder
+import androidx.core.app.ActivityCompat
+
 
 class PlaybackFragment : Fragment(), FileAdapter.OnItemListClick {
 
@@ -290,4 +298,76 @@ class PlaybackFragment : Fragment(), FileAdapter.OnItemListClick {
             stopPlaying()
         }
     }
+
+
+    var RECORDER_SAMPLERATE = 8000
+    var RECORDER_CHANNELS: Int = AudioFormat.CHANNEL_CONFIGURATION_MONO
+    var RECORDER_AUDIO_ENCODING: Int = AudioFormat.ENCODING_PCM_16BIT
+
+//    private fun record() {
+//        val audioRecorder: AudioRecord
+//        val bufferSizeInBytes: Int
+//        val bufferSizeInShorts: Int
+//        var shortsRead: Int
+//        val audioBuffer: ShortArray
+//        try {
+//            // Get the minimum buffer size required for the successful creation of an AudioRecord object.
+//            bufferSizeInBytes = AudioRecord.getMinBufferSize(
+//                RECORDER_SAMPLERATE,
+//                RECORDER_CHANNELS,
+//                RECORDER_AUDIO_ENCODING
+//            )
+//            bufferSizeInShorts = bufferSizeInBytes / 2
+//
+//            // Initialize Audio Recorder.
+//            if (ActivityCompat.checkSelfPermission(
+//                    requireContext(),
+//                    Manifest.permission.RECORD_AUDIO
+//                ) != PackageManager.PERMISSION_GRANTED
+//            ) {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//                return
+//            }
+//
+//            audioRecorder = AudioRecord(
+//                MediaRecorder.AudioSource.VOICE_RECOGNITION,
+//                RECORDER_SAMPLERATE,
+//                RECORDER_CHANNELS,
+//                RECORDER_AUDIO_ENCODING,
+//                bufferSizeInBytes
+//            )
+//
+//            // Start Recording.
+//            audioBuffer = ShortArray(bufferSizeInShorts)
+//            audioRecorder.startRecording()
+//            isRecording = true
+//            while (isRecording) {
+//                shortsRead = audioRecorder.read(audioBuffer, 0, bufferSizeInShorts)
+//                if (shortsRead == AudioRecord.ERROR_BAD_VALUE || shortsRead == AudioRecord.ERROR_INVALID_OPERATION) {
+//                    Log.e("record()", "Error reading from microphone.")
+//                    isRecording = false
+//                    break
+//                }
+//
+//            audi
+//                // Whatever your code needs to do with the audio here...
+//            }
+//        } finally {
+//            if (audioRecorder != null) {
+//                audioRecorder.stop()
+//                audioRecorder.release()
+//            }
+//        }
+//
+//        if (audioRecorder != null) {
+//            audioRecorder.stop()
+//            audioRecorder.release()
+//        }
+//    }
 }

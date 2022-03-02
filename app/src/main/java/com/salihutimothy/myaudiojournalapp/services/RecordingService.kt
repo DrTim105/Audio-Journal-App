@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Service
 import android.content.Intent
 import android.media.MediaRecorder
+import android.media.audiofx.NoiseSuppressor
 import android.os.IBinder
 import android.widget.Toast
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
@@ -59,11 +60,13 @@ class RecordingService : Service() {
         )
 
         mediaRecorder = MediaRecorder()
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         mediaRecorder.setOutputFile(file.absolutePath)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         mediaRecorder.setAudioChannels(1)
+
+
 
         try {
             mediaRecorder.prepare()

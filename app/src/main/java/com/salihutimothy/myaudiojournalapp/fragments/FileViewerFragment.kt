@@ -52,6 +52,8 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         arguments?.let {
 
         }
+
+
     }
 
     override fun onCreateView(
@@ -175,6 +177,8 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
     private fun startPlaying() {
         Log.d("PlayBackFragment", "startPlaying called")
 
+        isPlaying = true
+
         playButton = requireActivity().findViewById(R.id.play_iv)
         seekBar = requireActivity().findViewById(R.id.seekbar)
 
@@ -187,6 +191,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         playButton.setImageResource(R.drawable.ic_placeholder)
         mediaPlayer = MediaPlayer()
         mediaPlayer!!.setDataSource(item.path)
+
         mediaPlayer!!.prepare()
         mediaPlayer!!.start()
         seekBar.max = mediaPlayer!!.duration

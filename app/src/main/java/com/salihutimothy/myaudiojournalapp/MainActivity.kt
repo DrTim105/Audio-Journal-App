@@ -8,7 +8,6 @@ import com.astuetz.PagerSlidingTabStrip
 import com.salihutimothy.myaudiojournalapp.adapters.MyTabAdapter
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var tabs : PagerSlidingTabStrip
     private lateinit var viewPager : ViewPager
     private lateinit var toolbar: Toolbar
@@ -24,6 +23,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = MyTabAdapter(supportFragmentManager)
         tabs.setViewPager(viewPager)
         setSupportActionBar(toolbar)
-
     }
+
 }
