@@ -21,7 +21,7 @@ import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
@@ -29,7 +29,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbHelper: DBHelper
     var arrayListAudios: ArrayList<RecordingItem>? = null
-    private lateinit var fileAdapter : FileAdapter
+    private lateinit var fileAdapter: FileAdapter
 
     private lateinit var fileName: TextView
     private lateinit var fileLength: TextView
@@ -50,10 +50,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
-
-
     }
 
     override fun onCreateView(
@@ -77,9 +74,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
         seekBar = view.findViewById(R.id.seekbar) as SeekBar
 
-
         setSeekbarValues(view)
-
 
         recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(view.context)
@@ -98,7 +93,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         }
 
         playButton.setOnClickListener {
-            if (isPlaying){
+            if (isPlaying) {
                 pausePlaying()
             } else {
                 if (item != null) {
@@ -152,6 +147,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         } else {
             pausePlaying()
         }
+
     }
 
     private fun pausePlaying() {
@@ -163,8 +159,8 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         mediaPlayer?.pause()
     }
 
-    private fun resumePlaying(){
-        if (mediaPlayer != null){
+    private fun resumePlaying() {
+        if (mediaPlayer != null) {
             mediaPlayer!!.start()
         } else {
             startPlaying()
@@ -257,7 +253,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         seconds =
             TimeUnit.MILLISECONDS.toSeconds(item.length) - TimeUnit.MINUTES.toSeconds(minutes)
 
-        if (isPlaying){
+        if (isPlaying) {
             stopPlaying()
             startPlaying()
         } else {
@@ -267,7 +263,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
 
     override fun onStop() {
         super.onStop()
-        if (isPlaying){
+        if (isPlaying) {
             stopPlaying()
         }
     }

@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:layout_height="match_parent">
 
     <com.melnykov.fab.FloatingActionButton
-        android:layout_width="wrap_content"
         android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_placeholder"
-        />
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_placeholder" />
 
     <com.salihutimothy.myaudiojournalapp.WaveformView
         android:id="@+id/waveformView"
         android:layout_width="match_parent"
         android:layout_height="500px"
         android:layout_above="@+id/recordProgressBar"
-        android:layout_marginBottom="50dp"
-
-        />
+        android:layout_marginBottom="50dp" />
 
     <Chronometer
+        android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chronometer"
-        android:textSize="60sp"
-        android:fontFamily="sans-serif-light"
         android:layout_alignBottom="@+id/recordProgressBar"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp"
-
-        />
-
+        android:fontFamily="sans-serif-light"
+        android:textSize="60sp" />
 
     <ProgressBar
         android:id="@+id/recordProgressBar"
@@ -51,7 +43,6 @@
         android:progress="0"
         android:progressDrawable="@drawable/record_progress_bar" />
 
-
     <Button
         android:id="@+id/btnPause"
         android:layout_width="wrap_content"
@@ -64,24 +55,17 @@
         android:text="Pause"
         android:textAllCaps="true" />
 
-
     <TextView
+        android:id="@+id/recording_status_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recording_status_txt"
-        android:text="Record"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:fontFamily="sans-serif-condensed"
         android:layout_above="@+id/btnRecord"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-
-
-        />
-
-
-
+        android:fontFamily="sans-serif-condensed"
+        android:text="Record"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
