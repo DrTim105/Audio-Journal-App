@@ -55,6 +55,17 @@
         android:text="Pause"
         android:textAllCaps="true" />
 
+    <Button
+        android:id="@+id/btnList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/btnRecord"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="List"
+        android:textAllCaps="true" />
+
     <TextView
         android:id="@+id/recording_status_txt"
         android:layout_width="wrap_content"

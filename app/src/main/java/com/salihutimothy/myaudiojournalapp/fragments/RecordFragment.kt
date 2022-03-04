@@ -16,6 +16,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.WaveformView
@@ -31,8 +33,11 @@ class RecordFragment : Fragment() {
     private lateinit var recordingStatus: TextView
     private lateinit var recordButton: FloatingActionButton
     private lateinit var pauseButton: Button
+    private lateinit var listButton: Button
     private lateinit var waveformView: WaveformView
     private lateinit var timer: Timer
+
+    private lateinit var navController: NavController
 
     private var mStartRecording = true
     private var mPauseRecording = true
@@ -68,9 +73,11 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         pauseButton = view.findViewById(R.id.btnPause) as Button
+        listButton = view.findViewById(R.id.btnList) as Button
         recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton
         pauseButton = view.findViewById(R.id.btnPause) as Button
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
+        navController = Navigation.findNavController(view)
 
         pauseButton.visibility = View.GONE
         recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
@@ -80,6 +87,11 @@ class RecordFragment : Fragment() {
             mStartRecording = !mStartRecording
 
         }
+
+        listButton.setOnClickListener {
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+        }
+
     }
 
     private fun onRecord(start: Boolean) {

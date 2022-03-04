@@ -3,9 +3,11 @@ package com.salihutimothy.myaudiojournalapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.astuetz.PagerSlidingTabStrip
 import com.salihutimothy.myaudiojournalapp.adapters.MyTabAdapter
+import com.salihutimothy.myaudiojournalapp.fragments.RecordFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tabs : PagerSlidingTabStrip
@@ -16,13 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tabs = findViewById(R.id.tabs)
-        viewPager = findViewById(R.id.pager)
-        toolbar = findViewById(R.id.toolbar)
-
-        viewPager.adapter = MyTabAdapter(supportFragmentManager)
-        tabs.setViewPager(viewPager)
-        setSupportActionBar(toolbar)
     }
 
 }

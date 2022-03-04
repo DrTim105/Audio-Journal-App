@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/recordFragment"
+    >
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.salihutimothy.myaudiojournalapp.fragments.RecordFragment"
+        tools:layout="@layout/fragment_record"
+        android:label="fragment_record">
+
+        <action
+            android:id="@+id/action_recordFragment_to_audioListFragment"
+            app:destination="@id/audioListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/audioListFragment"
+        android:name="com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment"
+        tools:layout="@layout/fragment_file_viewer"
+        android:label="fragment_file_viewer" />
+</navigation>
