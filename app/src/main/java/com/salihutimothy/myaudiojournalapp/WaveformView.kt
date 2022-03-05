@@ -49,10 +49,16 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
         invalidate()
     }
 
+    fun clear(){
+        amplitudes.clear()
+    }
+
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
         spikes.forEach {
             canvas?.drawRoundRect(it, radius, radius, paint)
         }
     }
+
+
 }

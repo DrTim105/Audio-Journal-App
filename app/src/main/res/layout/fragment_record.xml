@@ -73,9 +73,9 @@
         android:layout_above="@+id/btnRecord"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Record"
-        android:textColor="#000000"
+        android:fontFamily="@font/comic_neue"
+        android:text="Press the button to record your thoughts...."
+        android:textColor="#F8CF92"
         android:textSize="18sp"
         android:textStyle="bold" />
 

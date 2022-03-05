@@ -145,6 +145,7 @@ class RecordFragment : Fragment() {
             recordButton.setImageResource(R.drawable.ic_placeholder)
             chronometer.stop()
             timer.cancel()
+            waveformView.clear()
             chronometer.base = SystemClock.elapsedRealtime()
             timeWhenPaused = 0
             recordingStatus.text = "Tap the Button to start recording"
