@@ -3,6 +3,7 @@ package com.salihutimothy.myaudiojournalapp.fragments
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -14,6 +15,7 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -44,6 +46,18 @@ class RecordFragment : Fragment() {
     private var timeWhenPaused = 0L
 
     private val recordPermission: String = Manifest.permission.RECORD_AUDIO
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private val foregroundPermission: String = Manifest.permission.FOREGROUND_SERVICE
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    var permissions = arrayOf(
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.FOREGROUND_SERVICE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+    )
+
     private val PERMISSION_CODE = 21
 
     companion object {
@@ -58,7 +72,7 @@ class RecordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+//        checkPermissions()
     }
 
     override fun onCreateView(
@@ -103,7 +117,9 @@ class RecordFragment : Fragment() {
 
         if (start) {
             // check permission to record audio
-            if (checkPermissions()) {
+            if (
+                checkPermissions()
+            ) {
                 recordButton.setImageResource(R.drawable.ic_stop)
                 Toast.makeText(context, "Recording started", Toast.LENGTH_LONG).show()
 
@@ -156,21 +172,84 @@ class RecordFragment : Fragment() {
 
     private fun checkPermissions(): Boolean {
         //Check permission
-        return if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                recordPermission
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            //Permission Granted
-            true
-        } else {
-            //Permission not granted, ask for permission
+        Log.d("permissions", "checking permission")
+
+        var result: Int
+        val listPermissionsNeeded: MutableList<String> = ArrayList()
+        for (p in permissions) {
+            result = ActivityCompat.checkSelfPermission(requireContext(), p)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p)
+            }
+        }
+
+        if (listPermissionsNeeded.isNotEmpty()) {
+            Log.d("permissions", "some permission not granted: ${listPermissionsNeeded.toString()}")
+
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(recordPermission),
+//                listPermissionsNeeded.toArray(new String [listPermissionsNeeded.size()]),
+                (listPermissionsNeeded as List<String>).toTypedArray(),
                 PERMISSION_CODE
             )
-            false
+
+            onRecord(true)
+
+
+            return false
+        }
+
+        return true
+
+//        return if (ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                recordPermission,
+//            ) == PackageManager.PERMISSION_GRANTED
+//
+//            && ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                foregroundPermission,
+//            ) == PackageManager.PERMISSION_GRANTED
+//         )  {
+//            //Permission Granted
+//            true
+//        } else {
+//            //Permission not granted, ask for permission
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(recordPermission, foregroundPermission),
+//                PERMISSION_CODE
+//            )
+//            false
+//        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissionsList: Array<String>,
+        grantResults: IntArray
+    ) {
+        Log.d("permissions", "requesting permission")
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty()) {
+                    var permissionsDenied = ""
+                    for (per in permissionsList) {
+                        if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                            permissionsDenied += """
+                            
+                            $per
+                            """.trimIndent()
+                        }
+                    }
+                    // Show permissionsDenied
+
+                    if (permissionsDenied == ""){
+                        onRecord(true)
+                    }
+                }
+                return
+            }
         }
     }
 }

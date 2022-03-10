@@ -19,15 +19,7 @@
         android:layout_above="@+id/recordProgressBar"
         android:layout_marginBottom="50dp" />
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recordProgressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="sans-serif-light"
-        android:textSize="60sp" />
+
 
     <ProgressBar
         android:id="@+id/recordProgressBar"
@@ -42,6 +34,17 @@
         android:max="100"
         android:progress="0"
         android:progressDrawable="@drawable/record_progress_bar" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recordProgressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/black"
+        android:textSize="60sp" />
 
     <Button
         android:id="@+id/btnPause"
@@ -60,8 +63,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/btnRecord"
-        android:layout_margin="10dp"
         android:fontFamily="sans-serif-condensed"
         android:text="List"
         android:textAllCaps="true" />

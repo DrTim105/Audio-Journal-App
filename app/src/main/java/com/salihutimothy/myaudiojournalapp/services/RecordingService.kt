@@ -1,17 +1,29 @@
 package com.salihutimothy.myaudiojournalapp.services
 
 import android.Manifest
-import android.app.Service
+import android.app.*
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.MediaRecorder
 import android.media.audiofx.NoiseSuppressor
+import android.os.Build
 import android.os.IBinder
 import android.widget.Toast
+import com.salihutimothy.myaudiojournalapp.MainActivity
+import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
+import android.app.PendingIntent
+
+
+
+
+
+
 
 class RecordingService : Service() {
 
@@ -43,8 +55,63 @@ class RecordingService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
+        var notification = createNotification()
+        startForeground(1, notification)
         startRecording()
         return START_STICKY
+    }
+
+    private fun createNotification(): Notification {
+        val notificationChannelId = "ENDLESS SERVICE CHANNEL"
+
+        // depending on the Android API that we're dealing with we will have
+        // to use a specific method to create the notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager;
+            val channel = NotificationChannel(
+                notificationChannelId,
+                "Audio Journal notifications channel",
+                NotificationManager.IMPORTANCE_NONE
+            ).let {
+                it.description = "Audio Journal channel"
+                it.enableLights(true)
+                it.lightColor = Color.RED
+                it.enableVibration(false)
+                it
+            }
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notificationIntent = newLauncherIntent(this)
+
+        val intent = PendingIntent.getActivity(
+            this, 0,
+            notificationIntent, 0
+        )
+//        val pendingIntent: PendingIntent = Intent(this, MainActivity::class.java).let { notificationIntent ->
+//            PendingIntent.getActivity(this, 0, notificationIntent, 0)
+//        }
+
+        val builder: Notification.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) Notification.Builder(
+            this,
+            notificationChannelId
+        ) else Notification.Builder(this)
+
+        return builder
+            .setContentTitle("Audio Journal")
+            .setContentText("Recording...")
+            .setContentIntent(intent)
+            .setOngoing(true)
+            .setSmallIcon(R.drawable.ic_placeholder)
+            .build()
+    }
+
+    private fun newLauncherIntent(context: Context?): Intent? {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+        return intent
     }
 
     private fun startRecording(){
@@ -64,6 +131,8 @@ class RecordingService : Service() {
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         mediaRecorder.setOutputFile(file.absolutePath)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mediaRecorder.setAudioEncodingBitRate(128000)
+        mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setAudioChannels(1)
 
 
