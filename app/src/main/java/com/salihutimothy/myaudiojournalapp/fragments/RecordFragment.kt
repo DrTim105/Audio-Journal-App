@@ -1,11 +1,15 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +19,7 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -45,11 +50,6 @@ class RecordFragment : Fragment() {
     private var mPauseRecording = true
     private var timeWhenPaused = 0L
 
-    private val recordPermission: String = Manifest.permission.RECORD_AUDIO
-
-    @RequiresApi(Build.VERSION_CODES.P)
-    private val foregroundPermission: String = Manifest.permission.FOREGROUND_SERVICE
-
     @RequiresApi(Build.VERSION_CODES.P)
     var permissions = arrayOf(
         Manifest.permission.RECORD_AUDIO,
@@ -61,18 +61,16 @@ class RecordFragment : Fragment() {
     private val PERMISSION_CODE = 21
 
     companion object {
-
         fun newInstance() =
             RecordFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        checkPermissions()
+        checkrequestPermissions()
     }
 
     override fun onCreateView(
@@ -98,8 +96,6 @@ class RecordFragment : Fragment() {
 
         recordButton.setOnClickListener {
             onRecord(mStartRecording)
-            mStartRecording = !mStartRecording
-
         }
 
         listButton.setOnClickListener {
@@ -120,8 +116,11 @@ class RecordFragment : Fragment() {
             if (
                 checkPermissions()
             ) {
+                Log.d("RecordFragment", "onREcord - start record")
+                mStartRecording = !mStartRecording
+
                 recordButton.setImageResource(R.drawable.ic_stop)
-                Toast.makeText(context, "Recording started", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
                 val folder = File(context?.getExternalFilesDir(null).toString() + "/MySoundRec")
 
@@ -140,7 +139,6 @@ class RecordFragment : Fragment() {
                     Log.d("TAG", "Chronometer $amp: recorder amplitude: $maxAmplitude ")
                     amp += 100
 
-
                 }
                 timer = Timer()
                 timer.schedule(object : TimerTask() {
@@ -154,10 +152,16 @@ class RecordFragment : Fragment() {
                 activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
                 recordingStatus.text = "Recording..."
+            } else {
+                Log.d("RecordFragment", "onRecord - request permissions")
+                requestPermissions()
             }
 
 
         } else {
+            Log.d("RecordFragment", "onRecord - stop record")
+            mStartRecording = !mStartRecording
+
             recordButton.setImageResource(R.drawable.ic_placeholder)
             chronometer.stop()
             timer.cancel()
@@ -170,12 +174,10 @@ class RecordFragment : Fragment() {
         }
     }
 
-    private fun checkPermissions(): Boolean {
-        //Check permission
-        Log.d("permissions", "checking permission")
+    var listPermissionsNeeded: MutableList<String> = ArrayList()
 
+    private fun checkrequestPermissions() {
         var result: Int
-        val listPermissionsNeeded: MutableList<String> = ArrayList()
         for (p in permissions) {
             result = ActivityCompat.checkSelfPermission(requireContext(), p)
             if (result != PackageManager.PERMISSION_GRANTED) {
@@ -184,72 +186,87 @@ class RecordFragment : Fragment() {
         }
 
         if (listPermissionsNeeded.isNotEmpty()) {
-            Log.d("permissions", "some permission not granted: ${listPermissionsNeeded.toString()}")
-
             ActivityCompat.requestPermissions(
                 requireActivity(),
-//                listPermissionsNeeded.toArray(new String [listPermissionsNeeded.size()]),
                 (listPermissionsNeeded as List<String>).toTypedArray(),
                 PERMISSION_CODE
             )
+        }
 
-            onRecord(true)
+        // reset the permission array
+        listPermissionsNeeded = ArrayList()
+    }
 
+    private fun checkPermissions(): Boolean {
+        //Check permission
+        Log.d("RecordFragment", "permissions - checking permission")
 
+        var result: Int
+        for (p in permissions) {
+            result = ActivityCompat.checkSelfPermission(requireContext(), p)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p)
+            }
+        }
+
+        if (listPermissionsNeeded.isNotEmpty()) {
+            Log.d(
+                "RecordFragment",
+                "permissions - some permission not granted: ${listPermissionsNeeded.toString()}"
+            )
             return false
         }
 
         return true
-
-//        return if (ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                recordPermission,
-//            ) == PackageManager.PERMISSION_GRANTED
-//
-//            && ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                foregroundPermission,
-//            ) == PackageManager.PERMISSION_GRANTED
-//         )  {
-//            //Permission Granted
-//            true
-//        } else {
-//            //Permission not granted, ask for permission
-//            ActivityCompat.requestPermissions(
-//                requireActivity(),
-//                arrayOf(recordPermission, foregroundPermission),
-//                PERMISSION_CODE
-//            )
-//            false
-//        }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissionsList: Array<String>,
-        grantResults: IntArray
-    ) {
-        Log.d("permissions", "requesting permission")
-        when (requestCode) {
-            PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty()) {
-                    var permissionsDenied = ""
-                    for (per in permissionsList) {
-                        if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                            permissionsDenied += """
-                            
-                            $per
-                            """.trimIndent()
-                        }
-                    }
-                    // Show permissionsDenied
+    private fun requestPermissions() {
+        Log.d(
+            "RecordFragment",
+            "permissions - requesting permissions: ${listPermissionsNeeded.toString()}"
+        )
 
-                    if (permissionsDenied == ""){
-                        onRecord(true)
+        checkrequestPermissions()
+
+        checkPermissions()
+
+        for (p in listPermissionsNeeded) {
+            mPermissionResult.launch(p)
+        }
+    }
+
+    private val mPermissionResult = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { result ->
+
+        when {
+            result -> {
+                Log.e(ContentValues.TAG, "onActivityResult: PERMISSION GRANTED")
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) -> {
+
+            }
+            else -> {
+                Log.e(ContentValues.TAG, "onActivityResult: PERMISSION DENIED")
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Permissions Required")
+                    .setMessage("This app may not work correctly without the requested permission. Open the app settings screen to modify app permissions.")
+                    .setPositiveButton("Settings") { _, _ ->
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri = Uri.fromParts("package", requireContext().packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
                     }
-                }
-                return
+                    .setNegativeButton("Cancel") { dialog, which -> }
+                    .create()
+                    .show()
             }
         }
+
+        listPermissionsNeeded = ArrayList()
+
     }
 }

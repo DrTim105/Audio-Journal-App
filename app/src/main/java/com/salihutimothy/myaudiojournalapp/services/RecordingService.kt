@@ -159,7 +159,7 @@ class RecordingService : Service() {
         mediaRecorder.stop()
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
         mediaRecorder.release()
-        Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_SHORT).show()
 
         // add to database
         val recordingItem =
