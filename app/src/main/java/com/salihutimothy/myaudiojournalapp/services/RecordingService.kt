@@ -131,7 +131,7 @@ class RecordingService : Service() {
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         mediaRecorder.setOutputFile(file.absolutePath)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        mediaRecorder.setAudioEncodingBitRate(128000)
+        mediaRecorder.setAudioEncodingBitRate(384000)
         mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setAudioChannels(1)
 
@@ -159,7 +159,7 @@ class RecordingService : Service() {
         mediaRecorder.stop()
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
         mediaRecorder.release()
-        Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_SHORT).show()
 
         // add to database
         val recordingItem =

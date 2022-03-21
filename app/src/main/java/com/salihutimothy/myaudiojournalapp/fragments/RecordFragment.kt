@@ -15,16 +15,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.Chronometer
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.WaveformView
@@ -38,7 +40,7 @@ class RecordFragment : Fragment() {
 
     private lateinit var chronometer: Chronometer
     private lateinit var recordingStatus: TextView
-    private lateinit var recordButton: FloatingActionButton
+    private lateinit var recordButton: ImageButton
     private lateinit var pauseButton: Button
     private lateinit var listButton: Button
     private lateinit var waveformView: WaveformView
@@ -86,13 +88,13 @@ class RecordFragment : Fragment() {
 
         pauseButton = view.findViewById(R.id.btnPause) as Button
         listButton = view.findViewById(R.id.btnList) as Button
-        recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton
+        recordButton = view.findViewById(R.id.btnRecord) as ImageButton
         pauseButton = view.findViewById(R.id.btnPause) as Button
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
         navController = Navigation.findNavController(view)
 
         pauseButton.visibility = View.GONE
-        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
+//        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
 
         recordButton.setOnClickListener {
             onRecord(mStartRecording)
@@ -106,7 +108,7 @@ class RecordFragment : Fragment() {
 
     private fun onRecord(start: Boolean) {
         val intent = Intent(context, RecordingService::class.java)
-        recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
+        recordButton = requireView().findViewById(R.id.btnRecord) as ImageButton
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
@@ -119,8 +121,14 @@ class RecordFragment : Fragment() {
                 Log.d("RecordFragment", "onREcord - start record")
                 mStartRecording = !mStartRecording
 
+//                recordButton.setImageResource(R.drawable.ic_stop)
+//                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
+//                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
+                recordButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_bg_red)
                 recordButton.setImageResource(R.drawable.ic_stop)
-                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
+                recordButton.setPadding(70)
+
+//                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
                 val folder = File(context?.getExternalFilesDir(null).toString() + "/MySoundRec")
 
@@ -162,7 +170,14 @@ class RecordFragment : Fragment() {
             Log.d("RecordFragment", "onRecord - stop record")
             mStartRecording = !mStartRecording
 
-            recordButton.setImageResource(R.drawable.ic_placeholder)
+//            recordButton.setImageResource(R.drawable.ic_placeholder)
+//            recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_start)
+//            recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.green)))
+            recordButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_bg)
+            recordButton.setImageResource(R.drawable.ic_start)
+            recordButton.setPadding(70)
+
+
             chronometer.stop()
             timer.cancel()
             waveformView.clear()
