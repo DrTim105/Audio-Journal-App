@@ -32,7 +32,6 @@
         android:layout_above="@+id/recording_status_txt"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="81dp"
-        android:background="@drawable/record_progress_bar_background"
         android:indeterminate="false"
         android:max="100"
         android:progress="0"

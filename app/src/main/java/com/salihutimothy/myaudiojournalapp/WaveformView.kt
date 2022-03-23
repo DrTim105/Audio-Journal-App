@@ -15,7 +15,7 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
     private var spikes = ArrayList<RectF>()
 
     private var radius = 6f
-    private var spikeWidth = 9f
+    private var spikeWidth = 6f
     private var distance = 6f
     private var screenWidth = 0f
     private var screenHeight = 500f

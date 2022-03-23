@@ -93,7 +93,7 @@ class FileAdapter(
         var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
-        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
+//        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
         var cardView: CardView? = itemView.findViewById(R.id.card_view)
 
         init {

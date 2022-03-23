@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaRecorder
-import android.media.audiofx.NoiseSuppressor
 import android.os.Build
 import android.os.IBinder
-import android.widget.Toast
 import com.salihutimothy.myaudiojournalapp.MainActivity
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
@@ -17,22 +15,16 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
-import android.app.PendingIntent
-
-
-
-
-
 
 
 class RecordingService : Service() {
 
-    private var mediaRecorder : MediaRecorder = MediaRecorder()
-    var mStartingTimeMillis:kotlin.Long = 0
+    private var mediaRecorder: MediaRecorder = MediaRecorder()
+    var mStartingTimeMillis: kotlin.Long = 0
     var mElapsedMillis: Long = 0
-    private lateinit var file : File
+    private lateinit var file: File
     private lateinit var dbHelper: DBHelper
-    var fileName : String? = null
+    var fileName: String? = null
     private lateinit var timer: Timer
 
     private val isRecording = false
@@ -67,7 +59,8 @@ class RecordingService : Service() {
         // depending on the Android API that we're dealing with we will have
         // to use a specific method to create the notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager;
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager;
             val channel = NotificationChannel(
                 notificationChannelId,
                 "Audio Journal notifications channel",
@@ -92,10 +85,11 @@ class RecordingService : Service() {
 //            PendingIntent.getActivity(this, 0, notificationIntent, 0)
 //        }
 
-        val builder: Notification.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) Notification.Builder(
-            this,
-            notificationChannelId
-        ) else Notification.Builder(this)
+        val builder: Notification.Builder =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) Notification.Builder(
+                this,
+                notificationChannelId
+            ) else Notification.Builder(this)
 
         return builder
             .setContentTitle("Audio Journal")
@@ -114,12 +108,12 @@ class RecordingService : Service() {
         return intent
     }
 
-    private fun startRecording(){
+    private fun startRecording() {
         val timeStampLong = System.currentTimeMillis() / 1000
         val timeStamp = timeStampLong.toString()
         timer = Timer()
 
-        fileName = "Mental Note $timeStamp"
+        fileName = "mental note $timeStamp"
 
         file = File(
             applicationContext.getExternalFilesDir(null)

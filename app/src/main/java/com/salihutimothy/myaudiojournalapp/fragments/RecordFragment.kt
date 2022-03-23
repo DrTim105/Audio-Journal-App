@@ -15,19 +15,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.Chronometer
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.melnykov.fab.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.WaveformView
 import com.salihutimothy.myaudiojournalapp.services.RecordingService
@@ -124,9 +123,10 @@ class RecordFragment : Fragment() {
 //                recordButton.setImageResource(R.drawable.ic_stop)
 //                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
-                recordButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_bg_red)
+                recordButton.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red)
                 recordButton.setImageResource(R.drawable.ic_stop)
-                recordButton.setPadding(70)
+                recordButton.setPadding((recordButton.layoutParams.width - 100))
 
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
@@ -148,12 +148,13 @@ class RecordFragment : Fragment() {
                     amp += 100
 
                 }
+
                 timer = Timer()
                 timer.schedule(object : TimerTask() {
                     override fun run() {
                         waveformView.addAmplitude(maxAmplitude)
                     }
-                }, 0, 100)
+                }, 0, 60)
 
                 activity?.startService(intent)
 
@@ -165,7 +166,6 @@ class RecordFragment : Fragment() {
                 requestPermissions()
             }
 
-
         } else {
             Log.d("RecordFragment", "onRecord - stop record")
             mStartRecording = !mStartRecording
@@ -173,10 +173,10 @@ class RecordFragment : Fragment() {
 //            recordButton.setImageResource(R.drawable.ic_placeholder)
 //            recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_start)
 //            recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.green)))
-            recordButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_bg)
+            recordButton.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg)
             recordButton.setImageResource(R.drawable.ic_start)
-            recordButton.setPadding(70)
-
+            recordButton.setPadding((recordButton.layoutParams.width - 100))
 
             chronometer.stop()
             timer.cancel()
