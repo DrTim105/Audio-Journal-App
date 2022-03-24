@@ -27,23 +27,24 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
 
         screenWidth = resources.displayMetrics.widthPixels.toFloat()
 
+
         maxSpikes = (screenWidth / (spikeWidth + distance)).toInt()
     }
 
     fun addAmplitude(amp: Float) {
-        var norm = Math.min((amp.toInt()/50), 400).toFloat()
+        val norm = Math.min((amp.toInt()/50), 400).toFloat()
         amplitudes.add(norm)
 
         spikes.clear()
-        var amps = amplitudes.takeLast(maxSpikes)
+        val amps = amplitudes.takeLast(maxSpikes - 8)
+
         for (i: Int in amps.indices) {
-            var left = screenWidth - i * (spikeWidth + distance)
-            var top = screenHeight/2 - amps[i]/2
-            var right = left + spikeWidth
-            var bottom = top + amps[i]
+            val left = i * (spikeWidth + distance)
+            val top = screenHeight/2 - amps[i]/2
+            val right = left + spikeWidth
+            val bottom = top + amps[i]
 
             spikes.add(RectF(left, top, right, bottom))
-
         }
 
         invalidate()

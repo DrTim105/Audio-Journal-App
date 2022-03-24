@@ -4,10 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
-import java.lang.Exception
-import java.util.ArrayList
+import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
+import java.util.*
 
 
 class DBHelper(private val context: Context) :

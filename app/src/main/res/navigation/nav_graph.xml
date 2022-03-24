@@ -26,5 +26,10 @@
         android:id="@+id/audioListFragment"
         android:name="com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment"
         tools:layout="@layout/fragment_file_viewer"
-        android:label="fragment_file_viewer" />
+        android:label="fragment_file_viewer" >
+
+        <action
+            android:id="@+id/action_audioListFragment_to_recordFragment2"
+            app:destination="@id/recordFragment" />
+    </fragment>
 </navigation>

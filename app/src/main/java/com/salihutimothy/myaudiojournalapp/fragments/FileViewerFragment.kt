@@ -24,7 +24,7 @@ import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
+class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbHelper: DBHelper
@@ -84,13 +84,15 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
         recyclerView.layoutManager = llm
 
         arrayListAudios = dbHelper.getAllAudios()
-
         if (arrayListAudios == null) {
             Toast.makeText(context, "No audio files", Toast.LENGTH_LONG).show()
         } else {
-            fileAdapter = FileAdapter(requireContext(), arrayListAudios!!, llm, this)
+            fileAdapter =
+                FileAdapter(requireContext(), arrayListAudios!!, llm, this@FileViewerFragment)
             recyclerView.adapter = fileAdapter
         }
+
+
 
         playButton.setOnClickListener {
             if (isPlaying) {
@@ -249,6 +251,8 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
     override fun onClickListener(recordingItem: RecordingItem, position: Int) {
         item = recordingItem
 
+
+
         minutes = TimeUnit.MILLISECONDS.toMinutes(item.length)
         seconds =
             TimeUnit.MILLISECONDS.toSeconds(item.length) - TimeUnit.MINUTES.toSeconds(minutes)
@@ -267,6 +271,7 @@ class FileViewerFragment : Fragment(), FileAdapter.OnItemListClick {
             stopPlaying()
         }
     }
+
 
     companion object {
         fun newInstance() =

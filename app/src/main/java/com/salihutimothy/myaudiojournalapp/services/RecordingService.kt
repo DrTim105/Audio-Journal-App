@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import com.salihutimothy.myaudiojournalapp.MainActivity
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
@@ -129,8 +130,6 @@ class RecordingService : Service() {
         mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setAudioChannels(1)
 
-
-
         try {
             mediaRecorder.prepare()
             mediaRecorder.start()
@@ -149,17 +148,32 @@ class RecordingService : Service() {
     }
 
     private fun stopRecording() {
+
         timer.cancel()
-        mediaRecorder.stop()
-        mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
-        mediaRecorder.release()
-//        Toast.makeText(applicationContext, "Recording stopped ${file.absolutePath}", Toast.LENGTH_SHORT).show()
+        try {
+            mediaRecorder.stop()
+            mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
+            mediaRecorder.release()
 
-        // add to database
-        val recordingItem =
-            RecordingItem(fileName, file.absolutePath, mElapsedMillis, System.currentTimeMillis())
+            // add to database
+            val recordingItem =
+                RecordingItem(
+                    fileName,
+                    file.absolutePath,
+                    mElapsedMillis,
+                    System.currentTimeMillis()
+                )
 
-        dbHelper.addRecording(recordingItem)
+            dbHelper.addRecording(recordingItem)
+        } catch (e: RuntimeException) {
+            // handle cleanup here
+            Toast.makeText(
+                applicationContext,
+                "Unable to save recording",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
     }
 
     override fun onDestroy() {

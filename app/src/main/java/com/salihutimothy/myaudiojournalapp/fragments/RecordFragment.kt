@@ -15,10 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.Chronometer
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -33,6 +30,7 @@ import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import com.salihutimothy.myaudiojournalapp.services.RecordingService.Companion.maxAmplitude
 import java.io.File
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class RecordFragment : Fragment() {
@@ -44,6 +42,7 @@ class RecordFragment : Fragment() {
     private lateinit var listButton: Button
     private lateinit var waveformView: WaveformView
     private lateinit var timer: Timer
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var navController: NavController
 
@@ -79,7 +78,7 @@ class RecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_record, container, false)
+        return inflater.inflate(R.layout.fragment_rec, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,6 +89,7 @@ class RecordFragment : Fragment() {
         recordButton = view.findViewById(R.id.btnRecord) as ImageButton
         pauseButton = view.findViewById(R.id.btnPause) as Button
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
+        progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
 
         pauseButton.visibility = View.GONE
@@ -111,6 +111,8 @@ class RecordFragment : Fragment() {
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
+        progressBar = requireView().findViewById(R.id.recordProgressBar) as ProgressBar
+        navController = Navigation.findNavController(requireView())
 
         if (start) {
             // check permission to record audio
@@ -124,9 +126,12 @@ class RecordFragment : Fragment() {
 //                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
                 recordButton.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red)
-                recordButton.setImageResource(R.drawable.ic_stop)
-                recordButton.setPadding((recordButton.layoutParams.width - 100))
+                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
+                recordButton.setImageResource(R.drawable.ic_stopp)
+                recordButton.setPadding(dpToPx(27))
+
+                progressBar.progressDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
 
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
@@ -167,16 +172,25 @@ class RecordFragment : Fragment() {
             }
 
         } else {
+
             Log.d("RecordFragment", "onRecord - stop record")
             mStartRecording = !mStartRecording
 
 //            recordButton.setImageResource(R.drawable.ic_placeholder)
 //            recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_start)
 //            recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.green)))
+
+            activity?.stopService(intent)
+
+            progressBar.progressDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar)
+
             recordButton.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg)
-            recordButton.setImageResource(R.drawable.ic_start)
-            recordButton.setPadding((recordButton.layoutParams.width - 100))
+                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_white)
+            recordButton.setImageResource(R.drawable.ic_startt)
+            recordButton.setPadding(dpToPx(27))
+
+
 
             chronometer.stop()
             timer.cancel()
@@ -185,8 +199,15 @@ class RecordFragment : Fragment() {
             timeWhenPaused = 0
             recordingStatus.text = "Tap the Button to start recording"
 
-            activity?.stopService(intent)
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+
         }
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        val density: Float = requireContext().resources
+            .displayMetrics.density
+        return (dp.toFloat() * density).roundToInt()
     }
 
     var listPermissionsNeeded: MutableList<String> = ArrayList()
@@ -283,5 +304,11 @@ class RecordFragment : Fragment() {
 
         listPermissionsNeeded = ArrayList()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(context, RecordingService::class.java)
+        activity?.stopService(intent)
     }
 }

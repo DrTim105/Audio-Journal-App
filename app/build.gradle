@@ -46,6 +46,8 @@ dependencies {
 
     implementation 'com.melnykov:floatingactionbutton:1.1.0'
 
-
     implementation 'com.jakewharton:butterknife:8.6.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+
 }

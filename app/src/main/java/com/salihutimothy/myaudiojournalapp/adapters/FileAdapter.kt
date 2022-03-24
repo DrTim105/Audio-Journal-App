@@ -1,24 +1,19 @@
 package com.salihutimothy.myaudiojournalapp.adapters
 
 import android.content.Context
-import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
-import com.salihutimothy.myaudiojournalapp.fragments.PlaybackFragment
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
-import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -32,6 +27,7 @@ class FileAdapter(
     private val dbHelper: DBHelper = DBHelper(context)
 
     private var ten = 10
+    private var selectedPos = RecyclerView.NO_POSITION
 
     override fun onBindViewHolder(holder: FileAdapter.FileViewerViewHolder, position: Int) {
         val recordingItem: RecordingItem = arrayList[position]
@@ -40,6 +36,8 @@ class FileAdapter(
             TimeUnit.MILLISECONDS.toSeconds(recordingItem.length) - TimeUnit.MINUTES.toSeconds(
                 minutes
             )
+
+
         holder.tvRecordName!!.text = recordingItem.name
         holder.tvRecordLength!!.text = String.format("%02d:%02d", minutes, seconds)
         holder.tvRecordTime!!.text = DateUtils.formatDateTime(
@@ -48,17 +46,15 @@ class FileAdapter(
                     or DateUtils.FORMAT_SHOW_YEAR
         )
 
-//        holder.cardView!!.setOnClickListener {
-//            val playbackFragment = PlaybackFragment()
-//            val b = Bundle()
-//            b.putSerializable("item", arrayList[position])
-//            playbackFragment.arguments = b
-//            val fragmentTransaction: FragmentTransaction = (context as FragmentActivity)
-//                .supportFragmentManager
-//                .beginTransaction()
-//
-//            playbackFragment.(fragmentTransaction, "dialog_playback")
-//        }
+        holder.itemView.isSelected = selectedPos == position
+
+        if (selectedPos == position) {
+            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.green)))
+        } else {
+            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.black)))
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -88,12 +84,14 @@ class FileAdapter(
     }
 
 
-    inner class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
-//        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
+
+        //        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
         var cardView: CardView? = itemView.findViewById(R.id.card_view)
 
         init {
@@ -101,6 +99,10 @@ class FileAdapter(
         }
 
         override fun onClick(v: View?) {
+            notifyItemChanged(selectedPos)
+            selectedPos = layoutPosition
+            notifyItemChanged(selectedPos)
+
             onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
         }
 
