@@ -16,6 +16,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="cardBackgroundColor">#F0F0F0</item>
 
+
     </style>
     <dimen name="design_fab_size_normal">100dp</dimen>
 
@@ -30,6 +31,7 @@
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomRight">50dp</item>
         <item name="cornerSizeBottomLeft">50dp</item>
+        <item name="android:padding">0dp</item>
     </style>
 
 </resources>

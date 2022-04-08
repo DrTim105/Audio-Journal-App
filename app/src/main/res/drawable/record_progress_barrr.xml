@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="ring"
+    android:thickness="3dp"
+    android:useLevel="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<!--            <gradient-->
+<!--                android:startColor="#FDC3B3"-->
+<!--                android:endColor="#f4510d"-->
+<!--                android:angle="270" />-->
+
+    <solid android:color="#FDC3B3"/>
+
+<!--                <size-->
+<!--                    android:width="80dp"-->
+<!--                    android:height="80dp" />-->
+
+<!--            <stroke-->
+<!--                android:width="2dp"-->
+<!--                android:color="#f4510d" />-->
+
+<!--            <corners-->
+<!--                android:radius="4dp" />-->
+<!--            <padding-->
+<!--                android:left="10dp"-->
+<!--                android:top="10dp"-->
+<!--                android:right="10dp"-->
+<!--                android:bottom="10dp" />-->
+        </shape>

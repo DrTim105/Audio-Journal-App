@@ -16,6 +16,8 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
+import android.os.Environment
+import android.util.Log
 
 
 class RecordingService : Service() {
@@ -116,10 +118,18 @@ class RecordingService : Service() {
 
         fileName = "mental note $timeStamp"
 
-        file = File(
-            applicationContext.getExternalFilesDir(null)
-                .toString() + "/MySoundRec/" + fileName + ".mp3"
-        )
+//        file = File(
+//            applicationContext.getExternalFilesDir(null)
+//                .toString() + "/MySoundRec/" + fileName + ".mp3"
+//        )
+
+        val root = Environment.getExternalStorageDirectory().toString()
+        val outputFile = File("$root/Audio Journal")
+        if (!outputFile.exists()) {
+            outputFile.mkdirs()
+        }
+
+        file = File("$outputFile/$fileName.mp3")
 
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)
@@ -129,6 +139,8 @@ class RecordingService : Service() {
         mediaRecorder.setAudioEncodingBitRate(384000)
         mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setAudioChannels(1)
+
+        Log.d("Storage - start service", "File path : ${outputFile.absolutePath} ")
 
         try {
             mediaRecorder.prepare()
@@ -163,6 +175,8 @@ class RecordingService : Service() {
                     mElapsedMillis,
                     System.currentTimeMillis()
                 )
+            Log.d("Storage - stop service", "File path : ${file.absolutePath} ")
+
 
             dbHelper.addRecording(recordingItem)
         } catch (e: RuntimeException) {

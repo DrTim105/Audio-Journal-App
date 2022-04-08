@@ -36,7 +36,7 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
         amplitudes.add(norm)
 
         spikes.clear()
-        val amps = amplitudes.takeLast(maxSpikes - 8)
+        val amps = amplitudes.takeLast(maxSpikes - 10)
 
         for (i: Int in amps.indices) {
             val left = i * (spikeWidth + distance)

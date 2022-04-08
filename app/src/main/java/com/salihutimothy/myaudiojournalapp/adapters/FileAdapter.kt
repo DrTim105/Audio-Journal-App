@@ -51,7 +51,7 @@ class FileAdapter(
         if (selectedPos == position) {
             holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.green)))
         } else {
-            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.black)))
+            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.textColorPrimary)))
         }
 
 

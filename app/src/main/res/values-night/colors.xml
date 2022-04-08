@@ -12,6 +12,5 @@
     <color name="green">#09F312</color>
     <color name="red">#EE3232</color>
 
-    <color name="textColorPrimary">#FF000000</color>
-
+    <color name="textColorPrimary">#FFFFFFFF</color>
 </resources>

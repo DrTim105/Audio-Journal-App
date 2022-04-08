@@ -20,6 +20,7 @@ import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -188,11 +189,16 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         playButton.setImageResource(R.drawable.ic_placeholder)
         mediaPlayer = MediaPlayer()
-        mediaPlayer!!.setDataSource(item.path)
+        try {
+            mediaPlayer!!.setDataSource(item.path)
+            mediaPlayer!!.prepare()
+            mediaPlayer!!.start()
+            seekBar.max = mediaPlayer!!.duration
 
-        mediaPlayer!!.prepare()
-        mediaPlayer!!.start()
-        seekBar.max = mediaPlayer!!.duration
+        } catch (e: IOException) {
+            Toast.makeText(context, "Recording not found", Toast.LENGTH_SHORT).show()
+        }
+
         mediaPlayer!!.setOnPreparedListener { mediaPlayer!!.start() }
         mediaPlayer!!.setOnCompletionListener { stopPlaying() }
         updateSeekbar()

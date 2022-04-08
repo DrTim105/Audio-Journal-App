@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
@@ -92,7 +93,7 @@ class RecordFragment : Fragment() {
         progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
 
-        pauseButton.visibility = View.GONE
+//        pauseButton.visibility = View.GONE
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
 
         recordButton.setOnClickListener {
@@ -101,6 +102,10 @@ class RecordFragment : Fragment() {
 
         listButton.setOnClickListener {
             navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+        }
+
+        pauseButton.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
     }
@@ -126,12 +131,12 @@ class RecordFragment : Fragment() {
 //                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
                 recordButton.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_whit)
                 recordButton.setImageResource(R.drawable.ic_stopp)
                 recordButton.setPadding(dpToPx(27))
 
-                progressBar.progressDrawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
+//                progressBar.progressDrawable =
+//                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
 
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
@@ -182,15 +187,13 @@ class RecordFragment : Fragment() {
 
             activity?.stopService(intent)
 
-            progressBar.progressDrawable =
-                ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar)
+//            progressBar.progressDrawable =
+//                ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar)
 
             recordButton.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_white)
-            recordButton.setImageResource(R.drawable.ic_startt)
+                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_orange)
+            recordButton.setImageResource(R.drawable.ic_mic)
             recordButton.setPadding(dpToPx(27))
-
-
 
             chronometer.stop()
             timer.cancel()
@@ -198,8 +201,7 @@ class RecordFragment : Fragment() {
             chronometer.base = SystemClock.elapsedRealtime()
             timeWhenPaused = 0
             recordingStatus.text = "Tap the Button to start recording"
-
-            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+//            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
 
         }
     }
