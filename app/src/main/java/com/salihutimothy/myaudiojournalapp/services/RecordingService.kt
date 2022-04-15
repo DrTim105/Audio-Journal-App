@@ -99,7 +99,7 @@ class RecordingService : Service() {
             .setContentText("Recording...")
             .setContentIntent(intent)
             .setOngoing(true)
-            .setSmallIcon(R.drawable.ic_placeholder)
+            .setSmallIcon(R.drawable.ic_mic)
             .build()
     }
 
