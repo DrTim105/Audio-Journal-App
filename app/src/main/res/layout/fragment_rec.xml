@@ -76,15 +76,14 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_bg2"
         android:fontFamily="sans-serif-condensed"
-        android:text="dark"
-        android:textAllCaps="true"
-        android:background="@drawable/button_bg_orange"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_setting"
         app:layout_constraintBottom_toBottomOf="@+id/btnRecord"
         app:layout_constraintEnd_toStartOf="@+id/btnRecord"
         app:layout_constraintHorizontal_bias="0.47"
@@ -94,14 +93,12 @@
 
     <ImageButton
         android:id="@+id/btnList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_bg2"
         android:fontFamily="sans-serif-condensed"
-        android:text="List"
-        android:background="@drawable/button_bg_orange"
-        android:textAllCaps="true"
-
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_list1"
         app:layout_constraintBottom_toBottomOf="@+id/btnRecord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRecord"

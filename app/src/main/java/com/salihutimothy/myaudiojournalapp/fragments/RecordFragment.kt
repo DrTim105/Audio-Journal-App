@@ -1,10 +1,12 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -39,8 +41,8 @@ class RecordFragment : Fragment() {
     private lateinit var chronometer: Chronometer
     private lateinit var recordingStatus: TextView
     private lateinit var recordButton: ImageButton
-    private lateinit var pauseButton: Button
-    private lateinit var listButton: Button
+    private lateinit var pauseButton: ImageButton
+    private lateinit var listButton: ImageButton
     private lateinit var waveformView: WaveformView
     private lateinit var timer: Timer
     private lateinit var progressBar: ProgressBar
@@ -85,10 +87,9 @@ class RecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pauseButton = view.findViewById(R.id.btnPause) as Button
-        listButton = view.findViewById(R.id.btnList) as Button
+        pauseButton = view.findViewById(R.id.btnPause) as ImageButton
+        listButton = view.findViewById(R.id.btnList) as ImageButton
         recordButton = view.findViewById(R.id.btnRecord) as ImageButton
-        pauseButton = view.findViewById(R.id.btnPause) as Button
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
         progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
@@ -131,7 +132,7 @@ class RecordFragment : Fragment() {
 //                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
                 recordButton.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_whit)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
                 recordButton.setImageResource(R.drawable.ic_stopp)
                 recordButton.setPadding(dpToPx(27))
 
@@ -139,12 +140,6 @@ class RecordFragment : Fragment() {
 //                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
 
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
-
-                val folder = File(context?.getExternalFilesDir(null).toString() + "/MySoundRec")
-
-                if (!folder.exists()) {
-                    folder.mkdir()
-                }
 
                 chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"
@@ -201,7 +196,7 @@ class RecordFragment : Fragment() {
             chronometer.base = SystemClock.elapsedRealtime()
             timeWhenPaused = 0
             recordingStatus.text = "Tap the Button to start recording"
-//            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
 
         }
     }
@@ -313,4 +308,6 @@ class RecordFragment : Fragment() {
         val intent = Intent(context, RecordingService::class.java)
         activity?.stopService(intent)
     }
+
+
 }
