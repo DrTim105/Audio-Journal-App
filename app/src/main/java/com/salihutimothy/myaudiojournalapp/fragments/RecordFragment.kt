@@ -110,9 +110,19 @@ class RecordFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
+        var prompt = true
+
         progressBar.setOnClickListener {
-            journalPrompt.setCharacterDelay(70)
-            journalPrompt.animateText("What are three things you are grateful for today? ^-^ \uD83D\uDE0A")
+            if (prompt) {
+                journalPrompt.setCharacterDelay(70)
+                journalPrompt.animateText("What are 3 things you are grateful for today? ^-^")
+                prompt = !prompt
+            } else {
+                journalPrompt.setCharacterDelay(70)
+                journalPrompt.animateText("What does love mean to you? ^v^")
+                prompt = !prompt
+            }
+
         }
 
     }
