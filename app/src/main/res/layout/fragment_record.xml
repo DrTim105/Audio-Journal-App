@@ -28,7 +28,7 @@
         android:background="@drawable/layout_bg2"
         android:padding="10dp">
 
-        <com.salihutimothy.myaudiojournalapp.WaveformView
+        <com.salihutimothy.myaudiojournalapp.views.WaveformView
             android:id="@+id/waveformView"
             android:layout_width="match_parent"
             android:layout_height="500px"

@@ -1,4 +1,4 @@
-package com.salihutimothy.myaudiojournalapp
+package com.salihutimothy.myaudiojournalapp.views
 
 import android.content.Context
 import android.graphics.Canvas

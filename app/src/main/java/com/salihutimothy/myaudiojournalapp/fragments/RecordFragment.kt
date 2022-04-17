@@ -1,12 +1,10 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -28,10 +26,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.salihutimothy.myaudiojournalapp.R
-import com.salihutimothy.myaudiojournalapp.WaveformView
+import com.salihutimothy.myaudiojournalapp.views.WaveformView
 import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import com.salihutimothy.myaudiojournalapp.services.RecordingService.Companion.maxAmplitude
-import java.io.File
+import com.salihutimothy.myaudiojournalapp.views.Typewriter
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -44,6 +42,7 @@ class RecordFragment : Fragment() {
     private lateinit var pauseButton: ImageButton
     private lateinit var listButton: ImageButton
     private lateinit var waveformView: WaveformView
+    private lateinit var journalPrompt: Typewriter
     private lateinit var timer: Timer
     private lateinit var progressBar: ProgressBar
 
@@ -91,6 +90,7 @@ class RecordFragment : Fragment() {
         listButton = view.findViewById(R.id.btnList) as ImageButton
         recordButton = view.findViewById(R.id.btnRecord) as ImageButton
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
+        journalPrompt = view.findViewById(R.id.journalTxt) as Typewriter
         progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
 
@@ -98,6 +98,7 @@ class RecordFragment : Fragment() {
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
 
         recordButton.setOnClickListener {
+            journalPrompt.text = ""
             onRecord(mStartRecording)
         }
 
@@ -107,6 +108,11 @@ class RecordFragment : Fragment() {
 
         pauseButton.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        progressBar.setOnClickListener {
+            journalPrompt.setCharacterDelay(70)
+            journalPrompt.animateText("What are three things you are grateful for today? ^-^ \uD83D\uDE0A")
         }
 
     }

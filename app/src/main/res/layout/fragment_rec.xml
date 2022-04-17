@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/btnRecord"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_bg_orange"
         android:padding="27dp"
@@ -24,8 +22,8 @@
         style="@style/CustomCardViewStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="16dp"
         app:cardBackgroundColor="?attr/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/btnRecord"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,15 +34,33 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <com.salihutimothy.myaudiojournalapp.WaveformView
-                android:id="@+id/waveformView"
-                android:layout_width="match_parent"
-                android:layout_height="500px"
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/wave_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.salihutimothy.myaudiojournalapp.views.WaveformView
+                    android:id="@+id/waveformView"
+                    android:layout_width="match_parent"
+                    android:layout_height="500px"
+                    android:background="@drawable/wave_bg" />
+
+                <com.salihutimothy.myaudiojournalapp.views.Typewriter
+                    android:id="@+id/journalTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:text=""
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
 
             <ProgressBar
                 android:id="@+id/recordProgressBar"
@@ -54,19 +70,19 @@
                 android:indeterminate="false"
                 android:max="100"
                 android:progress="0"
-                android:progressDrawable="@drawable/record_progress_bar_stop"
+                android:progressDrawable="@drawable/button_bg_red2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/waveformView" />
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
             <Chronometer
                 android:id="@+id/chronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
-                android:textSize="70sp"
                 android:textColor="#f4510d"
+                android:textSize="70sp"
                 app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
                 app:layout_constraintStart_toStartOf="@+id/recordProgressBar"
@@ -78,9 +94,9 @@
 
     <ImageButton
         android:id="@+id/btnPause"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button_bg2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_bg"
         android:fontFamily="sans-serif-condensed"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_setting"
@@ -93,9 +109,9 @@
 
     <ImageButton
         android:id="@+id/btnList"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button_bg2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_bg"
         android:fontFamily="sans-serif-condensed"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_list1"
@@ -111,10 +127,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/manrope"
-        android:visibility="invisible"
         android:text="skjdfkjskdfjakjfjasjfiwaermdnf d"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnRecord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
