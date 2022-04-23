@@ -148,7 +148,7 @@
         android:background="@drawable/button_bg"
         android:fontFamily="sans-serif-condensed"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_list1"
+        android:src="@drawable/ic_list"
         app:layout_constraintBottom_toBottomOf="@+id/btnRecord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRecord"
