@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var playButton: ImageView
     private lateinit var forwardButton: ImageView
     private lateinit var backwardButton: ImageView
+    private lateinit var playbackLayout: CoordinatorLayout
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
@@ -74,6 +76,9 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         fileLength = view.findViewById(R.id.file_length_text_view) as TextView
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
         seekBar = view.findViewById(R.id.seekbar) as SeekBar
+        playbackLayout = view.findViewById(R.id.playback) as CoordinatorLayout
+
+        setViewAndChildrenEnabled(playbackLayout, false)
 
         setSeekbarValues(view)
 
@@ -85,6 +90,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         recyclerView.layoutManager = llm
 
         arrayListAudios = dbHelper.getAllAudios()
+
         if (arrayListAudios == null) {
             Toast.makeText(context, "No audio files", Toast.LENGTH_LONG).show()
         } else {
@@ -255,6 +261,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
 
     override fun onClickListener(recordingItem: RecordingItem, position: Int) {
+
+        playbackLayout = requireView().findViewById(R.id.playback) as CoordinatorLayout
+
+        setViewAndChildrenEnabled(playbackLayout, true)
+
         item = recordingItem
 
 
@@ -268,6 +279,17 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             startPlaying()
         } else {
             startPlaying()
+        }
+    }
+
+    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            val viewGroup = view
+            for (i in 0 until viewGroup.childCount) {
+                val child = viewGroup.getChildAt(i)
+                setViewAndChildrenEnabled(child, enabled)
+            }
         }
     }
 

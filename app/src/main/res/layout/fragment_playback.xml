@@ -8,6 +8,7 @@
     android:layout_gravity="bottom"
     android:transitionName="open_mediaplayer"
     android:clickable="true"
+    android:id="@+id/playback"
     android:background="@drawable/playback_bg">
 
 
@@ -31,8 +32,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="monospace"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/averia_serif_libre_bold"
+            android:maxLines="1"
             android:textSize="14sp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +95,7 @@
                 app:fab_shadow="false"
                 app:layout_constraintEnd_toStartOf="@+id/play_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                app:tint="@color/base" />
 
             <ImageView
                 android:id="@+id/iv_forward"
@@ -102,7 +107,7 @@
                 app:fab_shadow="false"
                 app:layout_constraintStart_toEndOf="@+id/play_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                app:tint="@color/base" />
 
 
             <TextView
@@ -113,7 +118,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="16dp"
-
                 android:text="00:00"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -14,6 +14,9 @@
 
     <color name="textColorPrimary">#FFFFFFFF</color>
     <color name="whitee">#FF000000</color>
+    <color name="accentz">#F4692E</color>
+    <color name="darkbase">#f4510d</color>
+    <color name="textColor">#E87747</color>
     <color name="accent">#FF000000</color>
     <color name="base">#434343</color>
     <color name="wave">#434343</color>

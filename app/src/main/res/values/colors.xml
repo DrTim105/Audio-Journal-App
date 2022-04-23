@@ -20,5 +20,9 @@
 <!--    <color name="wave">#F6946B</color>-->
     <color name="wave">#DAD9D9</color>
 
+    <color name="accentz">#f4510d</color>
+    <color name="darkbase">#f4510d</color>
+    <color name="textColor">#F6733E</color>
+
 
 </resources>

@@ -7,17 +7,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Build
+import android.os.Environment
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import com.salihutimothy.myaudiojournalapp.MainActivity
 import com.salihutimothy.myaudiojournalapp.R
+import com.salihutimothy.myaudiojournalapp.database.Constants.mentalNote
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
-import android.os.Environment
-import android.util.Log
 
 
 class RecordingService : Service() {
@@ -31,6 +32,7 @@ class RecordingService : Service() {
     private lateinit var timer: Timer
 
     private val isRecording = false
+    private var promptName: String? = null
 
     private val recordPermission: String = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_CODE = 21
@@ -52,6 +54,15 @@ class RecordingService : Service() {
 
         var notification = createNotification()
         startForeground(1, notification)
+
+        if (intent != null) {
+            val bundle = intent.extras
+            if (bundle != null) {
+                promptName = bundle.getString("prompt")
+            }
+        }
+
+        Log.d("TAG", "promptname 3 $promptName")
         startRecording()
         return START_STICKY
     }
@@ -116,7 +127,11 @@ class RecordingService : Service() {
         val timeStamp = timeStampLong.toString()
         timer = Timer()
 
-        fileName = "mental note $timeStamp"
+        fileName = if (promptName == null) {
+            "mental note " + mentalNote.toString().padStart(3, '0')
+        } else {
+            promptName
+        }
 
 //        file = File(
 //            applicationContext.getExternalFilesDir(null)
@@ -147,11 +162,14 @@ class RecordingService : Service() {
             mediaRecorder.start()
             mStartingTimeMillis = System.currentTimeMillis()
 //            maxAmplitude = 1000f
+
             timer.schedule(object : TimerTask() {
                 override fun run() {
                     maxAmplitude = mediaRecorder.maxAmplitude.toFloat()
+                    Log.d("RecordingService", "timer still running $maxAmplitude")
+
                 }
-            }, 0, 100) //wait 0 ms before doing the action and do it evry 1000ms (1second)
+            }, 0, 60) //wait 0 ms before doing the action and do it evry 1000ms (1second)
 
 
         } catch (e: IOException) {
@@ -161,11 +179,9 @@ class RecordingService : Service() {
 
     private fun stopRecording() {
 
-        timer.cancel()
         try {
             mediaRecorder.stop()
             mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis)
-            mediaRecorder.release()
 
             // add to database
             val recordingItem =
@@ -179,6 +195,11 @@ class RecordingService : Service() {
 
 
             dbHelper.addRecording(recordingItem)
+            mentalNote++
+
+            mediaRecorder.reset()
+            mediaRecorder.release()
+
         } catch (e: RuntimeException) {
             // handle cleanup here
             Toast.makeText(
@@ -187,10 +208,10 @@ class RecordingService : Service() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
     }
 
     override fun onDestroy() {
+        timer.cancel()
         stopRecording()
         super.onDestroy()
     }

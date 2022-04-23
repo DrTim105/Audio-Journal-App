@@ -7,6 +7,9 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import com.salihutimothy.myaudiojournalapp.R
 
 class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs) {
 
@@ -23,7 +26,9 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
     private var maxSpikes = 0
 
     init {
-        paint.color = Color.rgb(244, 81, 13)
+//        paint.color = Color.rgb(244, 81, 13)
+
+        paint.color = ContextCompat.getColor(context!!, (R.color.accentz))
 
         screenWidth = resources.displayMetrics.widthPixels.toFloat()
 

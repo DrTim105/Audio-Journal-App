@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@android:color/darker_gray">
-    <item android:id="@android:id/mask">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
         <shape android:shape="rectangle">
-            <solid android:color="#434343" />
+            <solid android:color="#F6946B" />
             <corners android:radius="10dp" />
             <padding
                 android:left="10dp"
@@ -15,11 +14,14 @@
 
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <gradient
-                android:angle="90"
-                android:endColor="#f4510d"
-                android:startColor="#f4510d"
-                android:type="linear" />
+<!--            <gradient-->
+<!--                android:angle="90"-->
+<!--                android:endColor="#f4510d"-->
+<!--                android:startColor="#f4510d"-->
+<!--                android:type="linear" />-->
+
+            <solid android:color="@color/accentz"/>
+
             <corners android:radius="10dp" />
             <padding
                 android:left="10dp"
@@ -28,7 +30,7 @@
                 android:bottom="10dp" />
         </shape>
     </item>
-</ripple>
+</selector>
 
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->

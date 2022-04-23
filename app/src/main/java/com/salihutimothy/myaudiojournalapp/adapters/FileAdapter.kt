@@ -2,6 +2,7 @@ package com.salihutimothy.myaudiojournalapp.adapters
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,8 @@ class FileAdapter(
     private var selectedPos = RecyclerView.NO_POSITION
 
     override fun onBindViewHolder(holder: FileAdapter.FileViewerViewHolder, position: Int) {
+        Log.d("TAG", "Binding item at position $position")
+
         val recordingItem: RecordingItem = arrayList[position]
         val minutes = TimeUnit.MILLISECONDS.toMinutes(recordingItem.length)
         val seconds =
@@ -49,7 +52,7 @@ class FileAdapter(
         holder.itemView.isSelected = selectedPos == position
 
         if (selectedPos == position) {
-            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.green)))
+            holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.accentz)))
         } else {
             holder.tvRecordName!!.setTextColor(ContextCompat.getColor(context, (R.color.textColorPrimary)))
         }

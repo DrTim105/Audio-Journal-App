@@ -1,9 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="#DFFFA5"/>
-    <corners android:topRightRadius="50dp"
-        android:topLeftRadius="50dp"/>
+<!--    <item android:state_pressed="true" >-->
+<!--        <shape>-->
+<!--            <solid-->
+<!--                android:color="#F6946B" />-->
+<!--            <stroke-->
+<!--                android:width="1dp"-->
+<!--                android:color="#f4510d" />-->
+<!--            <corners-->
+<!--                android:radius="3dp" />-->
+
+<!--        </shape>-->
+<!--    </item>-->
+
+    <item>
+        <shape>
+            <gradient
+                android:startColor="@color/accentz"
+                android:endColor="@color/darkbase"
+                android:angle="270" />
+
+<!--            <solid android:color="@color/accentz"/>-->
+
+                <corners android:topRightRadius="50dp"
+                    android:topLeftRadius="50dp"/>
+
+        </shape>
+    </item>
+
+</selector>
 
 
-</shape>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--    <solid android:color="@color/accentz"/>-->
+<!--    <corners android:topRightRadius="50dp"-->
+<!--        android:topLeftRadius="50dp"/>-->
+
+
+<!--</shape>-->

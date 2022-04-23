@@ -43,6 +43,7 @@ class DBHelper(private val context: Context) :
         val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
         val db = this.readableDatabase
         val cursor = db.rawQuery("select * from $TABLE_NAME", null)
+
         return if (cursor != null) {
             while (cursor.moveToNext()) {
                 val name = cursor.getString(1)
@@ -50,6 +51,7 @@ class DBHelper(private val context: Context) :
                 val length = cursor.getLong(3)
                 val timeAdded = cursor.getLong(4)
                 val recordingItem = RecordingItem(name, path, length, timeAdded)
+
                 arrayList.add(recordingItem)
             }
             cursor.close()

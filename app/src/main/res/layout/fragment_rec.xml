@@ -49,6 +49,18 @@
                     android:layout_height="500px"
                     android:background="@drawable/wave_bg" />
 
+                <ImageButton
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next"
+                    android:background="@drawable/button_bg_black"
+                    android:layout_alignEnd="@+id/waveformView"
+                    android:layout_marginEnd="2dp"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    />
+
                 <com.salihutimothy.myaudiojournalapp.views.Typewriter
                     android:id="@+id/journalTxt"
                     android:layout_width="match_parent"
@@ -56,11 +68,15 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/aref_ruqaa_bold"
+                    android:layout_toLeftOf="@id/next"
+                    android:fontFamily="@font/averia_serif_libre_bold"
+                    android:lineSpacingExtra="4sp"
                     android:text=""
-                    android:textSize="18sp" />
+                    android:textColor="@color/accentz"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
@@ -79,12 +95,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
+            <TextView
+                android:id="@+id/tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_bold"
+                android:text="00:00"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/accentz"
+                android:textSize="70sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/recordProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/recordProgressBar" />
+
             <Chronometer
                 android:id="@+id/chronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:textColor="#f4510d"
+                android:fontFamily="@font/alegreya_bold"
+                android:textColor="@color/accentz"
                 android:textSize="70sp"
                 app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
