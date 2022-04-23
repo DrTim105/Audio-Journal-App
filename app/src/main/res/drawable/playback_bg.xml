@@ -17,7 +17,7 @@
         <shape>
             <gradient
                 android:startColor="@color/accentz"
-                android:endColor="@color/accentz"
+                android:endColor="#E34D10"
                 android:angle="270" />
 
 <!--            <solid android:color="@color/accentz"/>-->

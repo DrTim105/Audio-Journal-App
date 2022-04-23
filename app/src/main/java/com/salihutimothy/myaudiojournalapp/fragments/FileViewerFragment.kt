@@ -48,6 +48,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private var isPlaying = false
     var minutes: Long = 0
     var seconds: Long = 0
+    val seekTime = 5000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +109,30 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                     resumePlaying()
                 }
             }
+        }
+
+        forwardButton.setOnClickListener{
+            val currentPosition = mediaPlayer!!.currentPosition
+            if (currentPosition + seekTime <= mediaPlayer!!.duration) {
+                mediaPlayer!!.seekTo(currentPosition + seekTime)
+            } else {
+                mediaPlayer!!.seekTo(mediaPlayer!!.duration)
+
+            }
+
+            updateSeekbar()
+        }
+
+        backwardButton.setOnClickListener {
+            val currentPosition = mediaPlayer!!.currentPosition
+            if (currentPosition - seekTime >= 0) {
+                mediaPlayer!!.seekTo(currentPosition - seekTime)
+            } else {
+                mediaPlayer!!.seekTo(0)
+
+            }
+
+            updateSeekbar()
         }
     }
 
@@ -198,6 +223,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         playButton.setImageResource(R.drawable.ic_pause)
         mediaPlayer = MediaPlayer()
         try {
+            mediaPlayer!!.reset()
             mediaPlayer!!.setDataSource(item.path)
             mediaPlayer!!.prepare()
             mediaPlayer!!.start()
