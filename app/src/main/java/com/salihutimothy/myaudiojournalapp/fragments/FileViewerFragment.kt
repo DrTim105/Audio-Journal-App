@@ -21,7 +21,6 @@ import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
-import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -162,13 +161,16 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private fun pausePlaying() {
         playButton = requireActivity().findViewById(R.id.play_iv)
 
-        playButton.setImageResource(R.drawable.ic_stop)
+        playButton.setImageResource(R.drawable.ic_play)
         handler.removeCallbacks(mRunnable)
         isPlaying = false
         mediaPlayer?.pause()
     }
 
     private fun resumePlaying() {
+        playButton = requireActivity().findViewById(R.id.play_iv)
+        playButton.setImageResource(R.drawable.ic_pause)
+
         if (mediaPlayer != null) {
             mediaPlayer!!.start()
         } else {
@@ -193,7 +195,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         fileName.text = item.name
         fileLength.text = String.format("%02d:%02d", minutes, seconds)
 
-        playButton.setImageResource(R.drawable.ic_placeholder)
+        playButton.setImageResource(R.drawable.ic_pause)
         mediaPlayer = MediaPlayer()
         try {
             mediaPlayer!!.setDataSource(item.path)
@@ -228,7 +230,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         seekBar = requireActivity().findViewById(R.id.seekbar)
 
 
-        playButton.setImageResource(R.drawable.ic_placeholder)
+        playButton.setImageResource(R.drawable.ic_play)
         handler.removeCallbacks(mRunnable)
         mediaPlayer?.stop()
         mediaPlayer?.reset()

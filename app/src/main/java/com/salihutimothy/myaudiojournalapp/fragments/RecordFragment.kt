@@ -17,10 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Chronometer
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
@@ -212,8 +209,9 @@ class RecordFragment : Fragment() {
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
                 recordButton.background =
                     ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
-                recordButton.setImageResource(R.drawable.ic_stopp)
-                recordButton.setPadding(dpToPx(27))
+                recordButton.setImageResource(R.drawable.ic_stop)
+                recordButton.setPadding(dpToPx(25))
+                recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
 
 //                progressBar.progressDrawable =
 //                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
@@ -281,7 +279,9 @@ class RecordFragment : Fragment() {
             recordButton.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_orange)
             recordButton.setImageResource(R.drawable.ic_mic)
-            recordButton.setPadding(dpToPx(27))
+            recordButton.setPadding(dpToPx(25))
+            recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
+
 
             chronometer.stop()
             timer.cancel()
@@ -292,7 +292,7 @@ class RecordFragment : Fragment() {
 
             activity?.stopService(intent)
 
-            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+//            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
 
         }
     }
