@@ -97,7 +97,7 @@ object Constants {
         journalPrompts.add("What are 5 book titles you could write?")
         journalPrompts.add("What new thing have you learned recently?")
         journalPrompts.add("What would you do if money was no object?")
-        journalPrompts.add("If you could talk with your future self, what would you say?")
+        journalPrompts.add("Record a message for your future self...")
         journalPrompts.add("What is one thing you would like to say to God?")
         journalPrompts.add("What is one thing you would like to say to your parents?")
         journalPrompts.add("What would the complete opposite of you look like?")

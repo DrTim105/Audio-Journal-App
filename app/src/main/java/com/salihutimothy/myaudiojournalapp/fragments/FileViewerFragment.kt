@@ -213,9 +213,13 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         playButton = requireActivity().findViewById(R.id.play_iv)
         seekBar = requireActivity().findViewById(R.id.seekbar)
-
         fileName = requireActivity().findViewById(R.id.file_name_text_view) as TextView
         fileLength = requireActivity().findViewById(R.id.file_length_text_view) as TextView
+        backwardButton = requireActivity().findViewById(R.id.iv_backward) as ImageView
+        forwardButton = requireActivity().findViewById(R.id.iv_forward) as ImageView
+
+        forwardButton.isEnabled = true
+        backwardButton.isEnabled = true
 
         fileName.text = item.name
         fileLength.text = String.format("%02d:%02d", minutes, seconds)
@@ -254,8 +258,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         currentProgress = requireActivity().findViewById(R.id.current_progress_text_view)
         fileLength = requireActivity().findViewById(R.id.file_length_text_view)
         seekBar = requireActivity().findViewById(R.id.seekbar)
+        backwardButton = requireActivity().findViewById(R.id.iv_backward) as ImageView
+        forwardButton = requireActivity().findViewById(R.id.iv_forward) as ImageView
 
-
+        forwardButton.isEnabled = false
+        backwardButton.isEnabled = false
         playButton.setImageResource(R.drawable.ic_play)
         handler.removeCallbacks(mRunnable)
         mediaPlayer?.stop()
