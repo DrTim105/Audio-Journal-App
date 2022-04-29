@@ -32,6 +32,7 @@ class DBHelper(private val context: Context) :
             if (mOnDatabaseChangedListener != null) {
                 mOnDatabaseChangedListener?.onNewDatabaseEntryAdded(recordingItem)
             }
+            db.close()
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -55,6 +56,7 @@ class DBHelper(private val context: Context) :
                 arrayList.add(recordingItem)
             }
             cursor.close()
+            db.close()
             arrayList
         } else {
             null

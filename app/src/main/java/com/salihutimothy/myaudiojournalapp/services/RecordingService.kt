@@ -169,7 +169,7 @@ class RecordingService : Service() {
                     Log.d("RecordingService", "timer still running $maxAmplitude")
 
                 }
-            }, 0, 60) //wait 0 ms before doing the action and do it evry 1000ms (1second)
+            }, 0, 80) //wait 0 ms before doing the action and do it evry 1000ms (1second)
 
 
         } catch (e: IOException) {

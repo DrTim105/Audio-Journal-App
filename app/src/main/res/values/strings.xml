@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyAudioJournalApp</string>
+    <string name="date_today">Today, %s</string>
 </resources>

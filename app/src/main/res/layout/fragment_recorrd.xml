@@ -22,16 +22,16 @@
 <!--        android:visibility="gone" />-->
 
 
-        <Chronometer
+    <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_bold"
+        android:fontFamily="serif"
         android:textColor="#798794"
         android:textSize="50sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waveformView"/>
+        app:layout_constraintTop_toBottomOf="@+id/waveformView" />
 
 
     <com.salihutimothy.myaudiojournalapp.views.Typewriter

@@ -330,6 +330,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
     override fun onStop() {
         super.onStop()
+        mediaPlayer?.release()
         if (isPlaying) {
             stopPlaying()
         }

@@ -18,8 +18,8 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
     private var spikes = ArrayList<RectF>()
 
     private var radius = 6f
-    private var spikeWidth = 6f
-    private var distance = 6f
+    private var spikeWidth = 12f
+    private var distance = 12f
     private var screenWidth = 0f
     private var screenHeight = 500f
 
@@ -41,7 +41,7 @@ class WaveformView(context: Context?, attrs: AttributeSet) : View(context, attrs
         amplitudes.add(norm)
 
         spikes.clear()
-        val amps = amplitudes.takeLast(maxSpikes - 10)
+        val amps = amplitudes.takeLast(maxSpikes)
 
         for (i: Int in amps.indices) {
             val left = i * (spikeWidth + distance)
