@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/next"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignEnd="@+id/waveformView"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:layout_marginEnd="2dp"-->
+<!--        android:background="@drawable/button_bg_black"-->
+<!--        android:src="@drawable/ic_next"-->
+<!--        android:visibility="gone" />-->
+
+
+        <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alegreya_bold"
+        android:textColor="#798794"
+        android:textSize="50sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waveformView"/>
+
+
+    <com.salihutimothy.myaudiojournalapp.views.Typewriter
+        android:id="@+id/journalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/averia_serif_libre_bold"
+        android:lineSpacingExtra="4sp"
+        android:text="How was your day?"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recording_status_txt" />
+
+    <com.salihutimothy.myaudiojournalapp.views.WaveformView
+        android:id="@+id/waveformView"
+        android:layout_width="match_parent"
+        android:layout_height="500px"
+        android:background="@drawable/wave_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_countdown"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"-->
+<!--        android:textColor="#798794"-->
+<!--        android:textSize="50sp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/waveformView"-->
+<!--        tools:text="00:00:00" />-->
+
+
+    <ImageView
+        android:id="@+id/isRecording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_placeholder"
+        app:layout_constraintBottom_toBottomOf="@+id/chronometer"
+        app:layout_constraintEnd_toStartOf="@+id/chronometer"
+        app:layout_constraintTop_toTopOf="@+id/chronometer" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#FA6400"
+        android:scaleType="fitCenter"
+        app:backgroundTint="@color/white"
+        app:borderWidth="1dp"
+        app:elevation="8dp"
+        app:fabCustomSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="32dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_mic"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#FA6400"
+        android:scaleType="fitCenter"
+        app:backgroundTint="@color/white"
+        app:borderWidth="1dp"
+        app:elevation="8dp"
+        app:fabCustomSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnRecord"
+        app:layout_constraintTop_toTopOf="@+id/btnRecord"
+        app:maxImageSize="20dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_setting"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="#FA6400"
+        android:scaleType="fitCenter"
+        app:backgroundTint="@color/white"
+        app:borderWidth="1dp"
+        app:elevation="8dp"
+        app:fabCustomSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnRecord"
+        app:layout_constraintTop_toTopOf="@+id/btnRecord"
+        app:maxImageSize="20dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_list"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/recording_status_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/manrope"
+        android:text="Hello ^-^"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

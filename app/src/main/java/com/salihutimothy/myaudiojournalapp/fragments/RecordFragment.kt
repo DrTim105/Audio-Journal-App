@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +28,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.Constants
 import com.salihutimothy.myaudiojournalapp.services.RecordingService
@@ -42,11 +44,15 @@ class RecordFragment : Fragment() {
     private lateinit var chronometer: Chronometer
     private lateinit var recordingStatus: TextView
     private lateinit var timerText: TextView
-    private lateinit var recordButton: ImageButton
-    private lateinit var pauseButton: ImageButton
-    private lateinit var listButton: ImageButton
+//    private lateinit var recordButton: ImageButton
+//    private lateinit var pauseButton: ImageButton
+//    private lateinit var listButton: ImageButton
+    private lateinit var recordButton: FloatingActionButton
+    private lateinit var pauseButton: FloatingActionButton
+    private lateinit var listButton: FloatingActionButton
     private lateinit var nextButton: ImageButton
     private lateinit var waveformView: WaveformView
+    private lateinit var recordingIcon: ImageView
     private lateinit var journalPrompt: Typewriter
     private lateinit var timer: Timer
     private lateinit var progressBar: ProgressBar
@@ -88,20 +94,21 @@ class RecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_rec, container, false)
+        return inflater.inflate(R.layout.fragment_recorrd, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pauseButton = view.findViewById(R.id.btnPause) as ImageButton
-        timerText = view.findViewById(R.id.tv_timer) as TextView
-        listButton = view.findViewById(R.id.btnList) as ImageButton
-        recordButton = view.findViewById(R.id.btnRecord) as ImageButton
-        nextButton = view.findViewById(R.id.next) as ImageButton
+        pauseButton = view.findViewById(R.id.btnPause) as FloatingActionButton
+//        timerText = view.findViewById(R.id.tv_timer) as TextView
+        listButton = view.findViewById(R.id.btnList) as FloatingActionButton
+        recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton
+//        nextButton = view.findViewById(R.id.next) as ImageButton
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
+        recordingIcon = view.findViewById(R.id.isRecording) as ImageView
         journalPrompt = view.findViewById(R.id.journalTxt) as Typewriter
-        progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
+//        progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
 
 //        pauseButton.visibility = View.GONE
@@ -125,18 +132,18 @@ class RecordFragment : Fragment() {
 
 
         recordButton.setOnClickListener {
-            Log.d("TAG", "promptname 1 $promptText")
-
-            if (prompt) {
-                promptText = null
-//                promptText = journalPrompt.text as String?
-            }
-            Log.d("TAG", "promptname 1.5 $promptText")
-
-            journalPrompt.text = ""
-            journalPrompt.visibility = View.GONE
-            nextButton.visibility = View.GONE
-            progressBar.isEnabled = false
+//            Log.d("TAG", "promptname 1 $promptText")
+//
+//            if (prompt) {
+//                promptText = null
+////                promptText = journalPrompt.text as String?
+//            }
+//            Log.d("TAG", "promptname 1.5 $promptText")
+//
+//            journalPrompt.text = ""
+//            journalPrompt.visibility = View.GONE
+//            nextButton.visibility = View.GONE
+//            progressBar.isEnabled = false
             onRecord(mStartRecording)
         }
 
@@ -149,52 +156,55 @@ class RecordFragment : Fragment() {
         }
 
 
-        progressBar.setOnClickListener {
-            journalPrompt.setTextColor(ContextCompat.getColor(requireContext(), (R.color.white)))
-
-            if (prompt) {
-                journalPrompt.visibility = View.VISIBLE
-                nextButton.visibility = View.VISIBLE
-
-//                journalPrompt.setCharacterDelay(70)
-//                journalPrompt.animateText("What are 3 things you are grateful for today? ^-^")
-                prompt = false
-            } else {
-                journalPrompt.visibility = View.GONE
-                nextButton.visibility = View.GONE
-
-                prompt = true
-            }
-
-        }
+//        progressBar.setOnClickListener {
+//            journalPrompt.setTextColor(ContextCompat.getColor(requireContext(), (R.color.white)))
+//
+//            if (prompt) {
+//                journalPrompt.visibility = View.VISIBLE
+//                nextButton.visibility = View.VISIBLE
+//
+////                journalPrompt.setCharacterDelay(70)
+////                journalPrompt.animateText("What are 3 things you are grateful for today? ^-^")
+//                prompt = false
+//            } else {
+//                journalPrompt.visibility = View.GONE
+//                nextButton.visibility = View.GONE
+//
+//                prompt = true
+//            }
+//
+//        }
 
         mPromptList = Constants.getPrompts()
 
 
-        nextButton.setOnClickListener {
-            val rand = (0 until mPromptList!!.size).random()
-
-            journalPrompt.setCharacterDelay(65)
-            journalPrompt.animateText(mPromptList!![rand])
-//            journalPrompt.animateText("What can you do today now that will improve your circumstances? p(^-^)q")
-
-            promptText = mPromptList!![rand]
-            Log.d("TAG", "promptname 0 $promptText")
-
-        }
+//        nextButton.setOnClickListener {
+//            val rand = (0 until mPromptList!!.size).random()
+//
+//            journalPrompt.setCharacterDelay(65)
+//            journalPrompt.animateText(mPromptList!![rand])
+////            journalPrompt.animateText("What can you do today now that will improve your circumstances? p(^-^)q")
+//
+//            promptText = mPromptList!![rand]
+//            Log.d("TAG", "promptname 0 $promptText")
+//
+//        }
 
 
     }
 
     private fun onRecord(start: Boolean) {
         val intent = Intent(context, RecordingService::class.java)
-        recordButton = requireView().findViewById(R.id.btnRecord) as ImageButton
+        recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
+        listButton = requireView().findViewById(R.id.btnList) as FloatingActionButton
+        pauseButton = requireView().findViewById(R.id.btnPause) as FloatingActionButton
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
-        progressBar = requireView().findViewById(R.id.recordProgressBar) as ProgressBar
+        recordingIcon = requireView().findViewById(R.id.isRecording) as ImageView
+//        progressBar = requireView().findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(requireView())
-        timerText = requireView().findViewById(R.id.tv_timer) as TextView
+//        timerText = requireView().findViewById(R.id.tv_timer) as TextView
 
         if (start) {
             // check permission to record audio
@@ -203,21 +213,24 @@ class RecordFragment : Fragment() {
             ) {
                 Log.d("RecordFragment", "onREcord - start record")
                 mStartRecording = !mStartRecording
-
+                recordingIcon.visibility = View.VISIBLE
 //                recordButton.setImageResource(R.drawable.ic_stop)
 //                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
 //                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
-                recordButton.background =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
-                recordButton.setImageResource(R.drawable.ic_stop)
-                recordButton.setPadding(dpToPx(25))
-                recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
+//                recordButton.background =
+//                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
+//                recordButton.setImageResource(R.drawable.ic_stop)
+//                recordButton.setPadding(dpToPx(25))
+//                Log.d("RecordFragment", "padding: ${dpToPx(25)}")
+//                recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
 
 //                progressBar.progressDrawable =
 //                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
-
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
+                listButton.isEnabled = false
+                pauseButton.isEnabled = false
+                recordButton.setImageResource(R.drawable.ic_stop)
                 chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"
                 chronometer.start()
@@ -242,10 +255,10 @@ class RecordFragment : Fragment() {
                     override fun run() {
                         waveformView.addAmplitude(maxAmplitude)
 
-                        Log.d("RecordFragment", "timer still running $maxAmplitude")
+//                        Log.d("RecordFragment", "timer still running $maxAmplitude")
 
                     }
-                }, 0, 60)
+                }, 0, 80)
 
                 val bundle = Bundle()
                 Log.d("TAG", "promptname 2 $promptText")
@@ -265,8 +278,8 @@ class RecordFragment : Fragment() {
 
         } else {
 
-            Log.d("RecordFragment", "onRecord - stop record")
             mStartRecording = !mStartRecording
+            recordButton.setImageResource(R.drawable.ic_mic)
 
 //            recordButton.setImageResource(R.drawable.ic_placeholder)
 //            recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_start)
@@ -276,13 +289,14 @@ class RecordFragment : Fragment() {
 //            progressBar.progressDrawable =
 //                ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar)
 
-            recordButton.background =
-                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_orange)
-            recordButton.setImageResource(R.drawable.ic_mic)
-            recordButton.setPadding(dpToPx(25))
-            recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
-
-
+//            recordButton.background =
+//                ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_orange)
+//            recordButton.setImageResource(R.drawable.ic_mic)
+//            recordButton.setPadding(dpToPx(25))
+//            recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
+            listButton.isEnabled = true
+            pauseButton.isEnabled = true
+            recordingIcon.visibility = View.GONE
             chronometer.stop()
             timer.cancel()
             waveformView.clear()
@@ -292,7 +306,9 @@ class RecordFragment : Fragment() {
 
             activity?.stopService(intent)
 
-//            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+            Log.d("RecordFragment", "onRecord - stop record")
+
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
 
         }
     }
