@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -254,6 +255,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         backwardButton.isEnabled = true
 
         fileName.text = item.name
+        fileName.isSelected = true
+
         fileLength.text = String.format("%02d:%02d", minutes, seconds)
 
         playButton.setImageResource(R.drawable.ic_pause)
