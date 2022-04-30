@@ -21,4 +21,8 @@
     <color name="base">#434343</color>
     <color name="wave">#434343</color>
 
+    <color name="cardBorder">#484A4B</color>
+    <color name="base2">#0B0C1E</color>
+    <color name="accent2">#232738</color>
+
 </resources>

@@ -22,6 +22,7 @@
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_mic.xml" value="0.1953125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_mic1.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_micc.xml" value="0.2203125" />
+        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_more.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_next.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_placeholder.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/ic_setting.xml" value="0.2203125" />
@@ -42,12 +43,12 @@
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/wave_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/font/comic_neue.xml" value="0.234375" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_file_viewer.xml" value="0.2" />
+        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_file_viewer.xml" value="0.25" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_playback.xml" value="0.33" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_rec.xml" value="0.33" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_record.xml" value="0.22" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_recorrd.xml" value="0.2" />
-        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/item_card_view.xml" value="0.33" />
+        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/item_card_view.xml" value="0.5" />
       </map>
     </option>
   </component>

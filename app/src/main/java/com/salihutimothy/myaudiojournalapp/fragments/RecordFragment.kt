@@ -294,6 +294,7 @@ class RecordFragment : Fragment() {
 //            recordButton.setImageResource(R.drawable.ic_mic)
 //            recordButton.setPadding(dpToPx(25))
 //            recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
+
             listButton.isEnabled = true
             pauseButton.isEnabled = true
             recordingIcon.visibility = View.GONE

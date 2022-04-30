@@ -11,12 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 class FileAdapter(
     var context: Context,
@@ -29,6 +31,7 @@ class FileAdapter(
 
     private var ten = 10
     private var selectedPos = RecyclerView.NO_POSITION
+
 
     override fun onBindViewHolder(holder: FileAdapter.FileViewerViewHolder, position: Int) {
         Log.d("TAG", "Binding item at position $position")
@@ -65,6 +68,9 @@ class FileAdapter(
                         (R.color.accentz)
                     )
                 )
+
+                holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.cardBorder))
+                holder.cardView!!.elevation = 0f
             } else {
                 holder.tvRecordName!!.setTextColor(
                     ContextCompat.getColor(
@@ -72,10 +78,19 @@ class FileAdapter(
                         (R.color.textColorPrimary)
                     )
                 )
+                holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
+                holder.cardView!!.elevation = dpToPx(8)
+
             }
 
 
         }
+
+    private fun dpToPx(dp: Int): Float {
+        val density: Float = context.resources
+            .displayMetrics.density
+        return (dp.toFloat() * density)
+    }
 
         override fun getItemCount(): Int {
             return arrayList.size
@@ -112,7 +127,7 @@ class FileAdapter(
             var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
 
             //        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
-            var cardView: CardView? = itemView.findViewById(R.id.card_view)
+            var cardView: MaterialCardView? = itemView.findViewById(R.id.card_view)
 
             init {
                 itemView.setOnClickListener(this)

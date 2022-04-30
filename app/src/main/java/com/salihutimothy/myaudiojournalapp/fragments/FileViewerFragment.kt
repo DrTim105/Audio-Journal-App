@@ -111,7 +111,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             }
         }
 
-        forwardButton.setOnClickListener{
+        forwardButton.setOnClickListener {
             val currentPosition = mediaPlayer!!.currentPosition
             if (currentPosition + seekTime <= mediaPlayer!!.duration) {
                 mediaPlayer!!.seekTo(currentPosition + seekTime)
@@ -330,9 +330,10 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
     override fun onStop() {
         super.onStop()
-        mediaPlayer?.release()
         if (isPlaying) {
             stopPlaying()
+        } else {
+            mediaPlayer?.release()
         }
     }
 

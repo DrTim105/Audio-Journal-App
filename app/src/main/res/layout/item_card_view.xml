@@ -4,49 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="35dp"
+    android:layout_marginHorizontal="5dp"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="9.5dp"
-        app:cardBackgroundColor="?attr/colorAccent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="1dp"
+        app:strokeWidth = "1dp"
+        app:strokeColor="@color/accent"
+        app:contentPaddingTop="2dp"
+        app:contentPaddingBottom="5dp"
+        app:cardBackgroundColor="@color/accent2"
         android:foreground="?android:attr/selectableItemBackground"
         android:transitionName="open_mediaplayer"
-        app:cardCornerRadius="8dp">
+        app:cardElevation="8dp"
+        app:cardCornerRadius="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp">
 
 <!--            android:background="@drawable/background_white"-->
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/imageView"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_gravity="center_vertical"-->
-            <!--                android:layout_marginLeft="7dp"-->
-            <!--                android:layout_marginRight="7dp"-->
-            <!--                android:src="@mipmap/ic_launcher"-->
-            <!--                />-->
 
+            <ImageView
+                android:id="@+id/imageView"
+                app:layout_constraintDimensionRatio="1:1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/button_bg_orange"
+                android:src="@drawable/ic_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/accent2" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="24dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent">
 
 
@@ -54,12 +63,11 @@
                     android:id="@+id/file_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/averia_serif_libre_bold"
-                    android:text="Audio Fileff_2244322"
-                    android:maxLines="2"
                     android:ellipsize="end"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:textSize="15sp"
+                    android:fontFamily="serif"
+                    android:maxLines="1"
+                    android:text="Audio Fileff_2244322"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
 
@@ -67,9 +75,10 @@
                     android:id="@+id/file_length_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/lato"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="serif"
                     android:text="00:44"
+                    android:textColor="#798794"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -77,8 +86,9 @@
                     android:id="@+id/file_time_added"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="22-09-2019"
+                    android:fontFamily="serif"
+                    android:text="june 13, 2022"
+                    android:textColor="#798794"
                     android:textSize="12sp" />
 
 
@@ -87,19 +97,20 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="end"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="end"
-                    android:scaleType="fitStart"
-                    android:src="@drawable/ic_more"
-                    app:tint="@color/white" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_more" />
             </LinearLayout>
 
 
@@ -107,5 +118,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

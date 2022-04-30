@@ -25,4 +25,9 @@
     <color name="textColor">#F6733E</color>
 
 
+    <color name="cardBorder">#B4BBC4</color>
+    <color name="base2">#F8F9F9</color>
+    <color name="accent2">#FFFFFF</color>
+
+
 </resources>
