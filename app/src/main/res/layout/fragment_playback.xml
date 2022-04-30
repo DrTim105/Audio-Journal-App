@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="8dp"
             android:src="@drawable/layout_background"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,17 +31,18 @@
             android:id="@+id/file_name_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="marquee"
-            android:fontFamily="serif"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:fontFamily="serif"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
             android:scrollHorizontally="true"
-            android:textColor="@color/white"
+            android:singleLine="true"
             android:textSize="15sp"
+            android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -51,9 +52,9 @@
             android:id="@+id/seekbar"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/play_iv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -71,50 +72,40 @@
             app:wave_progress_color="@color/accentz"
             app:wave_width="5dp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+        <ImageView
+            android:id="@+id/play_iv"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play"
+            app:fab_shadow="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2">
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/play_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_play"
-                app:fab_shadow="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/iv_backward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_backward"
+            app:fab_shadow="false"
+            app:layout_constraintBottom_toBottomOf="@+id/play_iv"
+            app:layout_constraintEnd_toStartOf="@+id/play_iv"
+            app:layout_constraintTop_toTopOf="@+id/play_iv" />
 
-            <ImageView
-                android:id="@+id/iv_backward"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_backward"
-                app:fab_shadow="false"
-                app:layout_constraintBottom_toBottomOf="@+id/play_iv"
-                app:layout_constraintEnd_toStartOf="@+id/play_iv"
-                app:layout_constraintTop_toTopOf="@+id/play_iv" />
-
-            <ImageView
-                android:id="@+id/iv_forward"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="24dp"
-                android:src="@drawable/ic_forward"
-                app:fab_shadow="false"
-                app:layout_constraintBottom_toBottomOf="@+id/play_iv"
-                app:layout_constraintStart_toEndOf="@+id/play_iv"
-                app:layout_constraintTop_toTopOf="@+id/play_iv" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_forward"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/ic_forward"
+            app:fab_shadow="false"
+            app:layout_constraintBottom_toBottomOf="@+id/play_iv"
+            app:layout_constraintStart_toEndOf="@+id/play_iv"
+            app:layout_constraintTop_toTopOf="@+id/play_iv" />
 
         <TextView
             android:id="@+id/file_length_text_view"
