@@ -17,6 +17,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.masoudss.lib.SeekBarOnProgressChanged
+import com.masoudss.lib.WaveformSeekBar
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
@@ -35,7 +37,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var fileName: TextView
     private lateinit var fileLength: TextView
     private lateinit var currentProgress: TextView
-    private lateinit var seekBar: SeekBar
+    private lateinit var seekBar: WaveformSeekBar
     private lateinit var playButton: ImageView
     private lateinit var forwardButton: ImageView
     private lateinit var backwardButton: ImageView
@@ -75,7 +77,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         fileName = view.findViewById(R.id.file_name_text_view) as TextView
         fileLength = view.findViewById(R.id.file_length_text_view) as TextView
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
-        seekBar = view.findViewById(R.id.seekbar) as SeekBar
+        seekBar = view.findViewById(R.id.seekbar) as WaveformSeekBar
         playbackLayout = view.findViewById(R.id.playback) as CoordinatorLayout
 
         setViewAndChildrenEnabled(playbackLayout, false)
@@ -142,11 +144,14 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         currentProgress = view.findViewById(R.id.current_progress_text_view)
         seekBar = view.findViewById(R.id.seekbar)
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        seekBar.onProgressChanged = object: SeekBarOnProgressChanged {
+            override fun onProgressChanged(
+                waveformSeekBar: WaveformSeekBar,
+                progress: Float,
+                fromUser: Boolean
+            ) {
                 if (mediaPlayer != null && fromUser) {
-                    mediaPlayer!!.seekTo(progress)
+                    mediaPlayer!!.seekTo(progress.toInt())
                     handler.removeCallbacks(mRunnable)
                     val minutes =
                         TimeUnit.MILLISECONDS.toMinutes(mediaPlayer!!.currentPosition.toLong())
@@ -158,17 +163,44 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
                 } else if (mediaPlayer == null && fromUser) {
                     try {
-                        prepareMediaPlayerFromPoint(progress)
+                        prepareMediaPlayerFromPoint(progress.toInt())
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                     updateSeekbar()
                 }
+
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
+        }
+
+//        setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+//
+//            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+//                if (mediaPlayer != null && fromUser) {
+//                    mediaPlayer!!.seekTo(progress)
+//                    handler.removeCallbacks(mRunnable)
+//                    val minutes =
+//                        TimeUnit.MILLISECONDS.toMinutes(mediaPlayer!!.currentPosition.toLong())
+//                    val seconds =
+//                        (TimeUnit.MILLISECONDS.toSeconds(mediaPlayer!!.currentPosition.toLong())
+//                                - TimeUnit.MINUTES.toSeconds(minutes))
+//                    currentProgress.text = String.format("%02d:%02d", minutes, seconds)
+//                    updateSeekbar()
+//
+//                } else if (mediaPlayer == null && fromUser) {
+//                    try {
+//                        prepareMediaPlayerFromPoint(progress)
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                    updateSeekbar()
+//                }
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+//            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+//        })
     }
 
     @Throws(IOException::class)
@@ -231,7 +263,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             mediaPlayer!!.setDataSource(item.path)
             mediaPlayer!!.prepare()
             mediaPlayer!!.start()
-            seekBar.max = mediaPlayer!!.duration
+            seekBar.setSampleFrom(item.path!!)
+            seekBar.maxProgress = mediaPlayer!!.duration.toFloat()
 
         } catch (e: IOException) {
             Toast.makeText(context, "Recording not found", Toast.LENGTH_SHORT).show()
@@ -247,8 +280,9 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private fun prepareMediaPlayerFromPoint(progress: Int) {
         mediaPlayer = MediaPlayer()
         mediaPlayer!!.setDataSource(item.path)
+        seekBar.setSampleFrom(item.path!!)
         mediaPlayer!!.prepare()
-        seekBar.max = mediaPlayer!!.duration
+        seekBar.maxProgress = mediaPlayer!!.duration.toFloat()
         mediaPlayer!!.seekTo(progress)
         mediaPlayer!!.setOnCompletionListener { stopPlaying() }
     }
@@ -269,10 +303,10 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         mediaPlayer?.reset()
         mediaPlayer?.release()
         mediaPlayer = null
-        seekBar.progress = seekBar.max
+        seekBar.progress = seekBar.maxProgress
         isPlaying = !isPlaying
         currentProgress.text = fileLength.text
-        seekBar.progress = seekBar.max
+        seekBar.progress = seekBar.maxProgress
     }
 
     private val mRunnable = Runnable {
@@ -281,7 +315,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         if (mediaPlayer != null) {
             val mCurrentPosition = mediaPlayer!!.currentPosition
-            seekBar.progress = mCurrentPosition
+            seekBar.progress = mCurrentPosition.toFloat()
             val minutes = TimeUnit.MILLISECONDS.toMinutes(mCurrentPosition.toLong())
             val seconds = (TimeUnit.MILLISECONDS.toSeconds(mCurrentPosition.toLong())
                     - TimeUnit.MINUTES.toSeconds(minutes))
@@ -291,7 +325,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     }
 
     private fun updateSeekbar() {
-        handler.postDelayed(mRunnable, 1000)
+        handler.postDelayed(mRunnable, 60)
     }
 
 

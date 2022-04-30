@@ -51,4 +51,10 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
 
+
+
+    implementation  'com.github.massoudss:waveformSeekBar:5.0.0'
+
+    implementation 'com.github.lincollincol:amplituda:2.1.0' // or newer version
+
 }

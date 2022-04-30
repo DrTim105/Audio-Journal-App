@@ -23,6 +23,8 @@
 
     <color name="cardBorder">#484A4B</color>
     <color name="base2">#0B0C1E</color>
+    <color name="base3">#232738</color>
     <color name="accent2">#232738</color>
+    <color name="playbackBorder">#484A4B</color>
 
 </resources>

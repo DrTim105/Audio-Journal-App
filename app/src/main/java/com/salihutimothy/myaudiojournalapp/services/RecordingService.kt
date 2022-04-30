@@ -128,7 +128,7 @@ class RecordingService : Service() {
         timer = Timer()
 
         fileName = if (promptName == null) {
-            "mental note " + mentalNote.toString().padStart(3, '0')
+            "mental noteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee " + mentalNote.toString().padStart(3, '0')
         } else {
             promptName
         }

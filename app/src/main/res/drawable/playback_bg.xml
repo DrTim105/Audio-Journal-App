@@ -15,16 +15,15 @@
 
     <item>
         <shape>
-            <gradient
-                android:startColor="@color/accentz"
-                android:endColor="#E34D10"
-                android:angle="270" />
 
-<!--            <solid android:color="@color/accentz"/>-->
+            <solid android:color="@color/base3"/>
 
                 <corners android:topRightRadius="50dp"
                     android:topLeftRadius="50dp"/>
 
+                        <stroke
+                            android:width="0.5dp"
+                            android:color="@color/cardBorder" />
         </shape>
     </item>
 

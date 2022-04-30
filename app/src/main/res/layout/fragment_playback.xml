@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="bottom"
-    android:transitionName="open_mediaplayer"
-    android:clickable="true"
     android:id="@+id/playback"
-    android:background="@drawable/playback_bg">
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_alignParentTop="true"
+    android:layout_gravity="bottom"
+    android:background="@drawable/playback_bg"
+    android:clickable="true"
+    android:transitionName="open_mediaplayer">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="center">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -22,7 +24,6 @@
             android:layout_height="70dp"
             android:layout_margin="8dp"
             android:src="@drawable/layout_background"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,26 +32,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="32dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/averia_serif_libre_bold"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="marquee"
+            android:fontFamily="serif"
+            android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
+            android:scrollbars="horizontal"
+            android:scrollHorizontally="true"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-        <SeekBar
+        <com.masoudss.lib.WaveformSeekBar
             android:id="@+id/seekbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/file_name_text_view" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:wave_background_color="@color/white"
+            app:wave_corner_radius="2dp"
+            app:wave_gap="2dp"
+            app:wave_gravity="center"
+            app:wave_max_progress="100"
+            app:wave_min_height="5dp"
+            app:wave_padding_Bottom="2dp"
+            app:wave_padding_left="2dp"
+            app:wave_padding_right="2dp"
+            app:wave_padding_top="2dp"
+            app:wave_progress="33"
+            app:wave_progress_color="@color/accentz"
+            app:wave_width="5dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
@@ -58,21 +76,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/seekbar">
-
-
-            <TextView
-                android:id="@+id/current_progress_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
-                android:text="00:00"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintStart_toEndOf="@+id/imageView2">
 
             <ImageView
                 android:id="@+id/play_iv"
@@ -83,8 +87,7 @@
                 app:fab_shadow="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_backward"
@@ -96,8 +99,7 @@
                 app:fab_shadow="false"
                 app:layout_constraintBottom_toBottomOf="@+id/play_iv"
                 app:layout_constraintEnd_toStartOf="@+id/play_iv"
-                app:layout_constraintTop_toTopOf="@+id/play_iv"
-                 />
+                app:layout_constraintTop_toTopOf="@+id/play_iv" />
 
             <ImageView
                 android:id="@+id/iv_forward"
@@ -107,27 +109,36 @@
                 android:layout_marginStart="24dp"
                 android:src="@drawable/ic_forward"
                 app:fab_shadow="false"
-                app:layout_constraintTop_toTopOf="@+id/play_iv"
                 app:layout_constraintBottom_toBottomOf="@+id/play_iv"
                 app:layout_constraintStart_toEndOf="@+id/play_iv"
-                />
-
-
-            <TextView
-                android:id="@+id/file_length_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="16dp"
-                android:text="00:00"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="@+id/play_iv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/file_length_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:fontFamily="serif"
+            android:text="00:00"
+            android:textColor="#798794"
+            app:layout_constraintEnd_toEndOf="@+id/seekbar"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
+        <TextView
+            android:id="@+id/current_progress_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:fontFamily="serif"
+            android:text="00:00"
+            android:textColor="#798794"
+            app:layout_constraintStart_toStartOf="@+id/seekbar"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
