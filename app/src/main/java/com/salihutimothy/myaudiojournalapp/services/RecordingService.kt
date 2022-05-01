@@ -11,6 +11,7 @@ import android.os.Environment
 import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.salihutimothy.myaudiojournalapp.MainActivity
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.Constants.mentalNote
@@ -128,34 +129,38 @@ class RecordingService : Service() {
         timer = Timer()
 
         fileName = if (promptName == null) {
-            "mental noteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee " + mentalNote.toString().padStart(3, '0')
+            "mental note " + mentalNote.toString().padStart(3, '0')
         } else {
             promptName
         }
 
 //        file = File(
 //            applicationContext.getExternalFilesDir(null)
-//                .toString() + "/MySoundRec/" + fileName + ".mp3"
+//                .toString()
+//                + "/MySoundRec/" + fileName + ".mp3"
 //        )
+        val file: String =
+            applicationContext.getExternalFilesDir("/")!!.absolutePath +
+                    "/MySoundRec/" + fileName + ".mp3"
 
-        val root = Environment.getExternalStorageDirectory().toString()
-        val outputFile = File("$root/Audio Journal")
-        if (!outputFile.exists()) {
-            outputFile.mkdirs()
-        }
-
-        file = File("$outputFile/$fileName.mp3")
+//        val root = Environment.getExternalStorageDirectory().toString()
+//        val outputFile = File("$root/Audio Journal")
+//        if (!outputFile.exists()) {
+//            outputFile.mkdirs()
+//        }
+//
+//        file = File("$outputFile/$fileName.mp3")
 
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-        mediaRecorder.setOutputFile(file.absolutePath)
+        mediaRecorder.setOutputFile(file)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         mediaRecorder.setAudioEncodingBitRate(384000)
         mediaRecorder.setAudioSamplingRate(44100)
         mediaRecorder.setAudioChannels(1)
 
-        Log.d("Storage - start service", "File path : ${outputFile.absolutePath} ")
+        Log.d("Storage - start service", "File path : ${file} ")
 
         try {
             mediaRecorder.prepare()

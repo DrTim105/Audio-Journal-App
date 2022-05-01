@@ -8,6 +8,7 @@
     android:layout_gravity="bottom"
     android:background="@drawable/playback_bg"
     android:clickable="true"
+    android:visibility="invisible"
     android:transitionName="open_mediaplayer">
 
 
@@ -58,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:wave_background_color="@color/white"
+            app:wave_background_color="#798794"
             app:wave_corner_radius="2dp"
             app:wave_gap="2dp"
             app:wave_gravity="center"
@@ -70,14 +71,18 @@
             app:wave_padding_top="2dp"
             app:wave_progress="33"
             app:wave_progress_color="@color/accentz"
-            app:wave_width="5dp" />
+            app:wave_width="3dp" />
 
 
         <ImageView
             android:id="@+id/play_iv"
             android:layout_width="75dp"
             android:layout_height="55dp"
+            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play"
             app:fab_shadow="false"
@@ -92,6 +97,9 @@
             android:layout_marginEnd="32dp"
             android:src="@drawable/ic_backward"
             app:fab_shadow="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="@+id/play_iv"
             app:layout_constraintEnd_toStartOf="@+id/play_iv"
             app:layout_constraintTop_toTopOf="@+id/play_iv" />
@@ -103,6 +111,9 @@
             android:layout_marginStart="32dp"
             android:src="@drawable/ic_forward"
             app:fab_shadow="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="@+id/play_iv"
             app:layout_constraintStart_toEndOf="@+id/play_iv"
             app:layout_constraintTop_toTopOf="@+id/play_iv" />

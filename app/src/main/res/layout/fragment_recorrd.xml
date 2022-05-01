@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnRecord"
         app:layout_constraintTop_toTopOf="@+id/btnRecord"
         app:maxImageSize="20dp"
-        app:rippleColor="@android:color/white"
+        app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_setting"
         app:tint="@color/white" />
 

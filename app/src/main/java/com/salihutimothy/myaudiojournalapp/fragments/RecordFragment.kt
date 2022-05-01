@@ -66,12 +66,13 @@ class RecordFragment : Fragment() {
     private var mPromptList: ArrayList<String>? = null
     private var promptText : String? = null
 
-    @RequiresApi(Build.VERSION_CODES.P)
+    @RequiresApi(Build.VERSION_CODES.R)
     var permissions = arrayOf(
         Manifest.permission.RECORD_AUDIO,
         Manifest.permission.FOREGROUND_SERVICE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.MANAGE_EXTERNAL_STORAGE
     )
 
     private val PERMISSION_CODE = 21
@@ -337,6 +338,9 @@ class RecordFragment : Fragment() {
                 (listPermissionsNeeded as List<String>).toTypedArray(),
                 PERMISSION_CODE
             )
+
+            Log.d("RecordFragment", "permissions - $listPermissionsNeeded[0]")
+
         }
 
         // reset the permission array
