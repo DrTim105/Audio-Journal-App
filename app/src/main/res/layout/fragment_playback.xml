@@ -8,7 +8,6 @@
     android:layout_gravity="bottom"
     android:background="@drawable/playback_bg"
     android:clickable="true"
-    android:visibility="invisible"
     android:transitionName="open_mediaplayer">
 
 

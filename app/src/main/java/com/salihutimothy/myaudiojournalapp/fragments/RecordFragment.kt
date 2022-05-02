@@ -29,12 +29,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.salihutimothy.myaudiojournalapp.BuildConfig
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.database.Constants
 import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import com.salihutimothy.myaudiojournalapp.services.RecordingService.Companion.maxAmplitude
 import com.salihutimothy.myaudiojournalapp.views.Typewriter
 import com.salihutimothy.myaudiojournalapp.views.WaveformView
+import java.lang.Exception
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -72,7 +74,6 @@ class RecordFragment : Fragment() {
         Manifest.permission.FOREGROUND_SERVICE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.MANAGE_EXTERNAL_STORAGE
     )
 
     private val PERMISSION_CODE = 21
@@ -194,6 +195,7 @@ class RecordFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun onRecord(start: Boolean) {
         val intent = Intent(context, RecordingService::class.java)
         recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
@@ -370,6 +372,7 @@ class RecordFragment : Fragment() {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun requestPermissions() {
         Log.d(
             "RecordFragment",
@@ -385,6 +388,7 @@ class RecordFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private val mPermissionResult = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { result ->
@@ -405,10 +409,21 @@ class RecordFragment : Fragment() {
                     .setTitle("Permissions Required")
                     .setMessage("This app may not work correctly without the requested permission. Open the app settings screen to modify app permissions.")
                     .setPositiveButton("Settings") { _, _ ->
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        val uri = Uri.fromParts("package", requireContext().packageName, null)
-                        intent.data = uri
-                        startActivity(intent)
+//                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                        val uri = Uri.fromParts("package", requireContext().packageName, null)
+//                        intent.data = uri
+//                        startActivity(intent)
+
+                        try {
+                            val uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+                            val intent =
+                                Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
+                            startActivity(intent)
+                        } catch (ex: Exception) {
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                            startActivity(intent)
+                        }
                     }
                     .setNegativeButton("Cancel") { dialog, which -> }
                     .create()
