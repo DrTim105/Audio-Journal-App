@@ -22,9 +22,9 @@
     <color name="wave">#434343</color>
 
     <color name="cardBorder">#484A4B</color>
-    <color name="base2">#0B0C1E</color>
-    <color name="base3">#232738</color>
-    <color name="accent2">#232738</color>
+    <color name="base2">#070813</color>
+    <color name="base3">#1C1F2C</color>
+    <color name="accent2">#1C1F2C</color>
     <color name="button">#FFFFFFFF</color>
 
 </resources>

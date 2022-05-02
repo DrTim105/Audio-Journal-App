@@ -223,6 +223,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         fileName.text = item.name
         fileLength.text = String.format("%02d:%02d", minutes, seconds)
+        fileName.isSelected = true
 
         playButton.setImageResource(R.drawable.ic_pause)
         mediaPlayer = MediaPlayer()
