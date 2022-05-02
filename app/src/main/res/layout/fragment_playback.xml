@@ -48,29 +48,18 @@
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-        <com.masoudss.lib.WaveformSeekBar
+        <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="0dp"
             android:layout_height="0dp"
+
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/play_iv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:wave_background_color="#798794"
-            app:wave_corner_radius="2dp"
-            app:wave_gap="2dp"
-            app:wave_gravity="center"
-            app:wave_max_progress="100"
-            app:wave_min_height="5dp"
-            app:wave_padding_Bottom="2dp"
-            app:wave_padding_left="2dp"
-            app:wave_padding_right="2dp"
-            app:wave_padding_top="2dp"
-            app:wave_progress="33"
-            app:wave_progress_color="@color/accentz"
-            app:wave_width="3dp" />
+            />
 
 
         <ImageView
