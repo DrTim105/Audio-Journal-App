@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,44 +46,46 @@ class FileAdapter(
         holder.tvRecordName!!.text = recordingItem.name
         holder.tvRecordLength!!.text = String.format("%02d:%02d", minutes, seconds)
         if (DateUtils.isToday(recordingItem.time_added)) {
-            holder.tvRecordTime!!.text = String.format(context.resources.getString(R.string.date_today), DateUtils.formatDateTime(
-                context,
-                recordingItem.time_added,
-                DateUtils.FORMAT_SHOW_TIME
-            ))
+            holder.tvRecordTime!!.text = String.format(
+                context.resources.getString(R.string.date_today), DateUtils.formatDateTime(
+                    context,
+                    recordingItem.time_added,
+                    DateUtils.FORMAT_SHOW_TIME
+                )
+            )
         } else {
-                holder.tvRecordTime!!.text = DateUtils.formatDateTime(
-                    context, recordingItem.time_added,
-                    DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME
-                            or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_ABBREV_ALL
+            holder.tvRecordTime!!.text = DateUtils.formatDateTime(
+                context, recordingItem.time_added,
+                DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME
+                        or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_ABBREV_ALL
+            )
+        }
+        holder.itemView.isSelected = selectedPos == position
+
+        if (selectedPos == position) {
+            holder.tvRecordName!!.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    (R.color.accentz)
                 )
-            }
-            holder.itemView.isSelected = selectedPos == position
+            )
 
-            if (selectedPos == position) {
-                holder.tvRecordName!!.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        (R.color.accentz)
-                    )
+            holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.cardBorder))
+            holder.cardView!!.elevation = 0f
+        } else {
+            holder.tvRecordName!!.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    (R.color.textColorPrimary)
                 )
-
-                holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.cardBorder))
-                holder.cardView!!.elevation = 0f
-            } else {
-                holder.tvRecordName!!.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        (R.color.textColorPrimary)
-                    )
-                )
-                holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
-                holder.cardView!!.elevation = dpToPx(8)
-
-            }
-
+            )
+            holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
+            holder.cardView!!.elevation = dpToPx(8)
 
         }
+
+
+    }
 
     private fun dpToPx(dp: Int): Float {
         val density: Float = context.resources
@@ -92,61 +93,65 @@ class FileAdapter(
         return (dp.toFloat() * density)
     }
 
-        override fun getItemCount(): Int {
-            return arrayList.size
+    override fun getItemCount(): Int {
+        return arrayList.size
+    }
+
+    fun setData(arrNotesList: List<RecordingItem>) {
+        arrayList = arrNotesList as ArrayList<RecordingItem>
+    }
+
+    override fun onNewDatabaseEntryAdded(recordingItem: RecordingItem?) {
+        if (recordingItem != null) {
+            arrayList.add(recordingItem)
         }
 
-        override fun onNewDatabaseEntryAdded(recordingItem: RecordingItem?) {
-            if (recordingItem != null) {
-                arrayList.add(recordingItem)
-            }
+        notifyItemInserted(arrayList.size - 1)
 
-            notifyItemInserted(arrayList.size - 1)
+    }
 
-        }
+    init {
+        dbHelper.setOnDatabaseChangedListener(this)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FileAdapter.FileViewerViewHolder {
+        val itemView: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_card_view, parent, false)
+        return FileViewerViewHolder(itemView)
+    }
+
+
+    inner class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+
+        var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
+        var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
+        var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
+
+        //        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
+        var cardView: MaterialCardView? = itemView.findViewById(R.id.card_view)
 
         init {
-            dbHelper.setOnDatabaseChangedListener(this)
+            itemView.setOnClickListener(this)
         }
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): FileAdapter.FileViewerViewHolder {
-            val itemView: View = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_card_view, parent, false)
-            return FileViewerViewHolder(itemView)
-        }
+        override fun onClick(v: View?) {
+            notifyItemChanged(selectedPos)
+            selectedPos = layoutPosition
+            notifyItemChanged(selectedPos)
 
-
-        inner class FileViewerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-            View.OnClickListener {
-
-            var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
-            var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
-            var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
-
-            //        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
-            var cardView: MaterialCardView? = itemView.findViewById(R.id.card_view)
-
-            init {
-                itemView.setOnClickListener(this)
-            }
-
-            override fun onClick(v: View?) {
-                notifyItemChanged(selectedPos)
-                selectedPos = layoutPosition
-                notifyItemChanged(selectedPos)
-
-                onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
-            }
-
-        }
-
-
-        interface OnItemListClick {
-            fun onClickListener(recordingItem: RecordingItem, position: Int)
+            onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
         }
 
     }
+
+
+    interface OnItemListClick {
+        fun onClickListener(recordingItem: RecordingItem, position: Int)
+    }
+
+}
 

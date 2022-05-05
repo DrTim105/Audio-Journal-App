@@ -19,6 +19,7 @@
     <color name="accent">#EFEEEE</color>
 <!--    <color name="wave">#F6946B</color>-->
     <color name="wave">#DAD9D9</color>
+    <color name="base1">#FF000000</color>
 
     <color name="accentz">#FA6400</color>
     <color name="darkbase">#f4510d</color>

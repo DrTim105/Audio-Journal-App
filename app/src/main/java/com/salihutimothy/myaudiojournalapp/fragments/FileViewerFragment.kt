@@ -1,14 +1,13 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
+import android.app.SearchManager
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -24,6 +23,11 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
+import android.view.MenuInflater
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat.getSystemService
+
 
 class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
@@ -40,6 +44,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var playButton: ImageView
     private lateinit var backwardButton: ImageView
     private lateinit var playbackLayout: CoordinatorLayout
+    private lateinit var searchView: SearchView
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
@@ -54,6 +59,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+
+
     }
 
     override fun onCreateView(
@@ -61,7 +68,15 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_file_viewer, container, false)
+        setHasOptionsMenu(true)
+
+        val view =inflater.inflate(R.layout.fragment_file_viewer, container, false)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.title = "Audio Journals"
+        toolbar.inflateMenu(R.menu.menu_main)
+        toolbar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -337,6 +352,108 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             mediaPlayer?.release()
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = (menu.findItem(R.id.search).actionView as SearchView)
+
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                val tempArr = ArrayList<RecordingItem>()
+
+                for (arr in arrayListAudios!!) {
+                    if (arr.name!!.lowercase(Locale.getDefault()).contains(query.toString())) {
+                        tempArr.add(arr)
+                    }
+                }
+
+                fileAdapter.setData(tempArr)
+                fileAdapter.notifyDataSetChanged()
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val tempArr = ArrayList<RecordingItem>()
+
+                for (arr in arrayListAudios!!) {
+                    if (arr.name!!.lowercase(Locale.getDefault()).contains(newText.toString())) {
+                        tempArr.add(arr)
+                    }
+                }
+
+                fileAdapter.setData(tempArr)
+                fileAdapter.notifyDataSetChanged()
+
+                return true
+            }
+
+        })
+//        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> {
+                val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+                searchView = item.actionView as SearchView
+
+                searchView.queryHint = "Search your journal entries..."
+                searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+
+                        val tempArr = ArrayList<RecordingItem>()
+
+                        for (arr in arrayListAudios!!) {
+                            if (arr.name!!.lowercase(Locale.getDefault()).contains(query.toString())) {
+                                tempArr.add(arr)
+                            }
+                        }
+
+                        fileAdapter.setData(tempArr)
+                        fileAdapter.notifyDataSetChanged()
+
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        val tempArr = ArrayList<RecordingItem>()
+
+                        for (arr in arrayListAudios!!) {
+                            if (arr.name!!.lowercase(Locale.getDefault()).contains(newText.toString())) {
+                                tempArr.add(arr)
+                            }
+                        }
+
+                        fileAdapter.setData(tempArr)
+                        fileAdapter.notifyDataSetChanged()
+
+                        return true
+                    }
+
+                })
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        // TODO Auto-generated method stub
+//        super.onActivityCreated(savedInstanceState)
+//        setHasOptionsMenu(true)
+//    }
 
 
     companion object {

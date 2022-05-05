@@ -12,6 +12,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="fontFamily">serif</item>
+<!--        <item name="android:textSize">27sp</item>-->
 
         <!-- Customize your theme here. -->
     </style>
@@ -24,6 +26,16 @@
 
     <style name="Theme.MyAudioJournalApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView</item>
+    </style>
+
+    <style name="Widget.MyApp.AutoCompleteTextView.SearchView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColorHint">#798794</item>
+        <item name="fontFamily">serif</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
         <item name="cornerFamily">rounded</item>

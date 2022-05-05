@@ -20,6 +20,7 @@
     <color name="accent">#FF000000</color>
     <color name="base">#434343</color>
     <color name="wave">#434343</color>
+    <color name="base1">#FFFFFFFF</color>
 
     <color name="cardBorder">#484A4B</color>
     <color name="base2">#070813</color>
