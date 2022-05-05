@@ -27,5 +27,6 @@
     <color name="base3">#1C1F2C</color>
     <color name="accent2">#1C1F2C</color>
     <color name="button">#FFFFFFFF</color>
+    <color name="accent3">#798794</color>
 
 </resources>

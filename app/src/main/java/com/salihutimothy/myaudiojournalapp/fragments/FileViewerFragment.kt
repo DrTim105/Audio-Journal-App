@@ -69,10 +69,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-
         val view =inflater.inflate(R.layout.fragment_file_viewer, container, false)
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.title = "Audio Journals"
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             onOptionsItemSelected(it)        }
@@ -353,52 +351,52 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-
-        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView = (menu.findItem(R.id.search).actionView as SearchView)
-
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-                val tempArr = ArrayList<RecordingItem>()
-
-                for (arr in arrayListAudios!!) {
-                    if (arr.name!!.lowercase(Locale.getDefault()).contains(query.toString())) {
-                        tempArr.add(arr)
-                    }
-                }
-
-                fileAdapter.setData(tempArr)
-                fileAdapter.notifyDataSetChanged()
-
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val tempArr = ArrayList<RecordingItem>()
-
-                for (arr in arrayListAudios!!) {
-                    if (arr.name!!.lowercase(Locale.getDefault()).contains(newText.toString())) {
-                        tempArr.add(arr)
-                    }
-                }
-
-                fileAdapter.setData(tempArr)
-                fileAdapter.notifyDataSetChanged()
-
-                return true
-            }
-
-        })
-//        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.menu_main, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//
+//        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        searchView = (menu.findItem(R.id.search).actionView as SearchView)
+//
+//
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+//
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//
+//                val tempArr = ArrayList<RecordingItem>()
+//
+//                for (arr in arrayListAudios!!) {
+//                    if (arr.name!!.lowercase(Locale.getDefault()).contains(query.toString())) {
+//                        tempArr.add(arr)
+//                    }
+//                }
+//
+//                fileAdapter.setData(tempArr)
+//                fileAdapter.notifyDataSetChanged()
+//
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                val tempArr = ArrayList<RecordingItem>()
+//
+//                for (arr in arrayListAudios!!) {
+//                    if (arr.name!!.lowercase(Locale.getDefault()).contains(newText.toString())) {
+//                        tempArr.add(arr)
+//                    }
+//                }
+//
+//                fileAdapter.setData(tempArr)
+//                fileAdapter.notifyDataSetChanged()
+//
+//                return true
+//            }
+//
+//        })
+////        return true
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -409,6 +407,10 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 searchView.queryHint = "Search your journal entries..."
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
 
+//                val closeButtonId =
+//                    resources.getIdentifier("android:id/search_close_btn", null, null)
+//                val closeButtonImage = searchView.findViewById<ImageView>(closeButtonId) as ImageView?
+//                closeButtonImage?.setImageResource(R.drawable.ic_close)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {

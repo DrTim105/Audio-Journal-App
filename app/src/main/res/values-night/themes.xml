@@ -34,6 +34,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textColorHint">#798794</item>
         <item name="fontFamily">serif</item>
+        <item name="searchIcon">@drawable/ic_close</item>
         <item name="android:textSize">15sp</item>
     </style>
 

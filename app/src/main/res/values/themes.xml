@@ -19,9 +19,11 @@
         <item name="fontFamily">serif</item>
 <!--        <item name="android:textSize">27sp</item>-->
 <!--        <item name="iconTint">#798794</item>-->
+        <item name="windowNoTitle">true</item>
 
 
-    </style>
+
+</style>
     <dimen name="design_fab_size_normal">100dp</dimen>
 
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
@@ -35,17 +37,21 @@
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView</item>
-
+        <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
 
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="closeIcon">@drawable/ic_close</item>
+
+
+    </style>
     <style name="Widget.MyApp.AutoCompleteTextView.SearchView" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textColor">#000</item>
         <item name="android:textColorHint">#798794</item>
         <item name="fontFamily">serif</item>
         <item name="android:textSize">15sp</item>
-        <item name="closeIconTint">#798794</item>
-        <item name="queryBackground">@color/base3</item>
-<!--        <item name="tint"></item>-->
+
+        <!--        <item name="tint"></item>-->
     </style>
 
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
