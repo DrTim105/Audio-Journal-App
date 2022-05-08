@@ -20,4 +20,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
+
+//    override fun onBackPressed() {
+//
+//        if (!searchView.isIconified) {
+//            searchView.onActionViewCollapsed()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 }

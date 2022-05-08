@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +43,7 @@ class FileAdapter(
                 minutes
             )
 
-
+        holder.ivRecord!!.isEnabled = false
         holder.tvRecordName!!.text = recordingItem.name
         holder.tvRecordLength!!.text = String.format("%02d:%02d", minutes, seconds)
         if (DateUtils.isToday(recordingItem.time_added)) {
@@ -69,6 +70,8 @@ class FileAdapter(
                     (R.color.accentz)
                 )
             )
+            holder.ivRecord!!.isEnabled = true
+
 
             holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.cardBorder))
             holder.cardView!!.elevation = 0f
@@ -79,6 +82,8 @@ class FileAdapter(
                     (R.color.textColorPrimary)
                 )
             )
+            holder.ivRecord!!.isEnabled = false
+
             holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
             holder.cardView!!.elevation = dpToPx(8)
 
@@ -130,6 +135,7 @@ class FileAdapter(
         var tvRecordName: TextView? = itemView.findViewById(R.id.file_name_text)
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
+        var ivRecord: ImageView? = itemView.findViewById(R.id.imageView)
 
         //        var ivRecordImage: ImageView? = itemView.findViewById(R.id.imageView)
         var cardView: MaterialCardView? = itemView.findViewById(R.id.card_view)

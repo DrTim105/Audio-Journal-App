@@ -18,12 +18,12 @@
 
             <solid android:color="@color/base3"/>
 
-                <corners android:topRightRadius="30dp"
-                    android:topLeftRadius="30dp"/>
+<!--                <corners android:topRightRadius="30dp"-->
+<!--                    android:topLeftRadius="30dp"/>-->
 
-                        <stroke
-                            android:width="0.5dp"
-                            android:color="@color/cardBorder" />
+<!--                        <stroke-->
+<!--                            android:width="0.5dp"-->
+<!--                            android:color="@color/cardBorder" />-->
         </shape>
     </item>
 

@@ -112,6 +112,7 @@ class RecordFragment : Fragment() {
         journalPrompt = view.findViewById(R.id.journalTxt) as Typewriter
 //        progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
+        recordingStatus = view.findViewById(R.id.recording_status_txt) as TextView
 
 //        pauseButton.visibility = View.GONE
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
@@ -191,6 +192,19 @@ class RecordFragment : Fragment() {
 //            Log.d("TAG", "promptname 0 $promptText")
 //
 //        }
+
+        val c = Calendar.getInstance()
+        val timeOfDay = c[Calendar.HOUR_OF_DAY]
+
+        if (timeOfDay in 0..11) {
+            recordingStatus.text = "Good Morning ^-^"
+        } else if (timeOfDay in 12..15) {
+            recordingStatus.text = "Good Afternoon ^-^"
+        } else if (timeOfDay in 16..20) {
+            recordingStatus.text = "Good Evening ^-^"
+        } else if (timeOfDay in 21..23) {
+            recordingStatus.text = "Good Night ^-^"
+        }
 
 
     }
@@ -273,7 +287,7 @@ class RecordFragment : Fragment() {
 
                 activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-                recordingStatus.text = "Recording..."
+//                recordingStatus.text = "Recording..."
             } else {
                 Log.d("RecordFragment", "onRecord - request permissions")
                 requestPermissions()
@@ -306,7 +320,7 @@ class RecordFragment : Fragment() {
             waveformView.clear()
             chronometer.base = SystemClock.elapsedRealtime()
             timeWhenPaused = 0
-            recordingStatus.text = "Tap the Button to start recording"
+//            recordingStatus.text = "Tap the Button to start recording"
 
             activity?.stopService(intent)
 

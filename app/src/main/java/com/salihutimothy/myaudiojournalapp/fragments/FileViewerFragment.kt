@@ -12,6 +12,8 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,10 +25,6 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
-import android.view.MenuInflater
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.getSystemService
 
 
 class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
@@ -69,11 +67,12 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val view =inflater.inflate(R.layout.fragment_file_viewer, container, false)
+        val view = inflater.inflate(R.layout.fragment_file_viewer, container, false)
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
-            onOptionsItemSelected(it)        }
+            onOptionsItemSelected(it)
+        }
         return view
     }
 
@@ -401,16 +400,14 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.search -> {
-                val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+                val searchManager =
+                    context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
                 searchView = item.actionView as SearchView
 
                 searchView.queryHint = "Search your journal entries..."
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
 
-//                val closeButtonId =
-//                    resources.getIdentifier("android:id/search_close_btn", null, null)
-//                val closeButtonImage = searchView.findViewById<ImageView>(closeButtonId) as ImageView?
-//                closeButtonImage?.setImageResource(R.drawable.ic_close)
+
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -418,7 +415,9 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                         val tempArr = ArrayList<RecordingItem>()
 
                         for (arr in arrayListAudios!!) {
-                            if (arr.name!!.lowercase(Locale.getDefault()).contains(query.toString())) {
+                            if (arr.name!!.lowercase(Locale.getDefault())
+                                    .contains(query.toString())
+                            ) {
                                 tempArr.add(arr)
                             }
                         }
@@ -433,7 +432,9 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                         val tempArr = ArrayList<RecordingItem>()
 
                         for (arr in arrayListAudios!!) {
-                            if (arr.name!!.lowercase(Locale.getDefault()).contains(newText.toString())) {
+                            if (arr.name!!.lowercase(Locale.getDefault())
+                                    .contains(newText.toString())
+                            ) {
                                 tempArr.add(arr)
                             }
                         }
@@ -451,7 +452,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         }
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+    //    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        // TODO Auto-generated method stub
 //        super.onActivityCreated(savedInstanceState)
 //        setHasOptionsMenu(true)

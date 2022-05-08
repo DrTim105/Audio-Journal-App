@@ -45,10 +45,30 @@
 <!--        </shape>-->
 <!--    </item>-->
 
-    <item>
+    <item android:state_enabled="true">
         <shape android:shape="oval">
 
+<!--            <gradient-->
+<!--                android:startColor="@color/accentz"-->
+<!--                android:endColor="#DD7028"-->
+<!--                android:angle="270"/>-->
+
             <solid android:color="@color/accentz"/>
+
+            <corners
+                android:radius="4dp" />
+            <padding
+                android:left="10dp"
+                android:top="10dp"
+                android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+
+            <solid android:color="@color/base2"/>
 
             <corners
                 android:radius="4dp" />
