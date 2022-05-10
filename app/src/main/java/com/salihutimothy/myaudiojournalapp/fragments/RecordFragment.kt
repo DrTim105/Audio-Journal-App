@@ -455,19 +455,20 @@ class RecordFragment : Fragment() {
         activity?.stopService(intent)
     }
 
-    private fun restorePrefData(): Boolean {
-        val pref: SharedPreferences =
-            requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-        return pref.getBoolean("isAppOpened", false)
-    }
-
-    private fun savePrefsData() {
-        val pref: SharedPreferences =
-            requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putBoolean("isAppOpened", true)
-        editor.apply()
-    }
+//    private fun restorePrefData(): Boolean {
+//        val pref: SharedPreferences =
+//            requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//        return pref.getBoolean("isAppOpened", false)
+//    }
+//
+//    private fun savePrefsData() {
+//        val pref: SharedPreferences =
+//            requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//        val editor = pref.edit()
+//        editor.putBoolean("isAppOpened", true)
+////        editor.putInt("recordingNumbmer", rec)
+//        editor.apply()
+//    }
 
 
 }

@@ -1,9 +1,10 @@
 package com.salihutimothy.myaudiojournalapp.services
 
-import android.Manifest
+//import com.salihutimothy.myaudiojournalapp.database.Constants.mentalNote
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Build
@@ -12,7 +13,6 @@ import android.util.Log
 import android.widget.Toast
 import com.salihutimothy.myaudiojournalapp.MainActivity
 import com.salihutimothy.myaudiojournalapp.R
-import com.salihutimothy.myaudiojournalapp.database.Constants.mentalNote
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
@@ -33,8 +33,9 @@ class RecordingService : Service() {
     private val isRecording = false
     private var promptName: String? = null
 
-    private val recordPermission: String = Manifest.permission.RECORD_AUDIO
-    private val PERMISSION_CODE = 21
+    //    var recordingNumber = 0
+    private var mentalNote = 0
+
 
     companion object {
         var maxAmplitude = 0f
@@ -43,6 +44,8 @@ class RecordingService : Service() {
     override fun onCreate() {
         super.onCreate()
         dbHelper = DBHelper(applicationContext)
+        mentalNote = restorePrefData()
+
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -126,8 +129,10 @@ class RecordingService : Service() {
         val timeStamp = timeStampLong.toString()
         timer = Timer()
 
+//        mentalNote = restorePrefData()
+
         fileName = if (promptName == null) {
-            "Mental note"+ mentalNote.toString().padStart(3, '0')
+            "mental_note_" + mentalNote.toString().padStart(3, '0')
         } else {
             promptName
         }
@@ -201,9 +206,9 @@ class RecordingService : Service() {
                 )
             Log.d("Storage - stop service", "File path : ${file.absolutePath} ")
 
-
             dbHelper.addRecording(recordingItem)
             mentalNote++
+            savePrefsData()
 
             mediaRecorder.reset()
             mediaRecorder.release()
@@ -219,6 +224,20 @@ class RecordingService : Service() {
 
 
         }
+    }
+
+    private fun restorePrefData(): Int {
+        val pref: SharedPreferences =
+            applicationContext.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return pref.getInt("recordingNumber", 0)
+    }
+
+    private fun savePrefsData() {
+        val pref: SharedPreferences =
+            applicationContext.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("recordingNumber", mentalNote)
+        editor.apply()
     }
 
     override fun onDestroy() {
