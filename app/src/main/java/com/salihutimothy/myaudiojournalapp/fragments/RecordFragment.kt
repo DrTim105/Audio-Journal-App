@@ -99,6 +99,7 @@ class RecordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_recorrd, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -118,18 +119,18 @@ class RecordFragment : Fragment() {
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
 
 //        Has user opened app previously?
-        if (restorePrefData()) {
-//            journalPrompt.visibility = View.VISIBLE
-//            journalPrompt.setCharacterDelay(100)
-//            journalPrompt.animateText(
-//                "Hiiiiiii (^O^)\n" +
-//                        "Welcome to Audio Journal *\\(^o^)/*\n" +
-//                        "Click the button below to record your thoughts (^-^)"
-//            )
-
-        } else {
-            savePrefsData()
-        }
+//        if (restorePrefData()) {
+////            journalPrompt.visibility = View.VISIBLE
+////            journalPrompt.setCharacterDelay(100)
+////            journalPrompt.animateText(
+////                "Hiiiiiii (^O^)\n" +
+////                        "Welcome to Audio Journal *\\(^o^)/*\n" +
+////                        "Click the button below to record your thoughts (^-^)"
+////            )
+//
+//        } else {
+////            savePrefsData()
+//        }
 
         var prompt = true
 
