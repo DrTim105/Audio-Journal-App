@@ -73,7 +73,6 @@
             android:ellipsize="end"
             android:fontFamily="serif"
             android:maxLines="1"
-            android:textStyle="bold"
             android:text="-------------------mmmmmmmmmmmmmm"
             android:textSize="14sp" />
 

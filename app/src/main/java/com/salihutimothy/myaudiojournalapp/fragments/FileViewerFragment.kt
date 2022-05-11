@@ -73,6 +73,10 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         toolbar.setOnMenuItemClickListener {
             onOptionsItemSelected(it)
         }
+
+//        searchView = toolbar.findViewById(R.id.search).actionView as SearchView
+//        searchView = (R.menu.menu_main.
+//        findItem(R.id.search).actionView as SearchView)
         return view
     }
 

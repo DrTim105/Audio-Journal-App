@@ -6,7 +6,12 @@
         android:title="Search"
         android:icon="@drawable/ic_search"
         android:iconTint="#798794"
-
+        android:layoutDirection="rtl"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+
+
+
+
 </menu>
