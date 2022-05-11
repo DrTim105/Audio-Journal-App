@@ -2,6 +2,7 @@ package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salihutimothy.myaudiojournalapp.R
@@ -47,6 +50,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
     private var handler: Handler = Handler(Looper.myLooper()!!)
+
+    private val MY_SORT_PREF = "sortOrder"
 
     private var isPlaying = false
     var minutes: Long = 0
@@ -105,7 +110,12 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         llm.stackFromEnd = true
         recyclerView.layoutManager = llm
 
-        arrayListAudios = dbHelper.getAllAudios()
+        val pref: SharedPreferences =
+            context!!.getSharedPreferences(MY_SORT_PREF, Context.MODE_PRIVATE)
+//        val editor = pref.edit()
+        val sort = pref.getString("sorting", "sortByDate")
+
+        arrayListAudios = dbHelper.getAllAudios(sort!!)
 
         if (arrayListAudios == null) {
             Toast.makeText(context, "No audio files", Toast.LENGTH_LONG).show()
@@ -402,6 +412,21 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 //    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val pref: SharedPreferences =
+            context!!.getSharedPreferences(MY_SORT_PREF, Context.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        val navController = Navigation.findNavController(requireView())
+
+
+
+
+//        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+//        var frg: Fragment? = null
+//        frg = activity!!.supportFragmentManager.findFragmentById(R.id.audioListFragment)
+
+
         return when (item.itemId) {
             R.id.search -> {
                 val searchManager =
@@ -410,8 +435,6 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
                 searchView.queryHint = "Search your journal entries..."
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-
-
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -452,6 +475,38 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 })
                 true
             }
+
+            R.id.sort_by_date -> {
+                editor.putString("sorting", "sortByDate")
+                editor.apply()
+                navController.run {
+                    popBackStack()
+                    navigate(R.id.audioListFragment)
+                }
+                true
+            }
+
+            R.id.sort_by_name -> {
+                editor.putString("sorting", "sortByName")
+                editor.apply()
+                navController.run {
+                    popBackStack()
+                    navigate(R.id.audioListFragment)
+                }
+                true
+            }
+
+            R.id.sort_by_length -> {
+                editor.putString("sorting", "sortByLength")
+                editor.apply()
+                navController.run {
+                    popBackStack()
+                    navigate(R.id.audioListFragment)
+                }
+                true
+            }
+
+
             else -> super.onOptionsItemSelected(item)
         }
     }

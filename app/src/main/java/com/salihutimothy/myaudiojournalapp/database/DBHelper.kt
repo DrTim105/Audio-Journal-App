@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.MediaStore
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
 import java.util.*
@@ -40,10 +41,24 @@ class DBHelper(private val context: Context) :
         }
     }
 
-    fun getAllAudios(): ArrayList<RecordingItem>? {
+    fun getAllAudios(sort: String): ArrayList<RecordingItem>? {
         val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
         val db = this.readableDatabase
-        val cursor = db.rawQuery("select * from $TABLE_NAME", null)
+        var order : String? = null
+
+        when (sort){
+            "sortByDate" -> {
+                order = COLUMN_TIME_ADDED + " DESC"
+            }
+            "sortByName" -> {
+                order = COLUMN_NAME + " DESC"
+            }
+            "sortByLength" -> {
+                order = COLUMN_LENGTH + " ASC"
+            }
+
+        }
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $order", null)
 
         return if (cursor != null) {
             while (cursor.moveToNext()) {

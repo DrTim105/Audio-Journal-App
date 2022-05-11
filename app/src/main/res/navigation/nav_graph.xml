@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.salihutimothy.myaudiojournalapp.fragments.RecordFragment"
-        tools:layout="@layout/fragment_record"
+        tools:layout="@layout/fragment_recorrd"
         android:label="fragment_record">
 
         <action
@@ -26,7 +26,8 @@
         android:id="@+id/audioListFragment"
         android:name="com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment"
         tools:layout="@layout/fragment_file_viewer"
-        android:label="fragment_file_viewer" >
+        android:tag="FileViewer"
+        android:label="fragment_file_viewer">
 
         <action
             android:id="@+id/action_audioListFragment_to_recordFragment2"
