@@ -48,7 +48,7 @@ class DBHelper(private val context: Context) :
 
         when (sort){
             "sortByDate" -> {
-                order = COLUMN_TIME_ADDED + " DESC"
+                order = COLUMN_TIME_ADDED + " ASC"
             }
             "sortByName" -> {
                 order = COLUMN_NAME + " DESC"
