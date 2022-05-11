@@ -198,13 +198,13 @@ class RecordFragment : Fragment() {
         val timeOfDay = c[Calendar.HOUR_OF_DAY]
 
         if (timeOfDay in 0..11) {
-            recordingStatus.text = "Good Morning ^-^"
+            recordingStatus.text = "Good Morning (^-^)"
         } else if (timeOfDay in 12..15) {
-            recordingStatus.text = "Good Afternoon ^-^"
+            recordingStatus.text = "Good Afternoon (^-^)"
         } else if (timeOfDay in 16..20) {
-            recordingStatus.text = "Good Evening ^-^"
+            recordingStatus.text = "Good Evening (^-^)"
         } else if (timeOfDay in 21..23) {
-            recordingStatus.text = "Good Night ^-^"
+            recordingStatus.text = "Good Night (^-^)"
         }
 
 

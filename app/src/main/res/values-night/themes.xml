@@ -36,11 +36,10 @@
 
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="closeIcon">@drawable/ic_close</item>
-
     </style>
 
     <style name="Widget.MyApp.AutoCompleteTextView.SearchView" parent="Widget.AppCompat.AutoCompleteTextView">
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textColorHint">#798794</item>
         <item name="fontFamily">serif</item>
         <item name="android:textSize">15sp</item>

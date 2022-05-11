@@ -23,9 +23,9 @@
     <color name="base1">#FFFFFFFF</color>
 
     <color name="cardBorder">#484A4B</color>
-    <color name="base2">#373737</color>
-    <color name="base3">#1C1F2C</color>
-    <color name="accent2">#1C1F2C</color>
+    <color name="base2">#121212</color>
+    <color name="base3">#121212</color>
+    <color name="accent2">#FF000000</color>
     <color name="button">#FFFFFFFF</color>
     <color name="accent3">#798794</color>
 
