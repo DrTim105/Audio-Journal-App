@@ -9,7 +9,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/accent2"
+        android:background="@color/accent4"
         android:theme="@style/Theme.MyAudioJournalApp.AppBarOverlay"
         app:elevation="0dp">
 
@@ -37,7 +37,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
                 app:collapseIcon="@drawable/ic_back"
                 app:layout_anchor="@+id/appBarLayout"
                 app:layout_anchorGravity="center"
@@ -52,7 +51,7 @@
                     android:fontFamily="@font/averia_serif_libre_bold"
                     android:text="My Entries"
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     app:layout_collapseMode="parallax" />
 
             </androidx.appcompat.widget.Toolbar>

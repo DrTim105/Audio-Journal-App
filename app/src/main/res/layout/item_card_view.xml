@@ -74,7 +74,7 @@
             android:fontFamily="serif"
             android:maxLines="1"
             android:text="-------------------mmmmmmmmmmmmmm"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/file_length_text"
@@ -84,7 +84,7 @@
             android:fontFamily="serif"
             android:text="00:44"
             android:textColor="#798794"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:fontFamily="serif"
             android:text="june 13, 2022"
             android:textColor="#798794"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
