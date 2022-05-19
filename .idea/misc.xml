@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/background_white.xml" value="0.2203125" />
+        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/bottomsheet_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/button_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/button_bg2.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/button_bg_black.xml" value="0.2203125" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/drawable/wave_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/font/comic_neue.xml" value="0.234375" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/bottomsheet_layout.xml" value="0.33" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_file_viewer.xml" value="0.25" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_playback.xml" value="0.25" />
         <entry key="..\:/Users/SALIHU TIMOTHY/AndroidStudioProjects/MyAudioJournalApp/app/src/main/res/layout/fragment_rec.xml" value="0.33" />

@@ -7,6 +7,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Layout
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -21,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
@@ -342,6 +344,16 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         } else {
             startPlaying()
         }
+    }
+    private lateinit var bottomSheetDialog : BottomSheetDialog
+
+    override fun onMoreClickListener(recordingItem: RecordingItem, position: Int) {
+        bottomSheetDialog = BottomSheetDialog(context!!, R.style.BottomSheetTheme)
+        val bsView = LayoutInflater.from(context).inflate(R.layout.bottomsheet_layout,
+        view?.findViewById(R.id.bottom_sheet))
+
+//        bsView.findViewById(R.id.bs_rename).set
+
     }
 
     private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
