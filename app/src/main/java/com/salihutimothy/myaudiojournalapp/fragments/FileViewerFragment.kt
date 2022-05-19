@@ -46,6 +46,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var forwardButton: ImageView
     private lateinit var playButton: ImageView
     private lateinit var backwardButton: ImageView
+    private lateinit var optionsButton: ImageView
     private lateinit var playbackLayout: CoordinatorLayout
     private lateinit var searchView: SearchView
 
@@ -95,6 +96,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         playButton = view.findViewById(R.id.play_iv) as ImageView
         backwardButton = view.findViewById(R.id.iv_backward) as ImageView
         forwardButton = view.findViewById(R.id.iv_forward) as ImageView
+        optionsButton = view.findViewById(R.id.iv_options) as ImageView
         fileName = view.findViewById(R.id.file_name_text_view) as TextView
         fileLength = view.findViewById(R.id.file_length_text_view) as TextView
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView

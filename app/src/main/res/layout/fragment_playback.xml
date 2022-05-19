@@ -112,6 +112,17 @@
             app:layout_constraintStart_toEndOf="@+id/play_iv"
             app:layout_constraintTop_toTopOf="@+id/play_iv" />
 
+        <ImageView
+            android:id="@+id/iv_options"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_more"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
         <TextView
             android:id="@+id/file_length_text_view"
             android:layout_width="wrap_content"

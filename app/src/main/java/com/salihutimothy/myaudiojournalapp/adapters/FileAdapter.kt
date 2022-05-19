@@ -91,8 +91,6 @@ class FileAdapter(
             holder.cardView!!.elevation = dpToPx(8)
 
         }
-
-
     }
 
     private fun dpToPx(dp: Int): Float {
