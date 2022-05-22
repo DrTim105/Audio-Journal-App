@@ -15,6 +15,7 @@ object Constants {
         val journalPrompts = ArrayList<String>()
 
         journalPrompts.add("What do you wish you didn’t have to do today? ^_^")
+        journalPrompts.add("What are your intentions for the day?")
         journalPrompts.add("What are you looking forward to today?")
         journalPrompts.add("What task has been weighing on your mind lately? ^_^")
         journalPrompts.add("How can you surpass your own expectations today?")

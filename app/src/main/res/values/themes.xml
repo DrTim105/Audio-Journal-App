@@ -16,7 +16,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="cardBackgroundColor">#F0F0F0</item>
 
-<!--        <item name="fontFamily">serif</item>-->
+        <item name="fontFamily">serif</item>
 <!--        <item name="android:textSize">27sp</item>-->
 <!--        <item name="iconTint">#798794</item>-->
 

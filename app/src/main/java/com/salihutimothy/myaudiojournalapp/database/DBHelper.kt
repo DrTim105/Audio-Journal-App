@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.MediaStore
+import android.util.Log
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import com.salihutimothy.myaudiojournalapp.interfaces.OnDatabaseChangedListener
 import java.util.*
@@ -39,6 +40,30 @@ class DBHelper(private val context: Context) :
             e.printStackTrace()
             false
         }
+    }
+
+    fun updateRecording (recordingItem: RecordingItem, name: String, path: String){
+        val db = writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COLUMN_NAME, name)
+        contentValues.put(COLUMN_PATH, path)
+        contentValues.put(COLUMN_LENGTH, recordingItem.length)
+        contentValues.put(COLUMN_TIME_ADDED, recordingItem.time_added)
+
+        val cursor =
+        db.query(TABLE_NAME, null, COLUMN_NAME + "=?", arrayOf(recordingItem.name), null, null, null);
+
+        var id : String? = null
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()){
+                id = cursor.getString(0)
+            }
+            cursor.close()
+        }
+
+        db.update(TABLE_NAME, contentValues, "id=$id", null)
+        db.close()
     }
 
     fun getAllAudios(sort: String): ArrayList<RecordingItem>? {

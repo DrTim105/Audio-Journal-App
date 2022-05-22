@@ -1,5 +1,6 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,18 +8,13 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Layout
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +26,9 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
+import android.content.DialogInterface
+import androidx.navigation.NavController
+import java.io.File
 
 
 class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
@@ -49,6 +48,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var optionsButton: ImageView
     private lateinit var playbackLayout: CoordinatorLayout
     private lateinit var searchView: SearchView
+    private lateinit var navController: NavController
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
@@ -102,6 +102,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
         seekBar = view.findViewById(R.id.seekbar) as SeekBar
         playbackLayout = view.findViewById(R.id.playback) as CoordinatorLayout
+        navController = Navigation.findNavController(requireView())
+
 
         setViewAndChildrenEnabled(playbackLayout, false)
 
@@ -163,6 +165,51 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             }
 
             updateSeekbar()
+        }
+
+        optionsButton.setOnClickListener {
+            bottomSheetDialog = BottomSheetDialog(context!!, R.style.BottomSheetTheme)
+            val bsView = LayoutInflater.from(context).inflate(R.layout.bottomsheet_layout,
+                view.findViewById(R.id.bottom_sheet)
+            )
+
+            bsView.findViewById<LinearLayout>(R.id.bs_rename).setOnClickListener {
+                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+                alertDialog.setTitle("Rename to")
+                val editText: EditText = EditText(context)
+                editText.setText(item.name)
+                val file = File(item.path!!)
+                alertDialog.setView(editText)
+                editText.requestFocus()
+
+
+                alertDialog.setPositiveButton("RENAME",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        val onlyPath: String? = file.parentFile?.absolutePath
+                        val newName = editText.text.toString()
+                        val newPath = onlyPath + "/" + newName + ".mp3"
+                        val newFile = File(newPath)
+                        val rename = file.renameTo(newFile)
+                        if (rename) {
+                            dbHelper.updateRecording(item, newName, newPath)
+
+                            fileAdapter.notifyDataSetChanged()
+                            navController.run {
+                                popBackStack()
+                                navigate(R.id.audioListFragment)
+                            }
+
+                        } else {
+                            Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                alertDialog.setNegativeButton("CANCEL", null)
+                alertDialog.create().show()
+                bottomSheetDialog.dismiss()
+
+            }
+            bottomSheetDialog.setContentView(bsView)
+            bottomSheetDialog.show()
         }
     }
 
@@ -431,14 +478,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             context!!.getSharedPreferences(MY_SORT_PREF, Context.MODE_PRIVATE)
         val editor = pref.edit()
 
-        val navController = Navigation.findNavController(requireView())
-
-
-
-
-//        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-//        var frg: Fragment? = null
-//        frg = activity!!.supportFragmentManager.findFragmentById(R.id.audioListFragment)
+        navController = Navigation.findNavController(requireView())
 
 
         return when (item.itemId) {

@@ -116,6 +116,7 @@ class FileAdapter(
 
     }
 
+
     init {
         dbHelper.setOnDatabaseChangedListener(this)
     }
@@ -142,10 +143,11 @@ class FileAdapter(
 
         init {
             itemView.setOnClickListener(this)
-            ivMore!!.setOnClickListener{
-                onItemListClick.onMoreClickListener(arrayList[adapterPosition], adapterPosition)
-            }
         }
+
+        // Game-specific bonuses
+        //
+        //
 
         override fun onClick(v: View?) {
             notifyItemChanged(selectedPos)
