@@ -64,7 +64,8 @@
         <item name="colorControlActivated">@color/accentz</item>
         <item name="colorControlHighlight">@color/accentz</item>
         <item name="android:textColorHighlight">@color/textHighlight</item>
-
+        <item name="android:textSize">19sp</item>
+        <item name="fontFamily">serif</item>
     </style>
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
