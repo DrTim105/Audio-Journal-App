@@ -85,8 +85,6 @@ class FileAdapter(
             holder.ivRecord!!.isEnabled = false
             holder.ivRecord!!.setImageResource(R.drawable.ic_play)
 
-            holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
-            holder.cardView!!.elevation = dpToPx(8)
 
         }
     }
