@@ -18,7 +18,7 @@
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
 
-        <item name="fontFamily">serif</item>
+<!--        <item name="fontFamily">serif</item>-->
 <!--        <item name="android:textSize">27sp</item>-->
 <!--        <item name="iconTint">#798794</item>-->
 
@@ -42,6 +42,7 @@
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="android:background">@color/base3</item>
+        <item name="fontFamily">serif</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
