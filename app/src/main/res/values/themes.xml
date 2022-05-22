@@ -16,6 +16,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="cardBackgroundColor">#F0F0F0</item>
 
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+
         <item name="fontFamily">serif</item>
 <!--        <item name="android:textSize">27sp</item>-->
 <!--        <item name="iconTint">#798794</item>-->
@@ -34,6 +36,23 @@
     <style name="Theme.MyAudioJournalApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyAudioJournalApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/accentz</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/accentz</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+
     </style>
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">

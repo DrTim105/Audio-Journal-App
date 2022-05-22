@@ -74,10 +74,7 @@ class FileAdapter(
                 )
             )
             holder.ivRecord!!.isEnabled = true
-
-
-            holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.cardBorder))
-            holder.cardView!!.elevation = 0f
+            holder.ivRecord!!.setImageResource(R.drawable.ic_music)
         } else {
             holder.tvRecordName!!.setTextColor(
                 ContextCompat.getColor(
@@ -86,6 +83,7 @@ class FileAdapter(
                 )
             )
             holder.ivRecord!!.isEnabled = false
+            holder.ivRecord!!.setImageResource(R.drawable.ic_play)
 
             holder.cardView!!.strokeColor = ContextCompat.getColor(context, (R.color.accent2))
             holder.cardView!!.elevation = dpToPx(8)

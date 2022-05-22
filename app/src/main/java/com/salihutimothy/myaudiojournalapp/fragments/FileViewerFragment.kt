@@ -1,6 +1,5 @@
 package com.salihutimothy.myaudiojournalapp.fragments
 
-import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.SharedPreferences
@@ -27,6 +26,7 @@ import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import android.content.DialogInterface
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import java.io.File
 
@@ -174,7 +174,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             )
 
             bsView.findViewById<LinearLayout>(R.id.bs_rename).setOnClickListener {
-                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 alertDialog.setTitle("Rename to")
                 val editText: EditText = EditText(context)
                 editText.setText(item.name)
@@ -190,18 +190,21 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                         val newPath = onlyPath + "/" + newName + ".mp3"
                         val newFile = File(newPath)
                         val rename = file.renameTo(newFile)
-                        if (rename) {
-                            dbHelper.updateRecording(item, newName, newPath)
+                        if (item.path != newPath){
+                            if (rename) {
+                                dbHelper.updateRecording(item, newName, newPath)
 
-                            fileAdapter.notifyDataSetChanged()
-                            navController.run {
-                                popBackStack()
-                                navigate(R.id.audioListFragment)
+                                fileAdapter.notifyDataSetChanged()
+                                navController.run {
+                                    popBackStack()
+                                    navigate(R.id.audioListFragment)
+                                }
+
+                            } else {
+                                Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
                             }
-
-                        } else {
-                            Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
                         }
+
                     })
                 alertDialog.setNegativeButton("CANCEL", null)
                 alertDialog.create().show()
