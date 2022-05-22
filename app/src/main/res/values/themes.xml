@@ -41,16 +41,29 @@
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:background">@color/base3</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/accentz</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/accentz</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="CustomEditTextTheme" parent="@style/TextAppearance.AppCompat">
+        <!-- Customize your theme here. -->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorControlNormal">@color/accentz</item>
+        <item name="colorControlActivated">@color/accentz</item>
+        <item name="colorControlHighlight">@color/accentz</item>
+        <item name="android:textColorHighlight">@color/textHighlight</item>
+
     </style>
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">

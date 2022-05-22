@@ -176,7 +176,9 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             bsView.findViewById<LinearLayout>(R.id.bs_rename).setOnClickListener {
                 val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 alertDialog.setTitle("Rename to")
-                val editText: EditText = EditText(context)
+                val editText: EditText = EditText(ContextThemeWrapper(context, R.style.CustomEditTextTheme))
+//                val editText: EditText = EditText(context)
+
                 editText.setText(item.name)
                 val file = File(item.path!!)
                 alertDialog.setView(editText)
