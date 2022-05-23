@@ -26,6 +26,8 @@ import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import java.io.File
@@ -210,6 +212,15 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 alertDialog.create().show()
                 bottomSheetDialog.dismiss()
 
+            }
+
+            bsView.findViewById<LinearLayout>(R.id.bs_share).setOnClickListener {
+                val uri = Uri.parse(item.path)
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "audio/*"
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+                context!!.startActivity(Intent.createChooser(shareIntent, "Share Recording via"))
+                bottomSheetDialog.dismiss()
             }
             bottomSheetDialog.setContentView(bsView)
             bottomSheetDialog.show()
