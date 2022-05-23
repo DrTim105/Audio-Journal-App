@@ -196,7 +196,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                             if (rename) {
                                 dbHelper.updateRecording(item, newName, newPath)
 
-                                fileAdapter.notifyDataSetChanged()
+                                fileAdapter.notifyItemChanged(mPosition)
                                 navController.run {
                                     popBackStack()
                                     navigate(R.id.audioListFragment)
@@ -207,7 +207,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                             }
                         }
 
-                    })
+                    }
+                )
                 alertDialog.setNegativeButton("CANCEL", null)
                 alertDialog.create().show()
                 bottomSheetDialog.dismiss()
@@ -220,6 +221,33 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 shareIntent.type = "audio/*"
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
                 context!!.startActivity(Intent.createChooser(shareIntent, "Share Recording via"))
+                bottomSheetDialog.dismiss()
+            }
+
+            bsView.findViewById<LinearLayout>(R.id.bs_delete).setOnClickListener {
+                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
+                alertDialog.setTitle("Delete")
+                alertDialog.setMessage("Do you want to delete this recording?")
+                alertDialog.setPositiveButton("DELETE",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        val file = File (item.path!!)
+                        val delete = file.delete()
+
+                        if (delete){
+                            dbHelper.deleteRecording(item)
+                            fileAdapter.notifyItemRemoved(mPosition)
+                            fileAdapter.notifyItemRangeChanged(mPosition, arrayListAudios!!.size)
+                            navController.run {
+                                popBackStack()
+                                navigate(R.id.audioListFragment)
+                            }
+                        } else {
+                            Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                )
+                alertDialog.setNegativeButton("CANCEL", null)
+                alertDialog.create().show()
                 bottomSheetDialog.dismiss()
             }
             bottomSheetDialog.setContentView(bsView)
@@ -386,6 +414,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         handler.postDelayed(mRunnable, 1000)
     }
 
+    private var mPosition = 0
 
     override fun onClickListener(recordingItem: RecordingItem, position: Int) {
 
@@ -395,6 +424,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         item = recordingItem
 
+        mPosition = position
 
 
         minutes = TimeUnit.MILLISECONDS.toMinutes(item.length)

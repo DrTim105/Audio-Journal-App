@@ -66,6 +66,24 @@ class DBHelper(private val context: Context) :
         db.close()
     }
 
+    fun deleteRecording (recordingItem: RecordingItem) {
+        val db = writableDatabase
+        val cursor =
+            db.query(TABLE_NAME, null, COLUMN_NAME + "=?", arrayOf(recordingItem.name), null, null, null);
+
+        var id : String? = null
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()){
+                id = cursor.getString(0)
+            }
+            cursor.close()
+        }
+
+        db.delete(TABLE_NAME, "id=$id", null)
+        db.close()
+    }
+
     fun getAllAudios(sort: String): ArrayList<RecordingItem>? {
         val arrayList: ArrayList<RecordingItem> = ArrayList<RecordingItem>()
         val db = this.readableDatabase
