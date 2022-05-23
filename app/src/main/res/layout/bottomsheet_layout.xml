@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bottomsheet_bg"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:paddingVertical="10dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -20,7 +20,8 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="11dp">
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="25dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -47,7 +48,8 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="11dp">
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="25dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -74,7 +76,8 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="11dp">
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="25dp">
 
         <ImageView
             android:layout_width="wrap_content"
