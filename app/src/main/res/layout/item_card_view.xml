@@ -73,6 +73,7 @@
             android:ellipsize="end"
             android:fontFamily="serif"
             android:maxLines="1"
+            android:textColor="@color/textColorPrimary"
             android:text="-------------------mmmmmmmmmmmmmm"
             android:textSize="15sp" />
 

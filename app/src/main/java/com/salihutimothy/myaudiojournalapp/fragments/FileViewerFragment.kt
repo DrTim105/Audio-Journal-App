@@ -2,18 +2,23 @@ package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,15 +27,10 @@ import com.salihutimothy.myaudiojournalapp.R
 import com.salihutimothy.myaudiojournalapp.adapters.FileAdapter
 import com.salihutimothy.myaudiojournalapp.database.DBHelper
 import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
+import java.io.File
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
-import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
-import java.io.File
 
 
 class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
@@ -133,8 +133,6 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             recyclerView.adapter = fileAdapter
         }
 
-
-
         playButton.setOnClickListener {
             if (isPlaying) {
                 pausePlaying()
@@ -171,14 +169,16 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         optionsButton.setOnClickListener {
             bottomSheetDialog = BottomSheetDialog(context!!, R.style.BottomSheetTheme)
-            val bsView = LayoutInflater.from(context).inflate(R.layout.bottomsheet_layout,
+            val bsView = LayoutInflater.from(context).inflate(
+                R.layout.bottomsheet_layout,
                 view.findViewById(R.id.bottom_sheet)
             )
 
             bsView.findViewById<LinearLayout>(R.id.bs_rename).setOnClickListener {
                 val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 alertDialog.setTitle("Rename to")
-                val editText: EditText = EditText(ContextThemeWrapper(context, R.style.CustomEditTextTheme))
+                val editText: EditText =
+                    EditText(ContextThemeWrapper(context, R.style.CustomEditTextTheme))
                 editText.setText(item.name)
                 val file = File(item.path!!)
                 alertDialog.setView(editText)
@@ -192,7 +192,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                         val newPath = onlyPath + "/" + newName + ".mp3"
                         val newFile = File(newPath)
                         val rename = file.renameTo(newFile)
-                        if (item.path != newPath){
+                        if (item.path != newPath) {
                             if (rename) {
                                 dbHelper.updateRecording(item, newName, newPath)
 
@@ -230,17 +230,12 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 alertDialog.setMessage("Do you want to delete this recording?")
                 alertDialog.setPositiveButton("DELETE",
                     DialogInterface.OnClickListener { dialog, which ->
-                        val file = File (item.path!!)
+                        val file = File(item.path!!)
                         val delete = file.delete()
 
-                        if (delete){
+                        if (delete) {
                             dbHelper.deleteRecording(item)
-                            fileAdapter.notifyItemRemoved(mPosition)
-                            fileAdapter.notifyItemRangeChanged(mPosition, arrayListAudios!!.size)
-                            navController.run {
-                                popBackStack()
-                                navigate(R.id.audioListFragment)
-                            }
+
                         } else {
                             Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
                         }
@@ -418,6 +413,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
     override fun onClickListener(recordingItem: RecordingItem, position: Int) {
 
+        Log.d("BUG", "record clicked")
+
         playbackLayout = requireView().findViewById(R.id.playback) as CoordinatorLayout
 
         setViewAndChildrenEnabled(playbackLayout, true)
@@ -438,12 +435,15 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             startPlaying()
         }
     }
-    private lateinit var bottomSheetDialog : BottomSheetDialog
+
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onMoreClickListener(recordingItem: RecordingItem, position: Int) {
         bottomSheetDialog = BottomSheetDialog(context!!, R.style.BottomSheetTheme)
-        val bsView = LayoutInflater.from(context).inflate(R.layout.bottomsheet_layout,
-        view?.findViewById(R.id.bottom_sheet))
+        val bsView = LayoutInflater.from(context).inflate(
+            R.layout.bottomsheet_layout,
+            view?.findViewById(R.id.bottom_sheet)
+        )
 
 //        bsView.findViewById(R.id.bs_rename).set
 
@@ -516,7 +516,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 ////        return true
 //    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun findIndex(arr: ArrayList<RecordingItem>?, item: RecordingItem): Int? {
+        return arr?.indexOf(item)
+    }
+
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
 
         val pref: SharedPreferences =
             context!!.getSharedPreferences(MY_SORT_PREF, Context.MODE_PRIVATE)
@@ -525,14 +529,31 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         navController = Navigation.findNavController(requireView())
 
 
-        return when (item.itemId) {
+        return when (menuItem.itemId) {
             R.id.search -> {
                 val searchManager =
                     context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-                searchView = item.actionView as SearchView
+                searchView = menuItem.actionView as SearchView
 
                 searchView.queryHint = "Search your journal entries..."
                 searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+                val closeButton = searchView.findViewById(R.id.search_close_btn) as ImageView
+
+                closeButton.setOnClickListener {
+                    Log.d("BUG", "searchview closed")
+                    val et = searchView.findViewById(R.id.search_src_text) as EditText
+                    et.setText("")
+                    searchView.setQuery("", false)
+                    searchView.onActionViewCollapsed()
+                    menuItem.collapseActionView()
+
+                    val recordPosition = findIndex(arrayListAudios, item)
+
+                    if (recordPosition != null) {
+                        recyclerView.scrollToPosition(recordPosition)
+                    }
+                    Log.d("BUG", "position of current recording $recordPosition")
+                }
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -605,7 +626,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             }
 
 
-            else -> super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(menuItem)
         }
     }
 

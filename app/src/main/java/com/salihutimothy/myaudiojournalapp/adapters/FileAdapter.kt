@@ -31,10 +31,10 @@ class FileAdapter(
 
     private var ten = 10
     private var selectedPos = RecyclerView.NO_POSITION
+    private var selectedRecordingItem: RecordingItem? = null
 
 
     override fun onBindViewHolder(holder: FileAdapter.FileViewerViewHolder, position: Int) {
-        Log.d("TAG", "Binding item at position $position")
 
         val recordingItem: RecordingItem = arrayList[position]
         val minutes = TimeUnit.MILLISECONDS.toMinutes(recordingItem.length)
@@ -66,26 +66,27 @@ class FileAdapter(
         }
         holder.itemView.isSelected = selectedPos == position
 
-        if (selectedPos == position) {
-            holder.tvRecordName!!.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    (R.color.accentz)
+        if (selectedRecordingItem != null) {
+            if (selectedRecordingItem == arrayList[position]) {
+                holder.tvRecordName!!.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        (R.color.accentz)
+                    )
                 )
-            )
-            holder.ivRecord!!.isEnabled = true
-            holder.ivRecord!!.setImageResource(R.drawable.ic_music)
-        } else {
-            holder.tvRecordName!!.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    (R.color.textColorPrimary)
+                holder.ivRecord!!.isEnabled = true
+                holder.ivRecord!!.setImageResource(R.drawable.ic_music)
+            }
+            else {
+                holder.tvRecordName!!.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        (R.color.textColorPrimary)
+                    )
                 )
-            )
-            holder.ivRecord!!.isEnabled = false
-            holder.ivRecord!!.setImageResource(R.drawable.ic_play)
-
-
+                holder.ivRecord!!.isEnabled = false
+                holder.ivRecord!!.setImageResource(R.drawable.ic_play)
+            }
         }
     }
 
@@ -110,6 +111,14 @@ class FileAdapter(
 
         notifyItemInserted(arrayList.size - 1)
 
+    }
+
+    override fun onDatabaseEntryDeleted(recordingItem: RecordingItem?) {
+        if (recordingItem != null) {
+            arrayList.remove(recordingItem)
+        }
+        notifyItemRemoved(selectedPos)
+        notifyItemRangeChanged(selectedPos, arrayList.size)
     }
 
 
@@ -141,18 +150,19 @@ class FileAdapter(
             itemView.setOnClickListener(this)
         }
 
-        // Game-specific bonuses
-        //
-        //
 
         override fun onClick(v: View?) {
             notifyItemChanged(selectedPos)
             selectedPos = layoutPosition
+            selectedRecordingItem = arrayList[selectedPos]
+
             notifyItemChanged(selectedPos)
 
-            onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
-        }
 
+            onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
+            Log.d("BUG", "onclick $adapterPosition")
+
+        }
     }
 
 

@@ -81,6 +81,11 @@ class DBHelper(private val context: Context) :
         }
 
         db.delete(TABLE_NAME, "id=$id", null)
+
+        if (mOnDatabaseChangedListener != null) {
+            mOnDatabaseChangedListener?.onDatabaseEntryDeleted(recordingItem)
+        }
+
         db.close()
     }
 

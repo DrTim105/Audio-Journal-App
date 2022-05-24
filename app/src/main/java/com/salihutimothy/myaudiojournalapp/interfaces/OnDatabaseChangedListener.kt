@@ -4,4 +4,5 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 
 interface OnDatabaseChangedListener {
     fun onNewDatabaseEntryAdded(recordingItem: RecordingItem?)
+    fun onDatabaseEntryDeleted(recordingItem: RecordingItem?)
 }
