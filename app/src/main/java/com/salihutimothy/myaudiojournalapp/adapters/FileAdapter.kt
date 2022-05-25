@@ -157,10 +157,11 @@ class FileAdapter(
             selectedRecordingItem = arrayList[selectedPos]
 
             notifyItemChanged(selectedPos)
+            Log.d("BUG", "onclick $selectedPos")
+            Log.d("BUG", "onclick ${selectedRecordingItem!!.name}")
 
 
             onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
-            Log.d("BUG", "onclick $adapterPosition")
 
         }
     }

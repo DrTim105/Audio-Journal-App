@@ -445,8 +445,6 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             view?.findViewById(R.id.bottom_sheet)
         )
 
-//        bsView.findViewById(R.id.bs_rename).set
-
     }
 
     private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
@@ -516,9 +514,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 ////        return true
 //    }
 
-    private fun findIndex(arr: ArrayList<RecordingItem>?, item: RecordingItem): Int? {
+    private fun findIndex(arr: ArrayList<RecordingItem>?, item: RecordingItem?): Int? {
         return arr?.indexOf(item)
     }
+
+    private var recordPosition = 0
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
 
@@ -540,19 +540,25 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 val closeButton = searchView.findViewById(R.id.search_close_btn) as ImageView
 
                 closeButton.setOnClickListener {
-                    Log.d("BUG", "searchview closed")
                     val et = searchView.findViewById(R.id.search_src_text) as EditText
                     et.setText("")
                     searchView.setQuery("", false)
                     searchView.onActionViewCollapsed()
                     menuItem.collapseActionView()
 
-                    val recordPosition = findIndex(arrayListAudios, item)
-
-                    if (recordPosition != null) {
-                        recyclerView.scrollToPosition(recordPosition)
+                    recordPosition = if (item != null) {
+                        findIndex(arrayListAudios, item)!!
+                    } else {
+                        arrayListAudios!!.size - 1
                     }
-                    Log.d("BUG", "position of current recording $recordPosition")
+//                     if(findIndex(arrayListAudios, item) == null){
+//                         recordPosition = arrayListAudios!!.size - 1
+//                    }
+//                    else {
+//                        findIndex(arrayListAudios, item)!!
+//                    }
+
+                    recyclerView.scrollToPosition(recordPosition!!)
                 }
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
