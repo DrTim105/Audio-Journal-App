@@ -68,6 +68,10 @@ class FileAdapter(
 
         if (selectedRecordingItem != null) {
             if (selectedRecordingItem == arrayList[position]) {
+
+                Log.d("BUG", "clicked item name ${holder.tvRecordName!!.text}")
+
+
                 holder.tvRecordName!!.setTextColor(
                     ContextCompat.getColor(
                         context,
@@ -84,6 +88,8 @@ class FileAdapter(
                         (R.color.textColorPrimary)
                     )
                 )
+                Log.d("BUG", "unclicked item name ${holder.tvRecordName!!.text}")
+
                 holder.ivRecord!!.isEnabled = false
                 holder.ivRecord!!.setImageResource(R.drawable.ic_play)
             }
@@ -144,7 +150,6 @@ class FileAdapter(
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
         var ivRecord: ImageView? = itemView.findViewById(R.id.imageView)
         var ivMore: ImageView? = itemView.findViewById(R.id.iv_more)
-        var cardView: MaterialCardView? = itemView.findViewById(R.id.card_view)
 
         init {
             itemView.setOnClickListener(this)
@@ -157,12 +162,14 @@ class FileAdapter(
             selectedRecordingItem = arrayList[selectedPos]
 
             notifyItemChanged(selectedPos)
-            Log.d("BUG", "onclick $selectedPos")
+
+
+            Log.d("BUG", "selected position $selectedPos")
             Log.d("BUG", "onclick ${selectedRecordingItem!!.name}")
 
 
             onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
-
+            notifyDataSetChanged()
         }
     }
 

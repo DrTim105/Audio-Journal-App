@@ -1,46 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true" >
-        <shape>
-            <solid
-                android:color="?attr/colorAccent" />
-<!--            <stroke-->
-<!--                android:width="1dp"-->
-<!--                android:color="#f4510d" />-->
-            <corners
-                android:radius="10dp" />
-
-            <padding
-                android:left="10dp"
-                android:top="10dp"
-                android:right="10dp"
-                android:bottom="10dp" />
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/selectableItemBackground">
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
         </shape>
     </item>
 
-    <item>
-        <shape>
-<!--            <gradient-->
-<!--                android:startColor="#F38557"-->
-<!--                android:endColor="#f4510d"-->
-<!--                android:angle="270" />-->
+    <item android:id="@android:id/background">
+        <shape android:shape="oval">
 
-<!--            android:startColor="#FADACF"-->
-
-            <solid android:color="#f4510d"/>
-
-<!--                        <stroke-->
-<!--                android:width="1dp"-->
-<!--                android:color="#f4510d" />-->
-            <corners
-                android:radius="10dp" />
-<!--            <padding-->
-<!--                android:left="10dp"-->
-<!--                android:top="10dp"-->
-<!--                android:right="10dp"-->
-<!--                android:bottom="10dp" />-->
         </shape>
     </item>
+</ripple>
 
-</selector>

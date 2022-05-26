@@ -145,6 +145,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                         }
                     }
                 } else {
+                    this.isEnabled = false
                     navController.run {
                         popBackStack()
                     }
@@ -562,23 +563,17 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                     val et = searchView.findViewById(R.id.search_src_text) as EditText
                     et.setText("")
                     searchView.setQuery("", false)
-//                    searchView.onActionViewCollapsed()
-//                    menuItem.collapseActionView()
-
 
                     recordPosition = if (this::item.isInitialized) {
                         findIndex(arrayListAudios, item)!!
                     } else {
                         arrayListAudios!!.size - 1
                     }
-//                     if(findIndex(arrayListAudios, item) == null){
-//                         recordPosition = arrayListAudios!!.size - 1
-//                    }
-//                    else {
-//                        findIndex(arrayListAudios, item)!!
-//                    }
 
                     recyclerView.scrollToPosition(recordPosition)
+
+                    Log.d("BUG", "scroll to $recordPosition")
+
                 }
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
