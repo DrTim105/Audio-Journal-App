@@ -1,18 +1,16 @@
 package com.salihutimothy.myaudiojournalapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager.widget.ViewPager
 import com.astuetz.PagerSlidingTabStrip
-import com.salihutimothy.myaudiojournalapp.adapters.MyTabAdapter
-import com.salihutimothy.myaudiojournalapp.fragments.RecordFragment
+import com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var tabs : PagerSlidingTabStrip
-    private lateinit var viewPager : ViewPager
+    private lateinit var tabs: PagerSlidingTabStrip
+    private lateinit var viewPager: ViewPager
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +23,18 @@ class MainActivity : AppCompatActivity() {
 //
 //        if (!searchView.isIconified) {
 //            searchView.onActionViewCollapsed()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
+
+//    override fun onBackPressed() {
+//        val fragment =
+//            this.supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment
+//        val currentFragment =
+//            fragment?.childFragmentManager?.fragments?.get(0) as? FileViewerFragment
+//        if (currentFragment != null) {
+//            currentFragment.onBackPressed().takeIf { !it }?.let { super.onBackPressed() }
 //        } else {
 //            super.onBackPressed()
 //        }

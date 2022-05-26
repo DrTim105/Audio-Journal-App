@@ -13,6 +13,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -51,6 +52,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var playbackLayout: CoordinatorLayout
     private lateinit var searchView: SearchView
     private lateinit var navController: NavController
+    private lateinit var toolbar : Toolbar
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
@@ -78,15 +80,12 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_file_viewer, container, false)
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             onOptionsItemSelected(it)
         }
 
-//        searchView = toolbar.findViewById(R.id.search).actionView as SearchView
-//        searchView = (R.menu.menu_main.
-//        findItem(R.id.search).actionView as SearchView)
         return view
     }
 
@@ -132,6 +131,26 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 FileAdapter(requireContext(), arrayListAudios!!, llm, this@FileViewerFragment)
             recyclerView.adapter = fileAdapter
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (this@FileViewerFragment::searchView.isInitialized){
+                    if (!searchView.isIconified) {
+                        searchView.onActionViewCollapsed()
+                        toolbar.collapseActionView()
+                    } else {
+                        this.isEnabled = false
+                        navController.run {
+                            popBackStack()
+                        }
+                    }
+                } else {
+                    navController.run {
+                        popBackStack()
+                    }
+                }
+            }
+        })
 
         playButton.setOnClickListener {
             if (isPlaying) {
@@ -543,10 +562,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                     val et = searchView.findViewById(R.id.search_src_text) as EditText
                     et.setText("")
                     searchView.setQuery("", false)
-                    searchView.onActionViewCollapsed()
-                    menuItem.collapseActionView()
+//                    searchView.onActionViewCollapsed()
+//                    menuItem.collapseActionView()
 
-                    recordPosition = if (item != null) {
+
+                    recordPosition = if (this::item.isInitialized) {
                         findIndex(arrayListAudios, item)!!
                     } else {
                         arrayListAudios!!.size - 1
@@ -558,7 +578,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 //                        findIndex(arrayListAudios, item)!!
 //                    }
 
-                    recyclerView.scrollToPosition(recordPosition!!)
+                    recyclerView.scrollToPosition(recordPosition)
                 }
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
