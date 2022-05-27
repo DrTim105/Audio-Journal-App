@@ -292,10 +292,6 @@ class PlaybackFragment : Fragment(), FileAdapter.OnItemListClick {
         }
     }
 
-    override fun onMoreClickListener(recordingItem: RecordingItem, position: Int) {
-        TODO("Not yet implemented")
-    }
-
     override fun onStop() {
         super.onStop()
         if (isPlaying){

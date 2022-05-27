@@ -46,8 +46,7 @@ class FileAdapter(
         holder.ivRecord!!.isEnabled = false
         holder.tvRecordName!!.text = recordingItem.name
         holder.tvRecordLength!!.text = String.format("%02d:%02d", minutes, seconds)
-        holder.ivMore!!.setOnClickListener {
-        }
+
 
         if (DateUtils.isToday(recordingItem.time_added)) {
             holder.tvRecordTime!!.text = String.format(
@@ -78,6 +77,7 @@ class FileAdapter(
                         (R.color.accentz)
                     )
                 )
+                holder.tvRecordName!!.isSelected = true
                 holder.ivRecord!!.isEnabled = true
                 holder.ivRecord!!.setImageResource(R.drawable.ic_music)
             }
@@ -149,7 +149,6 @@ class FileAdapter(
         var tvRecordLength: TextView? = itemView.findViewById(R.id.file_length_text)
         var tvRecordTime: TextView? = itemView.findViewById(R.id.file_time_added)
         var ivRecord: ImageView? = itemView.findViewById(R.id.imageView)
-        var ivMore: ImageView? = itemView.findViewById(R.id.iv_more)
 
         init {
             itemView.setOnClickListener(this)
@@ -176,7 +175,6 @@ class FileAdapter(
 
     interface OnItemListClick {
         fun onClickListener(recordingItem: RecordingItem, position: Int)
-        fun onMoreClickListener(recordingItem: RecordingItem, position: Int)
     }
 
 }

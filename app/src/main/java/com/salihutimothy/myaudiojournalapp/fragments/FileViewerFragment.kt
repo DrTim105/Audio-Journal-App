@@ -196,7 +196,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
             bsView.findViewById<LinearLayout>(R.id.bs_rename).setOnClickListener {
                 val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
-                alertDialog.setTitle("Rename to")
+                alertDialog.setTitle("Rename")
                 val editText: EditText =
                     EditText(ContextThemeWrapper(context, R.style.CustomEditTextTheme))
                 editText.setText(item.name)
@@ -248,19 +248,18 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 alertDialog.setTitle("Delete")
                 alertDialog.setMessage("Do you want to delete this recording?")
-                alertDialog.setPositiveButton("DELETE",
-                    DialogInterface.OnClickListener { dialog, which ->
-                        val file = File(item.path!!)
-                        val delete = file.delete()
+                alertDialog.setPositiveButton("DELETE"
+                ) { dialog, which ->
+                    val file = File(item.path!!)
+                    val delete = file.delete()
 
-                        if (delete) {
-                            dbHelper.deleteRecording(item)
+                    if (delete) {
+                        dbHelper.deleteRecording(item)
 
-                        } else {
-                            Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
-                        }
+                    } else {
+                        Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
                     }
-                )
+                }
                 alertDialog.setNegativeButton("CANCEL", null)
                 alertDialog.create().show()
                 bottomSheetDialog.dismiss()
@@ -457,15 +456,6 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     }
 
     private lateinit var bottomSheetDialog: BottomSheetDialog
-
-    override fun onMoreClickListener(recordingItem: RecordingItem, position: Int) {
-        bottomSheetDialog = BottomSheetDialog(context!!, R.style.BottomSheetTheme)
-        val bsView = LayoutInflater.from(context).inflate(
-            R.layout.bottomsheet_layout,
-            view?.findViewById(R.id.bottom_sheet)
-        )
-
-    }
 
     private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
         view.isEnabled = enabled
