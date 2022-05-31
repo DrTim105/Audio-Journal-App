@@ -15,6 +15,7 @@
         <item>@font/lato_light</item>
         <item>@font/lato_thin</item>
         <item>@font/manrope</item>
+        <item>@font/roboto_slab</item>
         <item>@font/trocchi</item>
     </array>
 </resources>

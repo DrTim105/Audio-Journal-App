@@ -168,7 +168,7 @@ class FileAdapter(
 
 
             onItemListClick.onClickListener(arrayList[adapterPosition], adapterPosition)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         }
     }
 

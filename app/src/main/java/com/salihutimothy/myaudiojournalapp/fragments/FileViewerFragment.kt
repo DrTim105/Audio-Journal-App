@@ -561,10 +561,19 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                     }
 
                     recyclerView.scrollToPosition(recordPosition)
-
-                    Log.d("BUG", "scroll to $recordPosition")
-
                 }
+
+                searchView.setOnCloseListener {
+                    fileAdapter.notifyDataSetChanged()
+
+                    fileAdapter.notifyItemChanged(recordPosition)
+
+                    Log.d("BUG", "searchview closed")
+
+                    true
+                }
+
+
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -598,6 +607,11 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
                         fileAdapter.setData(tempArr)
                         fileAdapter.notifyDataSetChanged()
+
+//                        if (newText == ""){
+//                            recyclerView.scrollToPosition(recordPosition)
+//
+//                        }
 
                         return true
                     }

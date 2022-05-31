@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/averia_serif_libre_bold"
+        android:fontFamily="@font/roboto_slab"
         android:lineSpacingExtra="4sp"
         android:text="How was your day?"
         android:textStyle="bold"
