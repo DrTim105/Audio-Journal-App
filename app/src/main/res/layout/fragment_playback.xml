@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="@drawable/playback_bg"
     android:clickable="true"
     android:transitionName="open_mediaplayer">
 
@@ -15,7 +14,10 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginBottom="4dp"
         app:layout_anchor="@+id/constraintLayout"
+        android:background="@drawable/playback_bg"
         app:layout_anchorGravity="center">
 
         <!--        <ImageView-->
@@ -58,8 +60,7 @@
             android:id="@+id/seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="6dp"
             android:indeterminate="false"
             android:padding="0dp"
             android:progressDrawable="@drawable/custom_seekbar"
@@ -72,8 +73,8 @@
 
         <ImageView
             android:id="@+id/play_iv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
@@ -133,7 +134,7 @@
             android:layout_marginEnd="12dp"
             android:fontFamily="serif"
             android:text="00:00"
-            android:textColor="#798794"
+            android:textColor="@color/accent"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/seekbar"
             app:layout_constraintTop_toBottomOf="@+id/seekbar" />
@@ -147,7 +148,7 @@
             android:layout_marginStart="12dp"
             android:fontFamily="serif"
             android:text="00:00"
-            android:textColor="#798794"
+            android:textColor="@color/accent"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/seekbar"
             app:layout_constraintTop_toBottomOf="@+id/seekbar" />

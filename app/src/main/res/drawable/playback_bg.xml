@@ -18,8 +18,7 @@
 
             <solid android:color="@color/base3"/>
 
-<!--                <corners android:topRightRadius="30dp"-->
-<!--                    android:topLeftRadius="30dp"/>-->
+                <corners android:radius="20dp"/>
 
 <!--                        <stroke-->
 <!--                            android:width="0.5dp"-->

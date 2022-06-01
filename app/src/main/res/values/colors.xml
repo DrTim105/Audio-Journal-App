@@ -16,7 +16,7 @@
 
     <color name="whitee">#FFFFFFFF</color>
     <color name="base">#FFFFFFFF</color>
-    <color name="accent">#EFEEEE</color>
+    <color name="accent">#798794</color>
 <!--    <color name="wave">#F6946B</color>-->
     <color name="wave">#DAD9D9</color>
     <color name="base1">#FF000000</color>
@@ -34,6 +34,7 @@
     <color name="accent4">#FFFFFF</color>
     <color name="button">#1E2933</color>
     <color name="accent3">#798794</color>
+    <color name="accent5">#FFFFFF</color>
 
 
 
