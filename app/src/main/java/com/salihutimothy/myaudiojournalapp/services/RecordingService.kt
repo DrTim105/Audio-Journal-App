@@ -109,7 +109,7 @@ class RecordingService : Service() {
 
         return builder
             .setContentTitle("Audio Journal")
-            .setContentText("Recording...")
+            .setContentText("Listening...")
             .setContentIntent(intent)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_mic)

@@ -425,7 +425,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     }
 
     private fun updateSeekbar() {
-        handler.postDelayed(mRunnable, 1000)
+        handler.postDelayed(mRunnable, 0)
     }
 
     private var mPosition = 0

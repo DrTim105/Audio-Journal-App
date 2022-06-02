@@ -46,7 +46,7 @@
         android:text="How was your day?"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recording_status_txt" />
@@ -94,7 +94,7 @@
         android:layout_marginBottom="28dp"
         android:backgroundTint="#FA6400"
         android:scaleType="fitCenter"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/accent2"
         app:borderWidth="1dp"
         app:elevation="8dp"
         app:fabCustomSize="80dp"
@@ -105,7 +105,7 @@
         app:maxImageSize="32dp"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_mic"
-        app:tint="@color/white" />
+        app:tint="@color/accent2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnPause"
@@ -114,7 +114,7 @@
         android:layout_marginEnd="32dp"
         android:backgroundTint="#FA6400"
         android:scaleType="fitCenter"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/accent2"
         app:borderWidth="1dp"
         app:elevation="8dp"
         app:fabCustomSize="50dp"
@@ -124,7 +124,7 @@
         app:maxImageSize="20dp"
         app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_setting"
-        app:tint="@color/white" />
+        app:tint="@color/accent2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnList"
@@ -133,7 +133,7 @@
         android:layout_marginStart="32dp"
         android:backgroundTint="#FA6400"
         android:scaleType="fitCenter"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/accent2"
         app:borderWidth="1dp"
         app:elevation="8dp"
         app:fabCustomSize="50dp"
@@ -143,7 +143,7 @@
         app:maxImageSize="20dp"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_list"
-        app:tint="@color/white" />
+        app:tint="@color/accent2" />
 
     <TextView
         android:id="@+id/recording_status_txt"

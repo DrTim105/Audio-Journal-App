@@ -24,10 +24,10 @@
     <color name="base1">#FFFFFFFF</color>
 
     <color name="cardBorder">#484A4B</color>
-    <color name="base2">#1e1e1e</color>
-    <color name="base3">#1e1e1e</color>
-    <color name="accent2">#FF000000</color>
-    <color name="accent4">#121212</color>
+    <color name="base2">#CC272727</color>
+    <color name="base3">#272727</color>
+    <color name="accent2">#121212</color>
+    <color name="accent4">#272727</color>
     <color name="button">#FFFFFFFF</color>
     <color name="accent3">#798794</color>
     <color name="accent5">#798794</color>
