@@ -19,8 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
 
             />
+
         <TextView
             android:id="@+id/tool_title"
             android:layout_width="match_parent"

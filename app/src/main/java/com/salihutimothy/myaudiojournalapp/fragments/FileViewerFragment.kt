@@ -52,7 +52,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var playbackLayout: CoordinatorLayout
     private lateinit var searchView: SearchView
     private lateinit var navController: NavController
-    private lateinit var toolbar : Toolbar
+    private lateinit var toolbar: Toolbar
 
     private lateinit var item: RecordingItem
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
@@ -134,7 +134,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (this@FileViewerFragment::searchView.isInitialized){
+                if (this@FileViewerFragment::searchView.isInitialized) {
                     if (!searchView.isIconified) {
                         searchView.onActionViewCollapsed()
                         toolbar.collapseActionView()
@@ -209,24 +209,37 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                     DialogInterface.OnClickListener { dialog, which ->
                         val onlyPath: String? = file.parentFile?.absolutePath
                         val newName = editText.text.toString()
-                        val newPath = onlyPath + "/" + newName + ".mp3"
-                        val newFile = File(newPath)
-                        val rename = file.renameTo(newFile)
-                        if (item.path != newPath) {
-                            if (rename) {
-                                dbHelper.updateRecording(item, newName, newPath)
+                        var duplicate = false
 
-                                fileAdapter.notifyItemChanged(mPosition)
-                                navController.run {
-                                    popBackStack()
-                                    navigate(R.id.audioListFragment)
-                                }
-
-                            } else {
-                                Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
+                        for (recording in arrayListAudios!!) {
+                            if (newName == recording.name) {
+                                duplicate = true
                             }
                         }
 
+                        if (!duplicate) {
+                            val newPath = onlyPath + "/" + newName + ".mp3"
+                            val newFile = File(newPath)
+                            val rename = file.renameTo(newFile)
+                            if (item.path != newPath) {
+                                if (rename) {
+                                    dbHelper.updateRecording(item, newName, newPath)
+
+                                    fileAdapter.notifyItemChanged(mPosition)
+                                    navController.run {
+                                        popBackStack()
+                                        navigate(R.id.audioListFragment)
+                                    }
+
+                                } else {
+                                    Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
+                        } else {
+                            Toast.makeText(context, "Name already exists!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                 )
                 alertDialog.setNegativeButton("CANCEL", null)
@@ -248,7 +261,8 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 alertDialog.setTitle("Delete")
                 alertDialog.setMessage("Do you want to delete this recording?")
-                alertDialog.setPositiveButton("DELETE"
+                alertDialog.setPositiveButton(
+                    "DELETE"
                 ) { dialog, which ->
                     val file = File(item.path!!)
                     val delete = file.delete()
