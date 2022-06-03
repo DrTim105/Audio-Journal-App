@@ -10,23 +10,36 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import android.content.Intent
+import android.net.Uri
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-        val preference = findPreference<SwitchPreferenceCompat>("theme")
-        preference?.onPreferenceChangeListener = modeChangeListener
+        val themePreference = findPreference<SwitchPreferenceCompat>("theme")
+        themePreference?.onPreferenceChangeListener = modeChangeListener
+
+        val contactPreference = findPreference<Preference>("contact")
+        contactPreference?.setOnPreferenceClickListener {
+
+            val intent = Intent(Intent.ACTION_SENDTO)
+            val uriText =
+                "mailto:" + Uri.encode("jlmapps.developer@gmail.com").toString() + "?subject=" +
+                        Uri.encode("Audio Journal ").toString() + "${BuildConfig.VERSION_NAME}=" + Uri.encode("")
+            val uri: Uri = Uri.parse(uriText)
+            intent.data = uri
+            startActivity(Intent.createChooser(intent, "send email"))
+            true
+        }
 
     }
 
     private val modeChangeListener =
         Preference.OnPreferenceChangeListener { preference, newValue ->
             newValue as? Boolean
-
-            Log.d("BUG", "value $newValue")
-
             when (newValue){
                 true -> updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
                 false -> updateTheme(AppCompatDelegate.MODE_NIGHT_NO)

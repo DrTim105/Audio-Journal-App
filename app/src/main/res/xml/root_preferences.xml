@@ -19,14 +19,17 @@
         <Preference
             app:summary="Report a bug or send me your comments via email"
             app:title="Contact me"
+            app:key="contact"
             app:icon="@drawable/ic_mail"/>
 
         <Preference
             app:title="Rate this App"
+            app:key="rate"
             app:icon="@drawable/ic_rate"/>
 
         <Preference
             app:title="More Apps from me"
+            app:key="more"
             app:icon="@drawable/ic_apps"/>
 
         <Preference
@@ -36,6 +39,7 @@
 
         <Preference
             app:icon="@drawable/ic_privacy"
+            app:key="privacy"
             app:title="Privacy Policy" />
 
         <!--        <intent-->
