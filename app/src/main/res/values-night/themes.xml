@@ -19,6 +19,11 @@
 
         <item name="fontFamily">@font/roboto_slab</item>
 
+        <item name="preferenceTheme">@style/PrefsTheme</item>
+
+        <item name="windowNoTitle">true</item>
+
+
     </style>
 
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
@@ -51,7 +56,8 @@
     </style>
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView</item>
+        <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView
+        </item>
         <item name="fontFamily">serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
@@ -75,6 +81,10 @@
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomRight">50dp</item>
         <item name="cornerSizeBottomLeft">50dp</item>
+    </style>
+
+    <style name="PrefsTheme" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="android:layout">@layout/fragment_settings</item>
     </style>
 
 </resources>
