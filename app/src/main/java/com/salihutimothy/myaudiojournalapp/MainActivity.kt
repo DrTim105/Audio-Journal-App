@@ -1,11 +1,10 @@
 package com.salihutimothy.myaudiojournalapp
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.NavHostFragment
-import androidx.viewpager.widget.ViewPager
-import com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +13,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val pref = sp.getBoolean("theme", false)
+
+        if (pref){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
 //    override fun onBackPressed() {
