@@ -19,6 +19,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_recordFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
     </fragment>
 
@@ -31,6 +34,14 @@
 
         <action
             android:id="@+id/action_audioListFragment_to_recordFragment2"
+            app:destination="@id/recordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.salihutimothy.myaudiojournalapp.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
     </fragment>
 </navigation>
