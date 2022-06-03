@@ -157,7 +157,7 @@ class RecordingService : Service() {
 //            outputFile.mkdirs()
 //        }
 //
-        file = File("$outputFile/$fileName.mp3")
+        file = File("$outputFile/$fileName.wav")
 
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)

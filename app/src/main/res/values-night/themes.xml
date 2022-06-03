@@ -17,7 +17,8 @@
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
 
-        <item name="fontFamily">serif</item>
+        <item name="fontFamily">@font/roboto_slab</item>
+
     </style>
 
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">

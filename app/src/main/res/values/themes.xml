@@ -18,7 +18,7 @@
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
 
-<!--        <item name="fontFamily">serif</item>-->
+        <item name="fontFamily">@font/roboto_slab</item>
 <!--        <item name="android:textSize">27sp</item>-->
 <!--        <item name="iconTint">#798794</item>-->
 

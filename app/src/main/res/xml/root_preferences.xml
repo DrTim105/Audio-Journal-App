@@ -1,35 +1,43 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory
+        app:title="General"
+        >
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:key="theme"
+            app:icon="@drawable/ic_dark_mode"
+            app:title="Dark mode" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        app:title="About">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+        <Preference
+            app:summary="Report a bug or send me your comments via email"
+            app:title="Contact me"
+            app:icon="@drawable/ic_mail"/>
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <Preference
+            app:title="Rate this App"
+            app:icon="@drawable/ic_rate"/>
 
+        <Preference
+            app:title="More Apps from me"
+            app:icon="@drawable/ic_apps"/>
+
+        <Preference
+            app:summary="Version 1.0"
+            app:icon="@drawable/ic_about"
+            app:title="Audio Journal" />
+
+        <Preference
+            app:icon="@drawable/ic_privacy"
+            app:title="Privacy Policy" />
+
+        <!--        <intent-->
+        <!--            app:title = "Send feedback"/>-->
     </PreferenceCategory>
 
 </PreferenceScreen>

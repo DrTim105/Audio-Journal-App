@@ -80,7 +80,6 @@
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play"
-            app:fab_shadow="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -94,7 +93,6 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_backward"
-            app:fab_shadow="false"
             app:layout_constraintBottom_toBottomOf="@+id/play_iv"
             app:layout_constraintEnd_toStartOf="@+id/play_iv"
             app:layout_constraintTop_toTopOf="@+id/play_iv" />
@@ -108,7 +106,6 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_forward"
-            app:fab_shadow="false"
             app:layout_constraintBottom_toBottomOf="@+id/play_iv"
             app:layout_constraintStart_toEndOf="@+id/play_iv"
             app:layout_constraintTop_toTopOf="@+id/play_iv" />

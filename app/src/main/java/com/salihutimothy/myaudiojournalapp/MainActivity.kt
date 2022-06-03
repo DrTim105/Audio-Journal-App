@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager.widget.ViewPager
-import com.astuetz.PagerSlidingTabStrip
 import com.salihutimothy.myaudiojournalapp.fragments.FileViewerFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var tabs: PagerSlidingTabStrip
-    private lateinit var viewPager: ViewPager
-    private lateinit var toolbar: Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

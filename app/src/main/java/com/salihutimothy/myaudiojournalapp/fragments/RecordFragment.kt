@@ -3,11 +3,8 @@ package com.salihutimothy.myaudiojournalapp.fragments
 import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -23,8 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -50,7 +45,7 @@ class RecordFragment : Fragment() {
 //    private lateinit var pauseButton: ImageButton
 //    private lateinit var listButton: ImageButton
     private lateinit var recordButton: FloatingActionButton
-    private lateinit var pauseButton: FloatingActionButton
+    private lateinit var settingsButton: FloatingActionButton
     private lateinit var listButton: FloatingActionButton
     private lateinit var nextButton: ImageButton
     private lateinit var waveformView: WaveformView
@@ -103,7 +98,7 @@ class RecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pauseButton = view.findViewById(R.id.btnPause) as FloatingActionButton
+        settingsButton = view.findViewById(R.id.btnPause) as FloatingActionButton
 //        timerText = view.findViewById(R.id.tv_timer) as TextView
         listButton = view.findViewById(R.id.btnList) as FloatingActionButton
         recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton
@@ -155,8 +150,9 @@ class RecordFragment : Fragment() {
             navController.navigate(R.id.action_recordFragment_to_audioListFragment);
         }
 
-        pauseButton.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        settingsButton.setOnClickListener {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            navController.navigate(R.id.action_recordFragment_to_settingsFragment);
         }
 
 
@@ -215,7 +211,7 @@ class RecordFragment : Fragment() {
         val intent = Intent(context, RecordingService::class.java)
         recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
         listButton = requireView().findViewById(R.id.btnList) as FloatingActionButton
-        pauseButton = requireView().findViewById(R.id.btnPause) as FloatingActionButton
+        settingsButton = requireView().findViewById(R.id.btnPause) as FloatingActionButton
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
@@ -247,7 +243,7 @@ class RecordFragment : Fragment() {
 //                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
 
                 listButton.isEnabled = false
-                pauseButton.isEnabled = false
+                settingsButton.isEnabled = false
                 recordButton.setImageResource(R.drawable.ic_stop)
                 chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"
@@ -314,7 +310,7 @@ class RecordFragment : Fragment() {
 //            recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
 
             listButton.isEnabled = true
-            pauseButton.isEnabled = true
+            settingsButton.isEnabled = true
             recordingIcon.visibility = View.GONE
             chronometer.stop()
             timer.cancel()
