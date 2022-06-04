@@ -24,7 +24,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val contactPreference = findPreference<Preference>("contact")
         contactPreference?.setOnPreferenceClickListener {
-
             val intent = Intent(Intent.ACTION_SENDTO)
             val uriText =
                 "mailto:" + Uri.encode("jlmapps.developer@gmail.com").toString() + "?subject=" +

@@ -102,7 +102,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         fileLength = view.findViewById(R.id.file_length_text_view) as TextView
         currentProgress = view.findViewById(R.id.current_progress_text_view) as TextView
         seekBar = view.findViewById(R.id.seekbar) as SeekBar
-        playbackLayout = view.findViewById(R.id.playback) as CoordinatorLayout
+        playbackLayout = view.findViewById(R.id.include) as CoordinatorLayout
         navController = Navigation.findNavController(requireView())
 
 
@@ -448,7 +448,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
 
         Log.d("BUG", "record clicked")
 
-        playbackLayout = requireView().findViewById(R.id.playback) as CoordinatorLayout
+        playbackLayout = requireView().findViewById(R.id.include) as CoordinatorLayout
 
         setViewAndChildrenEnabled(playbackLayout, true)
 

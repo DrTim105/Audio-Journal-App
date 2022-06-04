@@ -27,7 +27,7 @@
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_slab_bold"
+        android:fontFamily="@font/roboto_slab"
         android:textColor="#798794"
         android:textSize="50sp"
         app:layout_constraintLeft_toLeftOf="parent"
