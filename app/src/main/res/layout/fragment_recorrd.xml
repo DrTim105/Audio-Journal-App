@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/accent2">
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/next"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignEnd="@+id/waveformView"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_marginEnd="2dp"-->
-<!--        android:background="@drawable/button_bg_black"-->
-<!--        android:src="@drawable/ic_next"-->
-<!--        android:visibility="gone" />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/next"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignEnd="@+id/waveformView"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_marginEnd="2dp"-->
+    <!--        android:background="@drawable/button_bg_black"-->
+    <!--        android:src="@drawable/ic_next"-->
+    <!--        android:visibility="gone" />-->
 
 
     <Chronometer
@@ -39,9 +38,9 @@
         android:fontFamily="@font/roboto_slab"
         android:lineSpacingExtra="4sp"
         android:text="How was your day?"
-        android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recording_status_txt" />
@@ -49,25 +48,25 @@
     <com.salihutimothy.myaudiojournalapp.views.WaveformView
         android:id="@+id/waveformView"
         android:layout_width="match_parent"
-        android:layout_height="500px"
+        android:layout_height="200dp"
         android:background="@drawable/wave_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_countdown"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"-->
-<!--        android:textColor="#798794"-->
-<!--        android:textSize="50sp"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/waveformView"-->
-<!--        tools:text="00:00:00" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_countdown"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"-->
+    <!--        android:textColor="#798794"-->
+    <!--        android:textSize="50sp"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/waveformView"-->
+    <!--        tools:text="00:00:00" />-->
 
 
     <ImageView
@@ -76,8 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:visibility="gone"
         android:src="@drawable/ic_placeholder"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/chronometer"
         app:layout_constraintEnd_toStartOf="@+id/chronometer"
         app:layout_constraintTop_toTopOf="@+id/chronometer" />
@@ -100,7 +99,7 @@
         app:maxImageSize="32dp"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_mic"
-        app:tint="@color/accent2" />
+        app:tint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnPause"
@@ -119,7 +118,7 @@
         app:maxImageSize="20dp"
         app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_setting"
-        app:tint="@color/accent2" />
+        app:tint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnList"
@@ -138,7 +137,7 @@
         app:maxImageSize="20dp"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/ic_list"
-        app:tint="@color/accent2" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/recording_status_txt"
@@ -147,8 +146,8 @@
         android:layout_marginTop="32dp"
         android:fontFamily="serif"
         android:text="Hello ^-^"
-        android:textSize="14sp"
         android:textColor="@color/accent3"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"

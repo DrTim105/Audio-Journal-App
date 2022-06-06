@@ -18,10 +18,6 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
-import android.media.AudioManager
-
-
-
 
 
 class RecordingService : Service() {
@@ -80,7 +76,7 @@ class RecordingService : Service() {
         // to use a specific method to create the notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager;
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val channel = NotificationChannel(
                 notificationChannelId,
                 "Audio Journal notifications channel",

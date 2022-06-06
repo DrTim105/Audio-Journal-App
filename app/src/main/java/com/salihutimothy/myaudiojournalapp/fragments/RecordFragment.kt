@@ -21,6 +21,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -110,6 +111,7 @@ class RecordFragment : Fragment() {
 //        progressBar = view.findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(view)
         recordingStatus = view.findViewById(R.id.recording_status_txt) as TextView
+        chronometer = view.findViewById(R.id.chronometer) as Chronometer
 
 //        pauseButton.visibility = View.GONE
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
@@ -129,6 +131,8 @@ class RecordFragment : Fragment() {
 //        }
 
         var prompt = true
+
+        chronometer.typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_slab)
 
 
         recordButton.setOnClickListener {
@@ -152,12 +156,12 @@ class RecordFragment : Fragment() {
         }
 
         listButton.setOnClickListener {
-            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment)
         }
 
         settingsButton.setOnClickListener {
 //            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            navController.navigate(R.id.action_recordFragment_to_settingsFragment);
+            navController.navigate(R.id.action_recordFragment_to_settingsFragment)
         }
 
 
@@ -212,7 +216,7 @@ class RecordFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun onRecord(start: Boolean)  {
+    private fun onRecord(start: Boolean) {
         val intent = Intent(context, RecordingService::class.java)
         recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
         listButton = requireView().findViewById(R.id.btnList) as FloatingActionButton
@@ -226,7 +230,6 @@ class RecordFragment : Fragment() {
 //        timerText = requireView().findViewById(R.id.tv_timer) as TextView
 
         if (start) {
-            // check permission to record audio
             val am = context!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
             if (am.activeRecordingConfigurations.isEmpty()) {
@@ -269,7 +272,11 @@ class RecordFragment : Fragment() {
                     requestPermissions()
                 }
             } else {
-                Toast.makeText(context, "Unable to record. Another application already recording.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Unable to record. Another application already recording.",
+                    Toast.LENGTH_SHORT
+                ).show()
 //                Log.d("BUG", "what is ${am.activeRecordingConfigurations[0].audioDevice}")
             }
 
@@ -307,7 +314,7 @@ class RecordFragment : Fragment() {
 
             Log.d("RecordFragment", "onRecord - stop record")
 
-            navController.navigate(R.id.action_recordFragment_to_audioListFragment);
+            navController.navigate(R.id.action_recordFragment_to_audioListFragment)
 
         }
     }
@@ -359,7 +366,7 @@ class RecordFragment : Fragment() {
         if (listPermissionsNeeded.isNotEmpty()) {
             Log.d(
                 "RecordFragment",
-                "permissions - some permission not granted: ${listPermissionsNeeded.toString()}"
+                "permissions - some permission not granted: $listPermissionsNeeded"
             )
             return false
         }
@@ -371,7 +378,7 @@ class RecordFragment : Fragment() {
     private fun requestPermissions() {
         Log.d(
             "RecordFragment",
-            "permissions - requesting permissions: ${listPermissionsNeeded.toString()}"
+            "permissions - requesting permissions: $listPermissionsNeeded"
         )
 
         checkrequestPermissions()
