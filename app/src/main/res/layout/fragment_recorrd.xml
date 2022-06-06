@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/accent2">
 
-
-
-
-
-
 <!--    <ImageButton-->
 <!--        android:id="@+id/next"-->
 <!--        android:layout_width="wrap_content"-->

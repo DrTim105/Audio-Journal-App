@@ -232,8 +232,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                                     }
 
                                 } else {
-                                    Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT)
-                                        .show()
+                                    Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         } else {

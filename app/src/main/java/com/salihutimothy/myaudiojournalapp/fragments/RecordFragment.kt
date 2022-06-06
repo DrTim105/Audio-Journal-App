@@ -3,8 +3,10 @@ package com.salihutimothy.myaudiojournalapp.fragments
 import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +20,6 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -31,7 +32,6 @@ import com.salihutimothy.myaudiojournalapp.services.RecordingService
 import com.salihutimothy.myaudiojournalapp.services.RecordingService.Companion.maxAmplitude
 import com.salihutimothy.myaudiojournalapp.views.Typewriter
 import com.salihutimothy.myaudiojournalapp.views.WaveformView
-import java.lang.Exception
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -41,7 +41,8 @@ class RecordFragment : Fragment() {
     private lateinit var chronometer: Chronometer
     private lateinit var recordingStatus: TextView
     private lateinit var timerText: TextView
-//    private lateinit var recordButton: ImageButton
+
+    //    private lateinit var recordButton: ImageButton
 //    private lateinit var pauseButton: ImageButton
 //    private lateinit var listButton: ImageButton
     private lateinit var recordButton: FloatingActionButton
@@ -61,7 +62,7 @@ class RecordFragment : Fragment() {
     private var mPauseRecording = true
     private var timeWhenPaused = 0L
     private var mPromptList: ArrayList<String>? = null
-    private var promptText : String? = null
+    private var promptText: String? = null
 
     @RequiresApi(Build.VERSION_CODES.R)
     var permissions = arrayOf(
@@ -143,7 +144,11 @@ class RecordFragment : Fragment() {
 //            journalPrompt.visibility = View.GONE
 //            nextButton.visibility = View.GONE
 //            progressBar.isEnabled = false
+
+            //check if mic is use
+
             onRecord(mStartRecording)
+
         }
 
         listButton.setOnClickListener {
@@ -222,73 +227,52 @@ class RecordFragment : Fragment() {
 
         if (start) {
             // check permission to record audio
-            if (
-                checkPermissions()
-            ) {
-                Log.d("RecordFragment", "onREcord - start record")
-                mStartRecording = !mStartRecording
-                recordingIcon.visibility = View.VISIBLE
-//                recordButton.setImageResource(R.drawable.ic_stop)
-//                recordButton.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_stop)
-//                recordButton.setBackgroundColor(ContextCompat.getColor(requireContext(), (R.color.red)))
-//                recordButton.background =
-//                    ContextCompat.getDrawable(requireContext(), R.drawable.button_bg_red2)
-//                recordButton.setImageResource(R.drawable.ic_stop)
-//                recordButton.setPadding(dpToPx(25))
-//                Log.d("RecordFragment", "padding: ${dpToPx(25)}")
-//                recordButton.scaleType = ImageView.ScaleType.FIT_CENTER
+            val am = context!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
-//                progressBar.progressDrawable =
-//                    ContextCompat.getDrawable(requireContext(), R.drawable.record_progress_bar_stop)
-//                Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show()
+            if (am.activeRecordingConfigurations.isEmpty()) {
+                if (
+                    checkPermissions()
+                ) {
+                    Log.d("RecordFragment", "onREcord - start record")
+                    mStartRecording = !mStartRecording
+                    recordingIcon.visibility = View.VISIBLE
 
-                listButton.isEnabled = false
-                settingsButton.isEnabled = false
-                recordButton.setImageResource(R.drawable.ic_stop)
-                chronometer.base = SystemClock.elapsedRealtime()
+                    listButton.isEnabled = false
+                    settingsButton.isEnabled = false
+                    recordButton.setImageResource(R.drawable.ic_stop)
+                    chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"
-                chronometer.start()
-
-//                var timerSeconds = 0L
-//
-//                chronometer.setOnChronometerTickListener {
-//                    val timerInMinutes = timerSeconds / 60
-//                    val timerInSeconds = timerSeconds % 60
-//                    val secondsStr = timerInSeconds.toString()
-//
-//                    timerText.text = "$timerInMinutes:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-//
-//                    timerSeconds++
-//                    Log.d("RecordFragment", "timer text $timerSeconds")
-//
-//
-//                }
-
-                timer = Timer()
-                timer.schedule(object : TimerTask() {
-                    override fun run() {
-                        waveformView.addAmplitude(maxAmplitude)
+                    chronometer.start()
+                    timer = Timer()
+                    timer.schedule(object : TimerTask() {
+                        override fun run() {
+                            waveformView.addAmplitude(maxAmplitude)
 
 //                        Log.d("RecordFragment", "timer still running $maxAmplitude")
 
-                    }
-                }, 0, 80)
+                        }
+                    }, 0, 80)
 
-                val bundle = Bundle()
-                Log.d("TAG", "promptname 2 $promptText")
+                    val bundle = Bundle()
+                    Log.d("TAG", "promptname 2 $promptText")
 
-                bundle.putString("prompt", promptText)
-                intent.putExtras(bundle)
+                    bundle.putString("prompt", promptText)
+                    intent.putExtras(bundle)
 
-                activity?.startService(intent)
+                    activity?.startService(intent)
 
-                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
 //                recordingStatus.text = "Recording..."
+                } else {
+                    Log.d("RecordFragment", "onRecord - request permissions")
+                    requestPermissions()
+                }
             } else {
-                Log.d("RecordFragment", "onRecord - request permissions")
-                requestPermissions()
+                Toast.makeText(context, "Another app is recording?", Toast.LENGTH_SHORT).show()
+//                Log.d("BUG", "what is ${am.activeRecordingConfigurations[0].audioDevice}")
             }
+
 
         } else {
 

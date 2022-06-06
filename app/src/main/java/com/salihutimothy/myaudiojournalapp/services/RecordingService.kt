@@ -18,6 +18,10 @@ import com.salihutimothy.myaudiojournalapp.entities.RecordingItem
 import java.io.File
 import java.io.IOException
 import java.util.*
+import android.media.AudioManager
+
+
+
 
 
 class RecordingService : Service() {
@@ -28,7 +32,7 @@ class RecordingService : Service() {
     private lateinit var file: File
     private lateinit var dbHelper: DBHelper
     var fileName: String? = null
-    private lateinit var timer: Timer
+    private var timer: Timer = Timer()
 
     private val isRecording = false
     private var promptName: String? = null
@@ -108,8 +112,8 @@ class RecordingService : Service() {
             ) else Notification.Builder(this)
 
         return builder
-            .setContentTitle("Audio Journal")
-            .setContentText("Listening...")
+            .setContentTitle("Listening")
+            .setContentText("Tap to ")
             .setContentIntent(intent)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_mic)
@@ -127,7 +131,6 @@ class RecordingService : Service() {
     private fun startRecording() {
         val timeStampLong = System.currentTimeMillis() / 1000
         val timeStamp = timeStampLong.toString()
-        timer = Timer()
 
 //        mentalNote = restorePrefData()
 
@@ -170,6 +173,9 @@ class RecordingService : Service() {
 
         Log.d("Storage - start service", "File path : ${file} ")
 
+
+
+
         try {
             mediaRecorder.prepare()
             mediaRecorder.start()
@@ -187,6 +193,13 @@ class RecordingService : Service() {
 
         } catch (e: IOException) {
             e.printStackTrace()
+            Toast.makeText(applicationContext, "Recording Failed", Toast.LENGTH_SHORT).show()
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+            Toast.makeText(applicationContext, "Recording Failed", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(applicationContext, "Recording Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
