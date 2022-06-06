@@ -212,7 +212,7 @@ class RecordFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun onRecord(start: Boolean) {
+    private fun onRecord(start: Boolean)  {
         val intent = Intent(context, RecordingService::class.java)
         recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
         listButton = requireView().findViewById(R.id.btnList) as FloatingActionButton
@@ -269,7 +269,7 @@ class RecordFragment : Fragment() {
                     requestPermissions()
                 }
             } else {
-                Toast.makeText(context, "Another app is recording?", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Unable to record. Another application already recording.", Toast.LENGTH_SHORT).show()
 //                Log.d("BUG", "what is ${am.activeRecordingConfigurations[0].audioDevice}")
             }
 

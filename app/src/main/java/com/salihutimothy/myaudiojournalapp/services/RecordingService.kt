@@ -112,8 +112,8 @@ class RecordingService : Service() {
             ) else Notification.Builder(this)
 
         return builder
-            .setContentTitle("Listening")
-            .setContentText("Tap to ")
+            .setContentTitle("Listening...")
+            .setContentText("Tap to open controls.")
             .setContentIntent(intent)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_mic)
