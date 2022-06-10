@@ -205,42 +205,42 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 editText.requestFocus()
 
 
-                alertDialog.setPositiveButton("RENAME",
-                    DialogInterface.OnClickListener { dialog, which ->
-                        val onlyPath: String? = file.parentFile?.absolutePath
-                        val newName = editText.text.toString()
-                        var duplicate = false
+                alertDialog.setPositiveButton("RENAME"
+                ) { dialog, which ->
+                    val onlyPath: String? = file.parentFile?.absolutePath
+                    val newName = editText.text.toString()
+                    var duplicate = false
 
-                        for (recording in arrayListAudios!!) {
-                            if (newName == recording.name) {
-                                duplicate = true
-                            }
-                        }
-
-                        if (!duplicate) {
-                            val newPath = onlyPath + "/" + newName + ".mp3"
-                            val newFile = File(newPath)
-                            val rename = file.renameTo(newFile)
-                            if (item.path != newPath) {
-                                if (rename) {
-                                    dbHelper.updateRecording(item, newName, newPath)
-
-                                    fileAdapter.notifyItemChanged(mPosition)
-                                    navController.run {
-                                        popBackStack()
-                                        navigate(R.id.audioListFragment)
-                                    }
-
-                                } else {
-                                    Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        } else {
-                            Toast.makeText(context, "Name already exists!", Toast.LENGTH_SHORT)
-                                .show()
+                    for (recording in arrayListAudios!!) {
+                        if (newName == recording.name) {
+                            duplicate = true
                         }
                     }
-                )
+
+                    if (!duplicate) {
+                        val newPath = onlyPath + "/" + newName + ".mp3"
+                        val newFile = File(newPath)
+                        val rename = file.renameTo(newFile)
+                        if (item.path != newPath) {
+                            if (rename) {
+                                dbHelper.updateRecording(item, newName, newPath)
+
+                                fileAdapter.notifyItemChanged(mPosition)
+                                navController.run {
+                                    popBackStack()
+                                    navigate(R.id.audioListFragment)
+                                }
+
+                            } else {
+                                Toast.makeText(context, "Process Failed", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context, "Name already exists!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
                 alertDialog.setNegativeButton("CANCEL", null)
                 alertDialog.create().show()
                 bottomSheetDialog.dismiss()

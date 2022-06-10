@@ -2,6 +2,7 @@ package com.salihutimothy.myaudiojournalapp
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -44,4 +45,16 @@ class MainActivity : AppCompatActivity() {
 //            super.onBackPressed()
 //        }
 //    }
+
+    override fun onDestroy() {
+        Log.d("BUG - activity", "stop service")
+
+        super.onDestroy()
+    }
+
+    override fun onStop() {
+        Log.d("BUG - onstop", "stop service")
+
+        super.onStop()
+    }
 }

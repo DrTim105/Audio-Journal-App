@@ -131,7 +131,7 @@ class RecordingService : Service() {
 //        mentalNote = restorePrefData()
 
         fileName = if (promptName == null) {
-            "mental_note_" + mentalNote.toString().padStart(3, '0')
+            "Entry_" + mentalNote.toString().padStart(3, '0')
         } else {
             promptName
         }
@@ -175,6 +175,9 @@ class RecordingService : Service() {
         try {
             mediaRecorder.prepare()
             mediaRecorder.start()
+
+//            mediaRecorder.pause()
+//            mediaRecorder.re
             mStartingTimeMillis = System.currentTimeMillis()
 //            maxAmplitude = 1000f
 
@@ -218,10 +221,8 @@ class RecordingService : Service() {
             dbHelper.addRecording(recordingItem)
             mentalNote++
             savePrefsData()
-
             mediaRecorder.reset()
             mediaRecorder.release()
-
         } catch (e: RuntimeException) {
             // handle cleanup here
             Toast.makeText(
@@ -230,8 +231,6 @@ class RecordingService : Service() {
                 Toast.LENGTH_SHORT
             ).show()
             e.printStackTrace()
-
-
         }
     }
 
@@ -250,6 +249,7 @@ class RecordingService : Service() {
     }
 
     override fun onDestroy() {
+        Log.d("BUG - service", "stop service")
         timer.cancel()
         stopRecording()
         super.onDestroy()

@@ -32,7 +32,9 @@
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <service android:name=".services.RecordingService" />
+        <service android:name=".services.RecordingService"
+            android:enabled="true"
+            android:stopWithTask="false"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

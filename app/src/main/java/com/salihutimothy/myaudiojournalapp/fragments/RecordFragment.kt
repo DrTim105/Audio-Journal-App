@@ -132,7 +132,7 @@ class RecordFragment : Fragment() {
 
         var prompt = true
 
-        chronometer.typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_slab)
+//        chronometer.typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_slab)
 
 
         recordButton.setOnClickListener {
@@ -250,9 +250,7 @@ class RecordFragment : Fragment() {
                     timer.schedule(object : TimerTask() {
                         override fun run() {
                             waveformView.addAmplitude(maxAmplitude)
-
 //                        Log.d("RecordFragment", "timer still running $maxAmplitude")
-
                         }
                     }, 0, 80)
 
@@ -438,9 +436,11 @@ class RecordFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        Log.d("BUG - fragment", "stop service")
         val intent = Intent(context, RecordingService::class.java)
         activity?.stopService(intent)
+        super.onDestroy()
+
     }
 
 //    private fun restorePrefData(): Boolean {

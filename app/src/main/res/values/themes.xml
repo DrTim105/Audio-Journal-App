@@ -42,8 +42,8 @@
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-        <item name="android:background">@color/base3</item>
-        <item name="fontFamily">serif</item>
+        <item name="android:background">@color/accent5</item>
+        <item name="fontFamily">@font/roboto_slab</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
