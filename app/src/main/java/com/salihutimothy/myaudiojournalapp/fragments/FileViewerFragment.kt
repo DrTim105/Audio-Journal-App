@@ -2,7 +2,6 @@ package com.salihutimothy.myaudiojournalapp.fragments
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
@@ -48,6 +47,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
     private lateinit var forwardButton: ImageView
     private lateinit var playButton: ImageView
     private lateinit var backwardButton: ImageView
+    private lateinit var backButtonFile: ImageView
     private lateinit var optionsButton: ImageView
     private lateinit var playbackLayout: CoordinatorLayout
     private lateinit var searchView: SearchView
@@ -104,7 +104,7 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
         seekBar = view.findViewById(R.id.seekbar) as SeekBar
         playbackLayout = view.findViewById(R.id.include) as CoordinatorLayout
         navController = Navigation.findNavController(requireView())
-
+        backButtonFile = view.findViewById(R.id.back_file) as ImageView
 
         setViewAndChildrenEnabled(playbackLayout, false)
 
@@ -185,6 +185,12 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
             }
 
             updateSeekbar()
+        }
+
+        backButtonFile.setOnClickListener {
+            navController.run {
+                popBackStack()
+            }
         }
 
         optionsButton.setOnClickListener {
@@ -662,7 +668,6 @@ class FileViewerFragment : FileAdapter.OnItemListClick, Fragment() {
                 }
                 true
             }
-
 
             else -> super.onOptionsItemSelected(menuItem)
         }

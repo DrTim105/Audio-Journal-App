@@ -47,7 +47,7 @@ class RecordFragment : Fragment() {
 //    private lateinit var pauseButton: ImageButton
 //    private lateinit var listButton: ImageButton
     private lateinit var recordButton: FloatingActionButton
-    private lateinit var settingsButton: FloatingActionButton
+    private lateinit var settingsButton: ImageView
     private lateinit var listButton: FloatingActionButton
     private lateinit var nextButton: ImageButton
     private lateinit var waveformView: WaveformView
@@ -100,7 +100,7 @@ class RecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        settingsButton = view.findViewById(R.id.btnPause) as FloatingActionButton
+        settingsButton = view.findViewById(R.id.btnPause) as ImageView
 //        timerText = view.findViewById(R.id.tv_timer) as TextView
         listButton = view.findViewById(R.id.btnList) as FloatingActionButton
         recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton

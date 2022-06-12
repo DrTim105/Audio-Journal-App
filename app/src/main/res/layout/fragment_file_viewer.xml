@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_back"
-
+                android:id="@+id/back_file"
                 />
 
             <TextView

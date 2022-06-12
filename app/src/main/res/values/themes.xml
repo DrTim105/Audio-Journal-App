@@ -71,7 +71,6 @@
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView</item>
-        <item name="fontFamily">serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
@@ -84,7 +83,6 @@
     <style name="Widget.MyApp.AutoCompleteTextView.SearchView" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textColorHint">#798794</item>
-        <item name="fontFamily">serif</item>
         <item name="android:textSize">15sp</item>
     </style>
 

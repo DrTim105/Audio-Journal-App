@@ -12,9 +12,15 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import android.content.Intent
 import android.net.Uri
+import android.widget.ImageView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private lateinit var backButtonSettings: ImageView
+    private lateinit var navController: NavController
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -52,6 +58,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
 
         val toolbar = view.findViewById<Toolbar>(R.id.settingsToolbar)
+        backButtonSettings = view.findViewById(R.id.back_settings) as ImageView
+        navController = Navigation.findNavController(view)
+
+
+        backButtonSettings.setOnClickListener {
+            navController.run {
+                popBackStack()
+            }
+        }
     }
 
     private fun updateTheme(nightMode: Int): Boolean {

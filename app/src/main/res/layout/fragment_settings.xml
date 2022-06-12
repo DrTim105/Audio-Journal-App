@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
             android:background="?attr/selectableItemBackgroundBorderless"
-
+            android:id="@+id/back_settings"
             />
 
         <TextView

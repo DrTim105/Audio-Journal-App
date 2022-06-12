@@ -101,8 +101,21 @@
         app:srcCompat="@drawable/ic_mic"
         app:tint="@color/white" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/btnPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/imagebutton_bg"
+        android:scaleType="fitCenter"
+        android:padding="10dp"
+        app:backgroundTint="@color/accent2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -117,7 +130,7 @@
         app:layout_constraintTop_toTopOf="@+id/btnRecord"
         app:maxImageSize="20dp"
         app:rippleColor="@color/white"
-        app:srcCompat="@drawable/ic_setting"
+        app:srcCompat="@drawable/ic_prompt"
         app:tint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -143,7 +156,7 @@
         android:id="@+id/recording_status_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="serif"
         android:text="Hello ^-^"
         android:textColor="@color/accent3"
