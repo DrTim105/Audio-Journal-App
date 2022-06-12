@@ -52,8 +52,6 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="90dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarSize="5dp"
         android:scrollbarStyle="insideOverlay"

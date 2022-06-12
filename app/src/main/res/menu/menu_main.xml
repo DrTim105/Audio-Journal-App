@@ -19,7 +19,8 @@
             <item
                 android:id="@+id/sort_by_date"
                 android:title="By Date"
-                app:showAsAction="never"/>
+                app:showAsAction="never"
+            />
 
             <item
                 android:id="@+id/sort_by_name"

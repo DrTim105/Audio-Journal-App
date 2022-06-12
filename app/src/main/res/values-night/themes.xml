@@ -23,6 +23,8 @@
 
         <item name="windowNoTitle">true</item>
 
+        <item name="android:actionModeBackground">@color/black</item>
+
 
     </style>
 
@@ -32,15 +34,17 @@
 
     <style name="Theme.MyAudioJournalApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.MyAudioJournalApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.MyAudioJournalApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorBackground">@color/accent5</item>
+        <item name="android:background">@color/accent5</item>
+        <item name="android:backgroundTint">@color/accent5</item>
+    </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="android:background">@color/accent5</item>
         <item name="fontFamily">@font/roboto_slab</item>
-
-
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
@@ -55,9 +59,21 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
+    <style name="CustomEditTextTheme" parent="@style/TextAppearance.AppCompat">
+        <!-- Customize your theme here. -->
+        <!--        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorControlNormal">@color/accentz</item>
+        <item name="colorControlActivated">@color/accentz</item>
+        <item name="colorControlHighlight">@color/accentz</item>
+        <item name="android:textColorHighlight">@color/textHighlight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="autoCompleteTextViewStyle">@style/Widget.MyApp.AutoCompleteTextView.SearchView
         </item>
+
         <item name="fontFamily">serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
