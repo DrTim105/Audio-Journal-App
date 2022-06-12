@@ -15,18 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--            <TextView-->
-        <!--                android:id="@+id/custom_title"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="Entries"-->
-        <!--                android:textAlignment="center"-->
-        <!--                android:padding="4dp"-->
-        <!--                app:layout_collapseMode="parallax"-->
-        <!--                android:textColor="@color/textColorPrimary"-->
-        <!--                android:textSize="20sp"-->
-        <!--                android:textStyle="bold" />-->
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -49,7 +37,7 @@
                 android:id="@+id/tool_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="62dp"
+                android:layout_marginStart="43dp"
                 android:fontFamily="@font/roboto_slab_bold"
                 android:text="My Entries"
                 android:textSize="18sp" />

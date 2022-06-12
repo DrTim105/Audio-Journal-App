@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Build
+import android.os.Environment
 import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
@@ -136,27 +137,27 @@ class RecordingService : Service() {
             promptName
         }
 
-        val outputFile = File(
-            applicationContext.getExternalFilesDir(null)
-                .toString()
-                    + "/MySoundRec/"
-        )
-
-        if (!outputFile.exists()) {
-            outputFile.mkdirs()
-        }
+//        val outputFile = File(
+//            applicationContext.getExternalFilesDir(null)
+//                .toString()
+//                    + "/MySoundRec/"
+//        )
+//
+//        if (!outputFile.exists()) {
+//            outputFile.mkdirs()
+//        }
 
 //        val file: String =
 //            applicationContext.getExternalFilesDir("/")!!.absolutePath +
 //                    "/MySoundRec/" + fileName + ".mp3"
 
-//        val root = Environment.getExternalStorageDirectory().toString()
-//        val outputFile = File("$root/Audio Journal")
-//        if (!outputFile.exists()) {
-//            outputFile.mkdirs()
-//        }
+        val root = Environment.getExternalStorageDirectory().toString()
+        val outputFile = File("$root/Audio Journal")
+        if (!outputFile.exists()) {
+            outputFile.mkdirs()
+        }
 //
-        file = File("$outputFile/$fileName.wav")
+        file = File("$outputFile/$fileName.mp3")
 
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)
@@ -253,5 +254,12 @@ class RecordingService : Service() {
         timer.cancel()
         stopRecording()
         super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        Log.d("BUG - service", "on low memory")
+        timer.cancel()
+        stopRecording()
+        super.onLowMemory()
     }
 }
