@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -47,6 +48,7 @@ class RecordFragment : Fragment() {
 //    private lateinit var pauseButton: ImageButton
 //    private lateinit var listButton: ImageButton
     private lateinit var recordButton: FloatingActionButton
+    private lateinit var promptButton: FloatingActionButton
     private lateinit var settingsButton: ImageView
     private lateinit var listButton: FloatingActionButton
     private lateinit var nextButton: ImageButton
@@ -100,10 +102,11 @@ class RecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        settingsButton = view.findViewById(R.id.btnPause) as ImageView
+        settingsButton = view.findViewById(R.id.btnSettings) as ImageView
 //        timerText = view.findViewById(R.id.tv_timer) as TextView
         listButton = view.findViewById(R.id.btnList) as FloatingActionButton
         recordButton = view.findViewById(R.id.btnRecord) as FloatingActionButton
+        promptButton = view.findViewById(R.id.btnPrompt) as FloatingActionButton
 //        nextButton = view.findViewById(R.id.next) as ImageButton
         waveformView = view.findViewById(R.id.waveformView) as WaveformView
         recordingIcon = view.findViewById(R.id.isRecording) as ImageView
@@ -132,16 +135,16 @@ class RecordFragment : Fragment() {
 
         var prompt = true
 
-//        chronometer.typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_slab)
+        chronometer.typeface = ResourcesCompat.getFont(context!!, R.font.roboto_slab)
 
 
         recordButton.setOnClickListener {
 //            Log.d("TAG", "promptname 1 $promptText")
 //
-//            if (prompt) {
-//                promptText = null
-////                promptText = journalPrompt.text as String?
-//            }
+            if (prompt) {
+                promptText = null
+                promptText = journalPrompt.text as String?
+            }
 //            Log.d("TAG", "promptname 1.5 $promptText")
 //
 //            journalPrompt.text = ""
@@ -164,27 +167,27 @@ class RecordFragment : Fragment() {
             navController.navigate(R.id.action_recordFragment_to_settingsFragment)
         }
 
-
-//        progressBar.setOnClickListener {
-//            journalPrompt.setTextColor(ContextCompat.getColor(requireContext(), (R.color.white)))
-//
-//            if (prompt) {
-//                journalPrompt.visibility = View.VISIBLE
-//                nextButton.visibility = View.VISIBLE
-//
-////                journalPrompt.setCharacterDelay(70)
-////                journalPrompt.animateText("What are 3 things you are grateful for today? ^-^")
-//                prompt = false
-//            } else {
-//                journalPrompt.visibility = View.GONE
-//                nextButton.visibility = View.GONE
-//
-//                prompt = true
-//            }
-//
-//        }
-
+        journalPrompt.visibility = View.GONE
         mPromptList = Constants.getPrompts()
+
+        promptButton.setOnClickListener {
+            if (prompt) {
+                journalPrompt.visibility = View.VISIBLE
+//                nextButton.visibility = View.VISIBLE
+                val rand = (0 until mPromptList!!.size).random()
+
+                journalPrompt.setCharacterDelay(60)
+                journalPrompt.animateText(mPromptList!![rand])
+
+                prompt = false
+            } else {
+                journalPrompt.visibility = View.GONE
+//                nextButton.visibility = View.GONE
+
+                prompt = true
+            }
+
+        }
 
 
 //        nextButton.setOnClickListener {
@@ -220,7 +223,8 @@ class RecordFragment : Fragment() {
         val intent = Intent(context, RecordingService::class.java)
         recordButton = requireView().findViewById(R.id.btnRecord) as FloatingActionButton
         listButton = requireView().findViewById(R.id.btnList) as FloatingActionButton
-        settingsButton = requireView().findViewById(R.id.btnPause) as FloatingActionButton
+        settingsButton = requireView().findViewById(R.id.btnSettings) as ImageView
+        promptButton = requireView().findViewById(R.id.btnPrompt) as FloatingActionButton
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
@@ -242,6 +246,7 @@ class RecordFragment : Fragment() {
 
                     listButton.isEnabled = false
                     settingsButton.isEnabled = false
+                    promptButton.isEnabled = false
                     recordButton.setImageResource(R.drawable.ic_stop)
                     chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"

@@ -128,7 +128,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <ImageButton
-        android:id="@+id/btnPause"
+        android:id="@+id/btnSettings"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/button_bg"

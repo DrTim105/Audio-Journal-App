@@ -137,25 +137,25 @@ class RecordingService : Service() {
             promptName
         }
 
-//        val outputFile = File(
-//            applicationContext.getExternalFilesDir(null)
-//                .toString()
-//                    + "/MySoundRec/"
-//        )
-//
-//        if (!outputFile.exists()) {
-//            outputFile.mkdirs()
-//        }
+        val outputFile = File(
+            applicationContext.getExternalFilesDir(null)
+                .toString()
+                    + "/MySoundRec/"
+        )
+
+        if (!outputFile.exists()) {
+            outputFile.mkdirs()
+        }
 
 //        val file: String =
 //            applicationContext.getExternalFilesDir("/")!!.absolutePath +
 //                    "/MySoundRec/" + fileName + ".mp3"
 
-        val root = Environment.getExternalStorageDirectory().toString()
-        val outputFile = File("$root/Audio Journal")
-        if (!outputFile.exists()) {
-            outputFile.mkdirs()
-        }
+//        val root = Environment.getExternalStorageDirectory().toString()
+//        val outputFile = File("$root/Audio Journal")
+//        if (!outputFile.exists()) {
+//            outputFile.mkdirs()
+//        }
 //
         file = File("$outputFile/$fileName.mp3")
 

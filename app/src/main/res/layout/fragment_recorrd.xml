@@ -102,13 +102,13 @@
         app:tint="@color/white" />
 
     <ImageView
-        android:id="@+id/btnPause"
+        android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/imagebutton_bg"
-        android:scaleType="fitCenter"
         android:padding="10dp"
+        android:scaleType="fitCenter"
         app:backgroundTint="@color/accent2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -154,11 +154,13 @@
 
     <TextView
         android:id="@+id/recording_status_txt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="serif"
         android:text="Hello ^-^"
+        android:textAlignment="center"
+
         android:textColor="@color/accent3"
         android:textSize="14sp"
         android:textStyle="bold"
