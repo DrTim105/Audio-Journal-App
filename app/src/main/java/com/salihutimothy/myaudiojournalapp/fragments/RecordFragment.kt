@@ -143,9 +143,9 @@ class RecordFragment : Fragment() {
 //
             if (prompt) {
                 promptText = null
-                promptText = journalPrompt.text as String?
+//                promptText = journalPrompt.text as String?
             }
-//            Log.d("TAG", "promptname 1.5 $promptText")
+            Log.d("TAG", "promptname 1.5 $promptText")
 //
 //            journalPrompt.text = ""
 //            journalPrompt.visibility = View.GONE
@@ -177,7 +177,8 @@ class RecordFragment : Fragment() {
                 val rand = (0 until mPromptList!!.size).random()
 
                 journalPrompt.setCharacterDelay(60)
-                journalPrompt.animateText(mPromptList!![rand])
+                promptText = mPromptList!![rand]
+                journalPrompt.animateText(promptText)
 
                 prompt = false
             } else {

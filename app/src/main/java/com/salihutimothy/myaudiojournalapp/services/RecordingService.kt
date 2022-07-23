@@ -134,7 +134,7 @@ class RecordingService : Service() {
         fileName = if (promptName == null) {
             "Entry_" + mentalNote.toString().padStart(3, '0')
         } else {
-            promptName
+            promptName + "_${mentalNote.toString().padStart(3, '0')}"
         }
 
         val outputFile = File(
