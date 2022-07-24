@@ -46,7 +46,6 @@ class RecordingService : Service() {
         super.onCreate()
         dbHelper = DBHelper(applicationContext)
         mentalNote = restorePrefData()
-
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -131,10 +130,11 @@ class RecordingService : Service() {
 
 //        mentalNote = restorePrefData()
 
+        var entryName = mentalNote.toString().padStart(3, '0')
         fileName = if (promptName == null) {
-            "Entry_" + mentalNote.toString().padStart(3, '0')
+            entryName
         } else {
-            promptName + "_${mentalNote.toString().padStart(3, '0')}"
+            "$entryName – $promptName"
         }
 
         val outputFile = File(
