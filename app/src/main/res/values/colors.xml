@@ -24,6 +24,7 @@
     <color name="accentz">#FA6400</color>
     <color name="darkbase">#f4510d</color>
     <color name="textHighlight">#FAB587</color>
+    <color name="promptHighlight">#FDEEE3</color>
     <color name="textColor">#F6733E</color>
 
 
@@ -32,7 +33,7 @@
     <color name="base3">#33798794</color>
     <color name="accent2">#FFFFFF</color>
     <color name="accent4">#FFFFFF</color>
-    <color name="button">#1E2933</color>f
+    <color name="button">#1E2933</color>
     <color name="accent3">#798794</color>
     <color name="accent5">#FFFFFF</color>
 

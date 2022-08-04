@@ -18,6 +18,8 @@
     <color name="darkbase">#f4510d</color>
     <color name="textColor">#E87747</color>
     <color name="textHighlight">#FAB587</color>
+    <color name="promptHighlight" />
+
     <color name="accent">#798794</color>
     <color name="base">#434343</color>
     <color name="wave">#434343</color>
