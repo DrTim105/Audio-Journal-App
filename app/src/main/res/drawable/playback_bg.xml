@@ -16,7 +16,7 @@
     <item>
         <shape>
 
-            <solid android:color="@color/base3"/>
+            <solid android:color="@color/promptHighlight"/>
 
                 <corners android:radius="20dp"/>
 
