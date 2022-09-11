@@ -18,7 +18,8 @@
     <color name="darkbase">#f4510d</color>
     <color name="textColor">#E87747</color>
     <color name="textHighlight">#FAB587</color>
-    <color name="promptHighlight" />
+    <color name="promptHighlight">#121212</color>
+    <color name="playbackBg">#3C4349</color>
 
     <color name="accent">#798794</color>
     <color name="base">#434343</color>

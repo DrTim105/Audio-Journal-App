@@ -16,7 +16,7 @@
     <item>
         <shape>
 
-            <solid android:color="@color/promptHighlight"/>
+            <solid android:color="@color/playbackBg"/>
 
                 <corners android:topRightRadius="20dp"
                     android:topLeftRadius="20dp"/>
