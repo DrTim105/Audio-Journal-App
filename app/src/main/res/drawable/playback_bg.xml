@@ -18,7 +18,8 @@
 
             <solid android:color="@color/promptHighlight"/>
 
-                <corners android:radius="20dp"/>
+                <corners android:topRightRadius="20dp"
+                    android:topLeftRadius="20dp"/>
 
 <!--                        <stroke-->
 <!--                            android:width="0.5dp"-->

@@ -95,7 +95,7 @@ class RecordingService : Service() {
 
         val intent = PendingIntent.getActivity(
             this, 0,
-            notificationIntent, 0
+            notificationIntent, PendingIntent.FLAG_IMMUTABLE
         )
 //        val pendingIntent: PendingIntent = Intent(this, MainActivity::class.java).let { notificationIntent ->
 //            PendingIntent.getActivity(this, 0, notificationIntent, 0)
@@ -130,7 +130,7 @@ class RecordingService : Service() {
 
 //        mentalNote = restorePrefData()
 
-        var entryName = mentalNote.toString().padStart(3, '0')
+        var entryName = "Entry_" + mentalNote.toString().padStart(3, '0')
         fileName = if (promptName == null) {
             entryName
         } else {

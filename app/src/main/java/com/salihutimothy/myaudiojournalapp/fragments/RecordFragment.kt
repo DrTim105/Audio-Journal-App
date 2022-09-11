@@ -446,7 +446,6 @@ class RecordFragment : Fragment() {
         val intent = Intent(context, RecordingService::class.java)
         activity?.stopService(intent)
         super.onDestroy()
-
     }
 
 //    private fun restorePrefData(): Boolean {

@@ -138,7 +138,7 @@ object Constants {
         journalPrompts.add("What would make today great?")
         journalPrompts.add("How can you make someone else happy right now?")
         journalPrompts.add("What's something in your immediate environment that you've never noticed?")
-        journalPrompts.add("How would you encourage a friend going through your struggle right now?")
+        journalPrompts.add("How would you encourage a friend going through your current struggle?")
         journalPrompts.add("How is your current problem the best thing that has ever happened to you?")
         journalPrompts.add("What are your obligations today?")
         journalPrompts.add("What is something exciting you have to do today?")
