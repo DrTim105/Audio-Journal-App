@@ -219,6 +219,8 @@ class RecordingService : Service() {
                 )
             Log.d("Storage - stop service", "File path : ${file.absolutePath} ")
 
+            timer.cancel()
+            timer.purge()
             dbHelper.addRecording(recordingItem)
             mentalNote++
             savePrefsData()
@@ -252,6 +254,7 @@ class RecordingService : Service() {
     override fun onDestroy() {
         Log.d("BUG - service", "stop service")
         timer.cancel()
+        timer.purge()
         stopRecording()
         super.onDestroy()
     }
@@ -259,6 +262,7 @@ class RecordingService : Service() {
     override fun onLowMemory() {
         Log.d("BUG - service", "on low memory")
         timer.cancel()
+        timer.purge()
         stopRecording()
         super.onLowMemory()
     }

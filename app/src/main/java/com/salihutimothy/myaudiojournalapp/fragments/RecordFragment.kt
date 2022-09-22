@@ -8,9 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.SystemClock
+import android.os.*
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -36,6 +33,9 @@ import com.salihutimothy.myaudiojournalapp.views.Typewriter
 import com.salihutimothy.myaudiojournalapp.views.WaveformView
 import java.util.*
 import kotlin.math.roundToInt
+
+
+
 
 
 class RecordFragment : Fragment() {
@@ -87,7 +87,7 @@ class RecordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkrequestPermissions()
+        checkRequestPermissions()
     }
 
     override fun onCreateView(
@@ -115,6 +115,7 @@ class RecordFragment : Fragment() {
         navController = Navigation.findNavController(view)
         recordingStatus = view.findViewById(R.id.recording_status_txt) as TextView
         chronometer = view.findViewById(R.id.chronometer) as Chronometer
+        timerText = view.findViewById(R.id.timer) as TextView
 
 //        pauseButton.visibility = View.GONE
 //        recordButton.colorPressed = resources.getColor(R.color.background_tab_pressed)
@@ -187,7 +188,6 @@ class RecordFragment : Fragment() {
 
                 prompt = true
             }
-
         }
 
 
@@ -215,8 +215,6 @@ class RecordFragment : Fragment() {
         } else if (timeOfDay in 21..23) {
             recordingStatus.text = "Good Night (^-^)"
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -228,9 +226,9 @@ class RecordFragment : Fragment() {
         promptButton = requireView().findViewById(R.id.btnPrompt) as FloatingActionButton
         recordingStatus = requireView().findViewById(R.id.recording_status_txt) as TextView
         chronometer = requireView().findViewById(R.id.chronometer) as Chronometer
+        timerText = requireView().findViewById(R.id.timer) as TextView
         waveformView = requireView().findViewById(R.id.waveformView) as WaveformView
         recordingIcon = requireView().findViewById(R.id.isRecording) as ImageView
-//        progressBar = requireView().findViewById(R.id.recordProgressBar) as ProgressBar
         navController = Navigation.findNavController(requireView())
 //        timerText = requireView().findViewById(R.id.tv_timer) as TextView
 
@@ -249,9 +247,9 @@ class RecordFragment : Fragment() {
                     settingsButton.isEnabled = false
                     promptButton.isEnabled = false
                     recordButton.setImageResource(R.drawable.ic_stop)
-                    chronometer.base = SystemClock.elapsedRealtime()
+//                    chronometer.base = SystemClock.elapsedRealtime()
 //                    chronometer.format = "00:%s"
-                    chronometer.start()
+//                    chronometer.start()
                     timer = Timer()
                     timer.schedule(object : TimerTask() {
                         override fun run() {
@@ -260,17 +258,26 @@ class RecordFragment : Fragment() {
                         }
                     }, 0, 80)
 
-                    val bundle = Bundle()
-                    Log.d("TAG", "promptname 2 $promptText")
+                    var starttime: Long = System.currentTimeMillis()
 
+                    timer.schedule(object : TimerTask() {
+                        override fun run() {
+                            val millis = System.currentTimeMillis() - starttime
+                            var seconds = (millis / 1000).toInt()
+                            val minutes = seconds / 60
+                            seconds %= 60
+                            requireActivity().runOnUiThread(Runnable {
+                                timerText.text = String.format("%02d:%02d", minutes, seconds)
+                            })
+                        }
+                    }, 0, 1000)
+
+                    val bundle = Bundle()
                     bundle.putString("prompt", promptText)
                     intent.putExtras(bundle)
-
                     activity?.startService(intent)
-
                     activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-//                recordingStatus.text = "Recording..."
                 } else {
                     Log.d("RecordFragment", "onRecord - request permissions")
                     requestPermissions()
@@ -331,7 +338,7 @@ class RecordFragment : Fragment() {
 
     var listPermissionsNeeded: MutableList<String> = ArrayList()
 
-    private fun checkrequestPermissions() {
+    private fun checkRequestPermissions() {
         var result: Int
         for (p in permissions) {
             result = ActivityCompat.checkSelfPermission(requireContext(), p)
@@ -385,7 +392,7 @@ class RecordFragment : Fragment() {
             "permissions - requesting permissions: $listPermissionsNeeded"
         )
 
-        checkrequestPermissions()
+        checkRequestPermissions()
 
         checkPermissions()
 
